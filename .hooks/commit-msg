@@ -4,8 +4,6 @@ matched_str=$(echo "$commit_message" | grep -E "^(build|chore|ci|docs|feat|fix|p
 echo "$matched_str"
 if [ "$matched_str" != "" ];
 then
-	yarn lint
-	git add .
 	exit 0
 else
 	echo "Commit rejected due to incorrect commit message format. See commit standards here - https://www.conventionalcommits.org/en/v1.0.0/"
