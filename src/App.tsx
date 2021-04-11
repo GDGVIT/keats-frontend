@@ -4,10 +4,10 @@ import Landing from './pages/Landing'
 const App = (): JSX.Element => {
 
   return (
-    <div className='App'>
+    <>
       <Nav />
       <Landing />
-    </div>
+    </>
   )
 }
 
