@@ -5,18 +5,19 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   cursor: pointer;
 }
 
 .sign-in {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
@@ -39,16 +40,16 @@ header img {
 
 @media screen and (min-width: 768px) {
   header {
-    height: 5rem;
+    height: 6rem;
     padding: 1rem inherit;
   }
 
   .logo {
-    font-size: 1.75rem;
+    font-size: 2.25rem;
   }
 
   .sign-in {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
   }
 
   header img {
