@@ -1,14 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from './../Context'
 import './../styles/Nav.css'
 import Logo from './../assets/logo.svg'
 import User from './../assets/user.jpg'
 
-interface Props {
-  user: boolean
-  // onClick: Function
-}
+const Nav: React.FC = () => {
+  const { userState } = useContext(AppContext)
+  const [user] = userState
 
-const Nav: React.FC<Props> = ({ user }) => {
   return (
     <header>
       {/* TODO: add route to '/' here */}
