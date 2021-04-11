@@ -2,7 +2,7 @@
   font-family: 'CircularStd';
   src:
     local('Circular Std Black'),
-    url('./fonts/circular_std_black.ttf')
+    url('./../fonts/circular_std_black.ttf')
     format('truetype');
   font-weight: 700;
 }
@@ -11,7 +11,7 @@
   font-family: 'CircularStd';
   src:
     local('Circular Std Bold'),
-    url('./fonts/circular_std_bold.ttf')
+    url('./../fonts/circular_std_bold.ttf')
     format('truetype');
   font-weight: 600;
 }
@@ -20,7 +20,7 @@
   font-family: 'CircularStd';
   src:
     local('Circular Std Book'),
-    url('./fonts/circular_std_book.ttf')
+    url('./../fonts/circular_std_book.ttf')
     format('truetype');
   font-weight: 500;
 }
@@ -29,9 +29,30 @@
   font-family: 'CircularStd';
   src:
     local('Circular Std Medium'),
-    url('./fonts/circular_std_medium.ttf')
+    url('./../fonts/circular_std_medium.ttf')
     format('truetype');
   font-weight: 400;
+}
+
+:root {
+  --mg-l: 1rem;
+
+  /* Colors */
+  --dark: #141622;
+  --dim: #222632;
+  --light: #fff;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --mg-l: 2rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  :root {
+    --mg-l: 3rem;
+  }
 }
 
 * {
@@ -42,4 +63,5 @@
 
 body {
   font-family: 'CircularStd', sans-serif;
+  font-weight: 500;
 }
