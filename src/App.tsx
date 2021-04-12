@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import Nav from './components/Nav'
@@ -23,16 +23,16 @@ const App = (): JSX.Element => {
   }, [])
 
   return (
-    <Router >
+    <Router>
       <Nav />
       <Switch>
         <Route exact path='/'>
-          { localStorage.getItem('token') !== null && <Redirect to='/clubs' /> }
+          {localStorage.getItem('token') !== null && <Redirect to='/clubs' />}
           <Landing />
         </Route>
         <Route exact path='/clubs'>
-          { localStorage.getItem('token') === null && <Redirect to='/' /> }
-            <YourClubs />
+          {localStorage.getItem('token') === null && <Redirect to='/' />}
+          <YourClubs />
         </Route>
       </Switch>
     </Router>

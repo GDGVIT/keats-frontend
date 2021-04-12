@@ -52,9 +52,9 @@ const OTP: React.FC = () => {
           required
         />
       </label>
-      { error !== '' && <p className='error'>{error}</p> }
+      {error !== '' && <p className='error'>{error}</p>}
       <button type='submit' disabled={disabled}>Verify OTP</button>
-      { stage === 'loggedIn' && <Redirect to='/clubs' /> }
+      {stage === 'loggedIn' && <Redirect to='/clubs' />}
     </form>
   )
 }
