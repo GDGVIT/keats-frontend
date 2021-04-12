@@ -13,6 +13,7 @@ const PhoneNo: React.FC = () => {
   const [, setStage] = stageState
 
   const [value, setValue] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     (window as any).recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
@@ -34,7 +35,10 @@ const PhoneNo: React.FC = () => {
       (window as any).confirmationResult = confirmationResult
       setStage('OTP')
     } catch (e) {
-      alert('Error: SMS not sent!')
+      // alert('Error: SMS not sent!')
+      setError('Invalid Phone Number!')
+      const phoneInput = (document.getElementsByClassName('PhoneInput') as HTMLCollectionOf<HTMLElement>)[0]
+      if (phoneInput !== null) phoneInput.style.border = '0.125rem solid #eb032e'
     }
   }
 
@@ -49,6 +53,7 @@ const PhoneNo: React.FC = () => {
           onChange={setValue}
         />
       </label>
+      {error !== '' && <p className='error'>{error}</p>}
       <button type='submit' id='sign-in-button'>Get OTP</button>
     </form>
   )

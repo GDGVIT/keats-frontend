@@ -37,6 +37,10 @@ button:focus {
   outline: none;
 }
 
+.error {
+  color: #eb032e;
+}
+
 @media screen and (min-width: 1400px) {
   input,
   button {

@@ -5,7 +5,7 @@ import Android from './../assets/googleplay.svg'
 import IOS from './../assets/appstore.svg'
 import Hero from './../assets/landing.svg'
 import PhoneNo from '../components/PhoneNo'
-import OTP from '../components/OTP'
+import Otp from '../components/OTP'
 
 const Landing: React.FC = () => {
   const { stageState } = useContext(AppContext)
@@ -20,12 +20,14 @@ const Landing: React.FC = () => {
         </div>
         {
           stage === 'getStarted'
-            ? (<button className='get-started' onClick={() => setStage('phoneNo')}>
-              Get Started
-            </button>)
+            ? (
+              <button className='get-started' onClick={() => setStage('phoneNo')}>
+                Get Started
+              </button>
+            )
             : stage === 'phoneNo'
               ? <PhoneNo />
-              : <OTP />
+              : <Otp />
         }
         <div className='app-links'>
           <a className='app-link' href='https://play.google.com/store/apps/details?id=com.dscvit.wt21' target='_blank' rel='noreferrer'>
