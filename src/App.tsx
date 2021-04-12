@@ -5,7 +5,6 @@ import Nav from './components/Nav'
 import Landing from './pages/Landing'
 
 const App = (): JSX.Element => {
-
   useEffect(() => {
     const firebaseConfig = {
       apiKey: 'AIzaSyBEQwyFQC-UYyLmR-kuRBzF4k8EsK7aupc',
@@ -18,8 +17,7 @@ const App = (): JSX.Element => {
     }
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig)
-    firebase.auth().useDeviceLanguage();
-
+    firebase.auth().useDeviceLanguage()
   }, [])
 
   return (

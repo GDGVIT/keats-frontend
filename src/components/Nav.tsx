@@ -18,7 +18,7 @@ const Nav: React.FC = () => {
       {
         stage === 'loggedIn' // TODO: add route to '/profile' here
           ? <img className='profile-pic' src={User} alt='Profile' />
-          : stage === 'getStarted' 
+          : stage === 'getStarted'
             ? <div className='sign-in' onClick={() => setStage('phoneNo')}>Sign In</div>
             : null
       }

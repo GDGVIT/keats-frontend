@@ -7,7 +7,7 @@ import Hero from './../assets/landing.svg'
 import PhoneNo from '../components/PhoneNo'
 import OTP from '../components/OTP'
 
-const Landing : React.FC = () => {
+const Landing: React.FC = () => {
   const { stageState } = useContext(AppContext)
   const [stage, setStage] = stageState
 
@@ -19,14 +19,13 @@ const Landing : React.FC = () => {
           <h3>Join clubs, Read books and Chat with your Friends!</h3>
         </div>
         {
-          stage === 'getStarted' 
-          ? (<button className='get-started' onClick={() => setStage('phoneNo')}>
+          stage === 'getStarted'
+            ? (<button className='get-started' onClick={() => setStage('phoneNo')}>
               Get Started
             </button>)
-          :
-            stage === 'phoneNo'
-            ? <PhoneNo />
-            : <OTP />
+            : stage === 'phoneNo'
+              ? <PhoneNo />
+              : <OTP />
         }
         <div className='app-links'>
           <a className='app-link' href='https://play.google.com/store/apps/details?id=com.dscvit.wt21' target='_blank' rel='noreferrer'>
