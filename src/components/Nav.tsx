@@ -6,7 +6,7 @@ import User from './../assets/user.jpg'
 
 const Nav: React.FC = () => {
   const { stageState } = useContext(AppContext)
-  const [stage] = stageState
+  const [stage, setStage] = stageState
 
   return (
     <header>
@@ -16,9 +16,11 @@ const Nav: React.FC = () => {
         Keats
       </div>
       {
-        stage !== 'getStarted' // TODO: add route to '/profile' here
-          ? <img className='profile-pic' src={User} alt='pfp' />
-          : <div className='sign-in'>Sign In</div>
+        stage === 'loggedIn' // TODO: add route to '/profile' here
+          ? <img className='profile-pic' src={User} alt='Profile' />
+          : stage === 'getStarted' 
+            ? <div className='sign-in' onClick={() => setStage('phoneNo')}>Sign In</div>
+            : null
       }
     </header>
   )

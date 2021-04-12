@@ -1,0 +1,46 @@
+form {
+  margin: 2rem 0;
+  font-size: 1.125rem;
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+button {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+  font-family: 'CircularStd', sans-serif;
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--light);
+}
+
+input {
+  padding: 0.75rem 2.75rem;
+  padding-left: 1rem;
+  max-width: max-content;
+  background-color: var(--dim);
+  text-overflow: ellipsis;
+}
+
+button {
+  padding: 0.75rem 3.75rem;
+  background-color: var(--purple);
+  max-width: max-content;
+  cursor: pointer;
+}
+
+input:focus,
+button:focus {
+  outline: none;
+}
+
+@media screen and (min-width: 1400px) {
+  input,
+  button {
+    font-size: 1.75rem;
+  }
+}

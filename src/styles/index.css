@@ -41,6 +41,7 @@
   --dark: #141622;
   --dim: #222632;
   --light: #fff;
+  --purple: #8540f5;
 }
 
 @media screen and (min-width: 768px) {
