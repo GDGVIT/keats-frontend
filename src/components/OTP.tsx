@@ -8,10 +8,12 @@ const OTP: React.FC = () => {
 
   const [value, setValue] = useState('')
   const [error, setError] = useState('')
+  const [disabled, setDisabled] = useState(false)
 
   const handleSubmit = async (e: React.BaseSyntheticEvent): Promise<any> => {
     try {
       e.preventDefault()
+      setDisabled(true)
       const OTP: string = e.target[0].value
       const result = await (window as any).confirmationResult.confirm(OTP)
       const user = result.user
@@ -24,6 +26,7 @@ const OTP: React.FC = () => {
       setError('Incorrect OTP!')
       const otpInput = document.getElementById('OTP')
       if (otpInput != null) otpInput.style.border = '0.125rem solid #eb032e'
+      setDisabled(false)
     }
   }
 
@@ -45,7 +48,7 @@ const OTP: React.FC = () => {
         />
       </label>
       {error !== '' && <p className='error'>{error}</p>}
-      <button type='submit'>Verify OTP</button>
+      <button type='submit' disabled={disabled}>Verify OTP</button>
     </form>
   )
 }
