@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from './../Context'
 import './../styles/Form.css'
+import { auth } from '../utils/ApiCalls'
 
 const OTP: React.FC = () => {
   const { stageState } = useContext(AppContext)
@@ -18,7 +19,8 @@ const OTP: React.FC = () => {
       const result = await (window as any).confirmationResult.confirm(OTP)
       const user = result.user
       const token = await user.getIdToken(true)
-      console.log(token)
+      // console.log(token)
+      auth(token)
       setStage('loggedIn')
     } catch (e) {
       // alert('Incorrect OTP!')

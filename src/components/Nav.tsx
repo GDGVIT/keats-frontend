@@ -16,7 +16,8 @@ const Nav: React.FC = () => {
         Keats
       </div>
       {
-        stage === 'loggedIn' // TODO: add route to '/profile' here
+        // stage === 'loggedIn' // TODO: add route to '/profile' here
+        localStorage.getItem('token') // TODO: add route to '/profile' here
           ? <img className='profile-pic' src={User} alt='Profile' />
           : stage === 'getStarted'
             ? <div className='sign-in' onClick={() => setStage('phoneNo')}>Sign In</div>
