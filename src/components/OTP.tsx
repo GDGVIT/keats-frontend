@@ -44,6 +44,7 @@ const OTP: React.FC = () => {
           placeholder='Enter OTP'
           value={value}
           onChange={handleChange}
+          autoComplete='off'
           required
         />
       </label>
