@@ -1,11 +1,14 @@
 import React, { useContext, useState } from 'react'
+import { Redirect } from 'react-router-dom'
 import { AppContext } from './../Context'
 import './../styles/Form.css'
-import { auth } from '../utils/ApiCalls'
+import { auth } from '../utils/apiCalls'
+
+// TODO: REDIRECT TO CLUBS ON SUBMIT
 
 const OTP: React.FC = () => {
   const { stageState } = useContext(AppContext)
-  const [, setStage] = stageState
+  const [stage, setStage] = stageState
 
   const [value, setValue] = useState('')
   const [error, setError] = useState('')
@@ -19,12 +22,11 @@ const OTP: React.FC = () => {
       const result = await (window as any).confirmationResult.confirm(OTP)
       const user = result.user
       const token = await user.getIdToken(true)
-      // console.log(token)
-      auth(token)
-      setStage('loggedIn')
+      // auth(token).then(() => setStage('loggedIn')).catch(() => console.log('Invalid Token'))
+      auth(token).then(() => {
+        setStage('loggedIn')
+      })
     } catch (e) {
-      // alert('Incorrect OTP!')
-      // document.getElementById('OTP')
       setError('Incorrect OTP!')
       const otpInput = document.getElementById('OTP')
       if (otpInput != null) otpInput.style.border = '0.125rem solid #eb032e'
@@ -50,8 +52,9 @@ const OTP: React.FC = () => {
           required
         />
       </label>
-      {error !== '' && <p className='error'>{error}</p>}
+      { error !== '' && <p className='error'>{error}</p> }
       <button type='submit' disabled={disabled}>Verify OTP</button>
+      { stage === 'loggedIn' && <Redirect to='/clubs' /> }
     </form>
   )
 }

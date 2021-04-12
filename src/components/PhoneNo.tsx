@@ -5,7 +5,7 @@ import 'firebase/auth'
 import './../styles/Form.css'
 import './../styles/PhoneNo.css'
 // import PhoneInput from 'react-phone-number-input'
-import PhoneInput, { isValidPhoneNumber  } from 'react-phone-number-input'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 
 const PhoneNo: React.FC = () => {

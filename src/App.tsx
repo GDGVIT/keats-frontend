@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import Nav from './components/Nav'
 import Landing from './pages/Landing'
+import YourClubs from './pages/YourClubs'
 
 const App = (): JSX.Element => {
   useEffect(() => {
@@ -21,10 +23,19 @@ const App = (): JSX.Element => {
   }, [])
 
   return (
-    <>
+    <Router >
       <Nav />
-      <Landing />
-    </>
+      <Switch>
+        <Route exact path='/'>
+          { localStorage.getItem('token') !== null && <Redirect to='/clubs' /> }
+          <Landing />
+        </Route>
+        <Route exact path='/clubs'>
+          { localStorage.getItem('token') === null && <Redirect to='/' /> }
+            <YourClubs />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 
