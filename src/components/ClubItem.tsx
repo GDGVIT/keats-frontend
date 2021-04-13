@@ -15,45 +15,45 @@ interface Props {
     host_id: string
     host_name: string
     host_profile_pic: string
-  },
+  }
   join: boolean
 }
 
 interface WrapperProps {
-  condition: boolean,
-  setState: React.Dispatch<React.SetStateAction<String>>,
-  id: string,
+  condition: boolean
+  setState: React.Dispatch<React.SetStateAction<String>>
+  id: string
   children: React.ReactNode
 }
 
 interface JoinProps {
-  setState: React.Dispatch<React.SetStateAction<String>>,
-  id: string,
+  setState: React.Dispatch<React.SetStateAction<String>>
+  id: string
   children: React.ReactNode
 }
 
 interface YourProps {
-  id: string,
+  id: string
   children: React.ReactNode
 }
 
-const YourWrapper = ({id, children} : YourProps) : JSX.Element => 
+const YourWrapper = ({ id, children }: YourProps): JSX.Element =>
   <Link className='club-a' to={`/club/${id}`}>
     <article className='club-container'>{children}</article>
   </Link>
 
-const JoinWrapper = ({setState, id, children} : JoinProps) : JSX.Element =>
+const JoinWrapper = ({ setState, id, children }: JoinProps): JSX.Element =>
   <article className='club-a club-container' onClick={() => setState(id)}>{children}</article>
 
-const ConditionalWrapper = ({ condition, setState, id, children } : WrapperProps) : JSX.Element => 
-  condition ? JoinWrapper({setState, id, children}) : YourWrapper({id, children})
+const ConditionalWrapper = ({ condition, setState, id, children }: WrapperProps): JSX.Element =>
+  condition ? JoinWrapper({ setState, id, children }) : YourWrapper({ id, children })
 
 const ClubItem: React.FC<Props> = ({ club, join }) => {
   const { joinClubState } = useContext(AppContext)
   const [, setJoinClub] = joinClubState
 
   return (
-    <ConditionalWrapper condition={join} setState={setJoinClub} id={club.id} >
+    <ConditionalWrapper condition={join} setState={setJoinClub} id={club.id}>
       <>
         <div className='club-flex'>
           <div className='club-image'>

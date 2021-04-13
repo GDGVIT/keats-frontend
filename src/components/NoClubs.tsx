@@ -7,7 +7,7 @@ const NoClubs: React.FC = () => {
   return (
     <div className='no-clubs'>
       <div className='bookshelf'>
-        <img src={Hero} alt='Keats_Bookshelf'/>
+        <img src={Hero} alt='Keats_Bookshelf' />
       </div>
       <h3>Join your first book club!</h3>
       <div className='noclubs-action'>

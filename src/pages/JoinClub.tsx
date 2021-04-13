@@ -24,7 +24,6 @@ const JoinClub: React.FC = () => {
         <h2>Join a Club</h2>
       </div>
 
-
       <div className='clubs-header'>
         <h2>Public Clubs</h2>
       </div>
@@ -32,7 +31,7 @@ const JoinClub: React.FC = () => {
         loading
           ? <Loader />
           : typeof clubs !== 'undefined' && Object.keys(clubs).length !== 0
-            ? <Clubs clubs={clubs} join={true}/>
+            ? <Clubs clubs={clubs} join />
             : <h3>Nothing to show here!</h3>
       }
     </section>
