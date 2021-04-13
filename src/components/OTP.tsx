@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { AppContext } from './../Context'
-import './../styles/Form.css'
 import { auth } from '../utils/apiCalls'
+import './../styles/Form.css'
+import Loader from './Loader'
 
 // TODO: REDIRECT TO CLUBS ON SUBMIT
 
@@ -52,7 +53,11 @@ const OTP: React.FC = () => {
         />
       </label>
       {error !== '' && <p className='error'>{error}</p>}
-      <button type='submit' disabled={disabled}>Verify OTP</button>
+      {
+        disabled
+        ? <Loader />
+        : <button type='submit' disabled={disabled}>Verify OTP</button>
+      }
       {stage === 'loggedIn' && <Redirect to='/clubs' />}
     </form>
   )

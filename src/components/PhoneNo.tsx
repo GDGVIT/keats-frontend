@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { AppContext } from './../Context'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import Loader from './Loader'
 import './../styles/Form.css'
 import './../styles/PhoneNo.css'
 // import PhoneInput from 'react-phone-number-input'
@@ -31,7 +32,10 @@ const PhoneNo: React.FC = () => {
       e.preventDefault()
       setDisabled(true)
       const phoneNumber: string = value
-      if (!isValidPhoneNumber(phoneNumber)) throw new Error('Invalid Phone')
+      if (!isValidPhoneNumber(phoneNumber)) {
+        console.log('bad phone')
+        throw new Error('Invalid Phone')
+      }
       const appVerifier = (window as any).recaptchaVerifier
       const confirmationResult = await firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier);
       (window as any).confirmationResult = confirmationResult
@@ -56,7 +60,14 @@ const PhoneNo: React.FC = () => {
         />
       </label>
       {error !== '' && <p className='error'>{error}</p>}
-      <button type='submit' id='sign-in-button' disabled={disabled}>Get OTP</button>
+      {
+        disabled
+        ? <>
+            <Loader /> 
+            <button type='submit' id='sign-in-button' disabled={disabled} style={{ display: 'none' }}>Get OTP</button>
+          </>
+        : <button type='submit' id='sign-in-button' disabled={disabled}>Get OTP</button>
+      }
     </form>
   )
 }
