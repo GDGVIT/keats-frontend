@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { AppContext } from './../Context'
 import { getPublicClubs } from './../utils/apiCalls'
+import JoInput from './../components/JoInput'
 import Loader from './../components/Loader'
 import Clubs from './../components/Clubs'
 
 const JoinClub: React.FC = () => {
+  const { joinClubState } = useContext(AppContext)
+  const [joinClub, setJoinClub] = joinClubState
+
   const [clubs, setClubs] = useState({})
   const [loading, setLoading] = useState(true)
 
   const getClubs = async (): Promise<void> => {
     const userClubs = await getPublicClubs()
     setClubs(userClubs)
-    console.log(clubs)
     setLoading(false)
   }
 
@@ -23,6 +27,8 @@ const JoinClub: React.FC = () => {
       <div className='clubs-header'>
         <h2>Join a Club</h2>
       </div>
+      
+      <JoInput />
 
       <div className='clubs-header'>
         <h2>Public Clubs</h2>

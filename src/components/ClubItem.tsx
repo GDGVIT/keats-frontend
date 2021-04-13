@@ -21,13 +21,13 @@ interface Props {
 
 interface WrapperProps {
   condition: boolean
-  setState: React.Dispatch<React.SetStateAction<String>>
+  setState: React.Dispatch<React.SetStateAction<string>>
   id: string
   children: React.ReactNode
 }
 
 interface JoinProps {
-  setState: React.Dispatch<React.SetStateAction<String>>
+  setState: React.Dispatch<React.SetStateAction<string>>
   id: string
   children: React.ReactNode
 }

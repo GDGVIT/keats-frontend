@@ -68,3 +68,30 @@ export const getPublicClubs = async (): Promise<any> => {
     return {}
   }
 }
+
+export const joinNewClub = async (clubId: string): Promise<any> => {
+  const myHeaders = new Headers()
+  myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  myHeaders.append('Content-Type', 'application/json')
+
+  const raw = JSON.stringify({
+    club_id: clubId
+  })
+
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/clubs/join`, requestOptions as any)
+    const data = await response.json()
+    const status = data.status
+    if(status === 'error') throw new Error(data.message)
+    return status
+  } catch (e) {
+    return e
+  }
+}
