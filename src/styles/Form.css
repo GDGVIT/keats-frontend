@@ -31,6 +31,15 @@ button {
   background-color: var(--purple);
   max-width: max-content;
   cursor: pointer;
+  border: 0.2rem solid var(--purple);
+}
+
+button.secondary {
+  background-color: var(--dark);
+}
+
+button:hover {
+  transform: scale(1.02);
 }
 
 button:disabled {

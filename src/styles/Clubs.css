@@ -1,3 +1,19 @@
+.clubs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clubs-redirect {
+  color: var(--light);
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.clubs-redirect:hover {
+  opacity: 0.5;
+}
+
 .clubs {
   display: flex;
   flex-wrap: wrap;
@@ -61,6 +77,10 @@
 }
 
 @media screen and (min-width: 768px) {
+  .clubs-redirect {
+    font-size: 1.25rem;
+  }
+
   .club-container {
     flex-direction: column;
     width: 20rem;

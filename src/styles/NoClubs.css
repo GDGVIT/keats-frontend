@@ -1,0 +1,46 @@
+.no-clubs {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookshelf {
+  width: 100%;
+  max-width: 35rem;
+  margin: 2rem 0;
+}
+
+.bookshelf img {
+  width: 100%;
+}
+
+.noclubs-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.noclubs-action button {
+  margin: 0.5rem 0;
+}
+
+@media screen and (min-width: 768px) {
+  .no-clubs {
+    min-height: max-content;
+    height: 55vh;
+  }
+
+  .noclubs-action {
+    flex-direction: row;
+    margin: 2rem 0;
+  }
+
+  .noclubs-action button {
+    margin: 0 2rem;
+  }
+}

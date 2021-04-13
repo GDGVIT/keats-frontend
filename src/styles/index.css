@@ -85,6 +85,15 @@ body {
   flex-direction: column;
 }
 
+section {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 4rem);
+  padding: calc(1.5 * var(--mg-l)) var(--mg-l);
+  display: flex;
+  flex-direction: column;
+}
+
 h2 {
   font-size: 1.5rem;
   margin: 0.5rem 0;
@@ -98,6 +107,11 @@ h3 {
 }
 
 @media screen and (min-width: 768px) {
+  section {
+    min-height: calc(100vh - 6rem);
+    padding: var(--mg-l);
+  }
+
   h2 {
     font-size: 2.5rem;
     margin: 1rem 0;
