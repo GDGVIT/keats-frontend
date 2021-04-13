@@ -27,7 +27,7 @@ export const auth = async (token: string): Promise<boolean> => {
   }
 }
 
-export const clubs = async (): Promise<any> => {
+export const getClubs = async (): Promise<any> => {
   const myHeaders = new Headers()
   myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
 
@@ -38,10 +38,10 @@ export const clubs = async (): Promise<any> => {
   }
 
   try {
-    const response = await fetch(`${baseUrl}/api/user`, requestOptions as any)
+    const response = await fetch(`${baseUrl}/api/user/clubs`, requestOptions as any)
     const data = await response.json()
     const clubs = data.data.clubs
-    console.log(clubs)
+    // console.log(clubs)
     return clubs
   } catch (e) {
     return {}

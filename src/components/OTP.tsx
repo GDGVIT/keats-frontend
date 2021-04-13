@@ -23,9 +23,8 @@ const OTP: React.FC = () => {
       const user = result.user
       const token = await user.getIdToken(true)
       // auth(token).then(() => setStage('loggedIn')).catch(() => console.log('Invalid Token'))
-      auth(token).then(() => {
-        setStage('loggedIn')
-      })
+      auth(token).then(() => {}, () => {})
+      setStage('loggedIn')
     } catch (e) {
       setError('Incorrect OTP!')
       const otpInput = document.getElementById('OTP')

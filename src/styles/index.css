@@ -19,8 +19,8 @@
 @font-face {
   font-family: 'CircularStd';
   src:
-    local('Circular Std Book'),
-    url('./../fonts/circular_std_book.ttf')
+    local('Circular Std Medium'),
+    url('./../fonts/circular_std_medium.ttf')
     format('truetype');
   font-weight: 500;
 }
@@ -28,8 +28,8 @@
 @font-face {
   font-family: 'CircularStd';
   src:
-    local('Circular Std Medium'),
-    url('./../fonts/circular_std_medium.ttf')
+    local('Circular Std Book'),
+    url('./../fonts/circular_std_book.ttf')
     format('truetype');
   font-weight: 400;
 }
@@ -42,6 +42,9 @@
   --dim: #222632;
   --light: #fff;
   --purple: #8540f5;
+  --orange: #f47912;
+
+  /* --purple: #312d6a; */
 }
 
 @media screen and (min-width: 768px) {
@@ -80,4 +83,38 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+@media screen and (min-width: 768px) {
+  h2 {
+    font-size: 2.5rem;
+    margin: 1rem 0;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  h2 {
+    font-size: 2.75rem;
+    margin: 1rem 0;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
 }
