@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { AppContext } from './../Context'
 import './../styles/Nav.css'
 import Logo from './../assets/logo.svg'
@@ -10,15 +11,15 @@ const Nav: React.FC = () => {
 
   return (
     <header>
-      {/* TODO: add route to '/' here */}
       <div className='logo'>
-        <img src={Logo} alt='Keats' />
-        Keats
+        <Link className='logo' to='/'>
+          <img src={Logo} alt='Keats' />
+          Keats
+        </Link>
       </div>
       {
-        // stage === 'loggedIn' // TODO: add route to '/profile' here
-        localStorage.getItem('token') !== null // TODO: add route to '/profile' here
-          ? <img className='profile-pic' src={User} alt='Profile' />
+        localStorage.getItem('token') !== null
+          ? <Link className='logo' to='/profile'><img className='profile-pic' src={User} alt='Profile' /></Link>
           : stage === 'getStarted'
             ? <div className='sign-in' onClick={() => setStage('phoneNo')}>Sign In</div>
             : null

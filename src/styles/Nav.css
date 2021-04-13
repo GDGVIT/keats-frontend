@@ -13,7 +13,8 @@ header {
   justify-content: space-between;
   align-items: center;
   font-size: 1.75rem;
-  cursor: pointer;
+  color: var(--light);
+  text-decoration: none;
 }
 
 .sign-in {
