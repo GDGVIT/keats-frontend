@@ -31,14 +31,15 @@ const App = (): JSX.Element => {
           {localStorage.getItem('token') !== null && <Redirect to='/clubs' />}
           <Landing />
         </Route>
-        <Route exact path='/clubs'>
+        <>
           {localStorage.getItem('token') === null && <Redirect to='/' />}
-          <YourClubs />
-        </Route>
-        <Route exact path='/join'>
-          {localStorage.getItem('token') === null && <Redirect to='/' />}
-          <JoinClub />
-        </Route>
+          <Route exact path='/clubs'>
+            <YourClubs />
+          </Route>
+          <Route exact path='/join'>
+            <JoinClub />
+          </Route>
+        </>
       </Switch>
     </Router>
   )
