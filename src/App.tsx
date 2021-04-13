@@ -5,6 +5,7 @@ import 'firebase/auth'
 import Nav from './components/Nav'
 import Landing from './pages/Landing'
 import YourClubs from './pages/YourClubs'
+import JoinClub from './pages/JoinClub'
 
 const App = (): JSX.Element => {
   useEffect(() => {
@@ -33,6 +34,10 @@ const App = (): JSX.Element => {
         <Route exact path='/clubs'>
           {localStorage.getItem('token') === null && <Redirect to='/' />}
           <YourClubs />
+        </Route>
+        <Route exact path='/join'>
+          {localStorage.getItem('token') === null && <Redirect to='/' />}
+          <JoinClub />
         </Route>
       </Switch>
     </Router>

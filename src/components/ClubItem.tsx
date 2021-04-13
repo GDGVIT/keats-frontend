@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { AppContext } from './../Context'
 import './../styles/Clubs.css'
 
 interface Props {
@@ -13,23 +15,58 @@ interface Props {
     host_id: string
     host_name: string
     host_profile_pic: string
-  }
+  },
+  join: boolean
 }
 
-const ClubItem: React.FC<Props> = ({ club }) => {
+interface WrapperProps {
+  condition: boolean,
+  setState: React.Dispatch<React.SetStateAction<String>>,
+  id: string,
+  children: React.ReactNode
+}
+
+interface JoinProps {
+  setState: React.Dispatch<React.SetStateAction<String>>,
+  id: string,
+  children: React.ReactNode
+}
+
+interface YourProps {
+  id: string,
+  children: React.ReactNode
+}
+
+const YourWrapper = ({id, children} : YourProps) : JSX.Element => 
+  <Link className='club-a' to={`/club/${id}`}>
+    <article className='club-container'>{children}</article>
+  </Link>
+
+const JoinWrapper = ({setState, id, children} : JoinProps) : JSX.Element =>
+  <article className='club-a club-container' onClick={() => setState(id)}>{children}</article>
+
+const ConditionalWrapper = ({ condition, setState, id, children } : WrapperProps) : JSX.Element => 
+  condition ? JoinWrapper({setState, id, children}) : YourWrapper({id, children})
+
+const ClubItem: React.FC<Props> = ({ club, join }) => {
+  const { joinClubState } = useContext(AppContext)
+  const [, setJoinClub] = joinClubState
+
   return (
-    <article className='club-container'>
-      <div className='club-flex'>
-        <div className='club-image'>
-          <img src={club.club_pic} alt={club.clubname} />
+    <ConditionalWrapper condition={join} setState={setJoinClub} id={club.id} >
+      <>
+        <div className='club-flex'>
+          <div className='club-image'>
+            <img src={club.club_pic} alt={club.clubname} />
+          </div>
+          <div className='club-content'>
+            <p className='club-name'>{club.clubname}</p>
+            <span className='club-host'>{club.host_name}</span>
+          </div>
         </div>
-        <div className='club-content'>
-          <p className='club-name'>{club.clubname}</p>
-          <span className='club-host'>{club.host_name}</span>
-        </div>
-      </div>
-      <div className='club-access'>{club.private ? 'Private' : 'Public'}</div>
-    </article>
+        <div className='club-access'>{club.private ? 'Private' : 'Public'}</div>
+      </>
+    </ConditionalWrapper>
   )
 }
 

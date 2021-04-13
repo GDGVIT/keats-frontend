@@ -113,22 +113,22 @@ h3 {
   }
 
   h2 {
+    font-size: 2rem;
+    margin: 1rem 0;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  h2 {
     font-size: 2.5rem;
     margin: 1rem 0;
   }
 
   h3 {
     font-size: 1.75rem;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  h2 {
-    font-size: 2.75rem;
-    margin: 1rem 0;
-  }
-
-  h3 {
-    font-size: 2rem;
   }
 }

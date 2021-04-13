@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getClubs } from './../utils/apiCalls'
+import { getUserClubs } from './../utils/apiCalls'
 import Loader from './../components/Loader'
 import Clubs from './../components/Clubs'
 import NoClubs from './../components/NoClubs'
@@ -9,14 +9,14 @@ const YourClubs: React.FC = () => {
   const [clubs, setClubs] = useState({})
   const [loading, setLoading] = useState(true)
 
-  const getClubsInside = async (): Promise<void> => {
-    const userClubs = await getClubs()
+  const getClubs = async (): Promise<void> => {
+    const userClubs = await getUserClubs()
     setClubs(userClubs)
     setLoading(false)
   }
 
   useEffect(() => {
-    getClubsInside().then(() => { }, () => { })
+    getClubs().then(() => { }, () => { })
   })
 
   return (
@@ -34,7 +34,7 @@ const YourClubs: React.FC = () => {
         loading
           ? <Loader />
           : Object.keys(clubs).length !== 0
-            ? <Clubs clubs={clubs} />
+            ? <Clubs clubs={clubs} join={false}/>
             : <NoClubs />
       }
     </section>

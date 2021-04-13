@@ -18,16 +18,17 @@ interface clubItem {
 interface Props {
   clubs: {
     clubItem?: clubItem
-  }
+  },
+  join: boolean
 }
 
-const Clubs: React.FC<Props> = ({ clubs }) => {
+const Clubs: React.FC<Props> = ({ clubs, join }) => {
   return (
     <div className='clubs'>
       {
-        Object.entries(clubs).map(([key, club]) => {
-          return <ClubItem key={key} club={(club as clubItem)} />
-        })
+        Object.entries(clubs).map(([key, club]) => 
+          <ClubItem key={key} club={(club as clubItem)} join={join}/>
+        )
       }
     </div>
   )

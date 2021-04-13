@@ -27,7 +27,7 @@ export const auth = async (token: string): Promise<boolean> => {
   }
 }
 
-export const getClubs = async (): Promise<any> => {
+export const getUserClubs = async (): Promise<any> => {
   const myHeaders = new Headers()
   myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
 
@@ -41,9 +41,30 @@ export const getClubs = async (): Promise<any> => {
     const response = await fetch(`${baseUrl}/api/user/clubs`, requestOptions as any)
     const data = await response.json()
     const clubs = data.data.clubs
-    // console.log(clubs)
     return clubs
   } catch (e) {
+    console.clear()
+    return {}
+  }
+}
+
+export const getPublicClubs = async (): Promise<any> => {
+  const myHeaders = new Headers()
+  myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+
+  const requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/clubs/list`, requestOptions as any)
+    const data = await response.json()
+    const clubs = data.data
+    return clubs
+  } catch (e) {
+    console.clear()
     return {}
   }
 }

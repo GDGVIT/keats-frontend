@@ -19,15 +19,22 @@
   flex-wrap: wrap;
 }
 
+.club-a {
+  width: 100%;
+  margin: calc(var(--mg-l) / 2) 0;
+  color: var(--light);
+  text-decoration: none;
+}
+
 .club-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
   height: 6rem;
-  margin: calc(var(--mg-l) / 2) 0;
   padding: calc(var(--mg-l));
   background-color: var(--dim);
   border-radius: 0.25rem;
+  cursor: pointer;
 }
 
 .club-flex {
@@ -81,11 +88,20 @@
     font-size: 1.25rem;
   }
 
-  .club-container {
-    flex-direction: column;
+  .club-a {
     width: 20rem;
     height: max-content;
     margin: calc(var(--mg-l) / 2) calc(var(--mg-l)) calc(var(--mg-l) / 2) 0;
+  }
+
+  .club-a:last-child {
+    margin: calc(var(--mg-l) / 2) 0;
+  }
+
+  .club-container {
+    width: 20rem;
+    height: max-content;
+    flex-direction: column;
     padding: calc(var(--mg-l) / 2);
     border-radius: 0.5rem;
   }
