@@ -17,7 +17,7 @@ const YourClubs: React.FC = () => {
 
   useEffect(() => {
     getClubs().then(() => { }, () => { })
-  })
+  }, [])
 
   return (
     <section className='your-clubs'>

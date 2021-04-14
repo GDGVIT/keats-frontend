@@ -4,7 +4,7 @@ import { joinNewClub } from './../utils/apiCalls'
 import Loader from './Loader'
 import './../styles/Join.css'
 
-const JoInput : React.FC = () => {
+const JoInput : React.FC<{submit: React.Dispatch<React.SetStateAction<number>>}> = ({ submit }) => {
   const { joinClubState } = useContext(AppContext)
   const [joinClub, setJoinClub] = joinClubState
 
@@ -23,9 +23,9 @@ const JoInput : React.FC = () => {
       const clubId: string = e.target[0].value
       const response = await joinNewClub(clubId)
       if (response !== 'success') throw new Error(response)
+      submit(Math.random())
       setJoinClub('')
       setLoading(false)
-      // TODO: re-render JoinClub component or call getUserClubs again 
     } catch(e) {
       const error = String(e).replaceAll('Error: ', '')
       setError(error)
