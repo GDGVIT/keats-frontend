@@ -26,17 +26,17 @@ header {
   opacity: 0.5;
 }
 
-header img {
+.logo img {
   height: 2rem;
   width: auto;
-}
-
-.logo img {
   margin-right: calc(var(--mg-l) / 2);
 }
 
-.profile-pic {
-  border-radius: 50%;
+.profile-pic img {
+  height: 2.5rem;
+  width: 2.5rem;
+  object-fit: cover;
+  border-radius: 1.25rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -49,12 +49,19 @@ header img {
     font-size: 2.25rem;
   }
 
+  .logo img {
+    height: 3rem;
+    width: auto;
+  }
+
   .sign-in {
     font-size: 1.75rem;
   }
 
-  header img {
-    height: 3rem;
-    width: auto;
+  .profile-pic img {
+    height: 3.5rem;
+    width: 3.5rem;
+    object-fit: cover;
+    border-radius: 1.75rem;
   }
 }
