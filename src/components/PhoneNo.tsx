@@ -62,11 +62,15 @@ const PhoneNo: React.FC = () => {
       {error !== '' && <p className='error'>{error}</p>}
       {
         disabled
+        /* eslint-disable  @typescript-eslint/indent */
+        /* eslint-disable  react/jsx-indent */
         ? <>
-            <Loader /> 
+            <Loader />
             <button type='submit' id='sign-in-button' disabled={disabled} style={{ display: 'none' }}>Get OTP</button>
           </>
-        : <button type='submit' id='sign-in-button' disabled={disabled}>Get OTP</button>
+        /* eslint-enable  @typescript-eslint/indent */
+        /* eslint-enable  react/jsx-indent */
+          : <button type='submit' id='sign-in-button' disabled={disabled}>Get OTP</button>
       }
     </form>
   )

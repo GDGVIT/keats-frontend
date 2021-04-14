@@ -56,8 +56,8 @@ const OTP: React.FC = () => {
       {error !== '' && <p className='error'>{error}</p>}
       {
         disabled
-        ? <Loader />
-        : <button type='submit' disabled={disabled}>Verify OTP</button>
+          ? <Loader />
+          : <button type='submit' disabled={disabled}>Verify OTP</button>
       }
       {stage === 'loggedIn' && <Redirect to='/clubs' />}
     </form>

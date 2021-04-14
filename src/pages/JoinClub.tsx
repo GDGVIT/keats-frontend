@@ -5,7 +5,6 @@ import Loader from './../components/Loader'
 import Clubs from './../components/Clubs'
 
 const JoinClub: React.FC = () => {
-
   const [clubs, setClubs] = useState({})
   const [loading, setLoading] = useState(true)
   const [submit, setSubmit] = useState(0)
@@ -25,8 +24,8 @@ const JoinClub: React.FC = () => {
       <div className='clubs-header'>
         <h2>Join a Club</h2>
       </div>
-      
-      <JoInput submit={setSubmit}/>
+
+      <JoInput submit={setSubmit} />
 
       <div className='clubs-header'>
         <h2>Public Clubs</h2>

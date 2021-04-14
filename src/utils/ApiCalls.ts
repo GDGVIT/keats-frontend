@@ -89,7 +89,7 @@ export const joinNewClub = async (clubId: string): Promise<any> => {
     const response = await fetch(`${baseUrl}/api/clubs/join`, requestOptions as any)
     const data = await response.json()
     const status = data.status
-    if(status === 'error') throw new Error(data.message)
+    if (status === 'error') throw new Error(data.message)
     return status
   } catch (e) {
     return e

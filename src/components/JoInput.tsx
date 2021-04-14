@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { AppContext } from './../Context'
 import { joinNewClub } from './../utils/apiCalls'
 import Loader from './Loader'
 import './../styles/Join.css'
 
-const JoInput : React.FC<{submit: React.Dispatch<React.SetStateAction<number>>}> = ({ submit }) => {
+const JoInput: React.FC<{submit: React.Dispatch<React.SetStateAction<number>>}> = ({ submit }) => {
   const { joinClubState } = useContext(AppContext)
   const [joinClub, setJoinClub] = joinClubState
 
@@ -26,7 +26,7 @@ const JoInput : React.FC<{submit: React.Dispatch<React.SetStateAction<number>>}>
       submit(Math.random())
       setJoinClub('')
       setLoading(false)
-    } catch(e) {
+    } catch (e) {
       const error = String(e).replaceAll('Error: ', '')
       setError(error)
       const clubInput = document.getElementById('join-club')
@@ -51,8 +51,8 @@ const JoInput : React.FC<{submit: React.Dispatch<React.SetStateAction<number>>}>
       {error !== '' && <p className='error'>{error}</p>}
       {
         loading
-        ? <Loader />
-        : <button className='join-button' type='submit'>Join</button>
+          ? <Loader />
+          : <button className='join-button' type='submit'>Join</button>
       }
     </form>
   )
