@@ -11,6 +11,7 @@ const Nav: React.FC = () => {
   const [stage, setStage] = stageState
 
   const [userPfp, setUserPfp] = useState(User)
+  const [path, setPath] = useState(window.location.pathname)
 
   const getUserPfp = async (): Promise<void> => {
     const user = await getUser()
@@ -34,7 +35,7 @@ const Nav: React.FC = () => {
       </div>
       {
         localStorage.getItem('token') !== null
-          ? <Link className='profile-pic' to='/profile'><img src={userPfp} alt='Profile' /></Link>
+          ? <Link className='nav-profile-pic' to='/profile'><img src={userPfp} alt='Profile' /></Link>
           : stage === 'getStarted'
             ? <div className='sign-in' onClick={() => setStage('phoneNo')}>Sign In</div>
             : null

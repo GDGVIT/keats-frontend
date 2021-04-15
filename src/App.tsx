@@ -6,6 +6,7 @@ import Nav from './components/Nav'
 import Landing from './pages/Landing'
 import YourClubs from './pages/YourClubs'
 import JoinClub from './pages/JoinClub'
+import Profile from './pages/Profile'
 
 const App = (): JSX.Element => {
   useEffect(() => {
@@ -38,6 +39,9 @@ const App = (): JSX.Element => {
           </Route>
           <Route exact path='/join'>
             <JoinClub />
+          </Route>
+          <Route exact path='/profile'>
+            <Profile />
           </Route>
         </>
       </Switch>

@@ -32,11 +32,11 @@ header {
   margin-right: calc(var(--mg-l) / 2);
 }
 
-.profile-pic img {
+.nav-profile-pic img {
   height: 2.5rem;
   width: 2.5rem;
   object-fit: cover;
-  border-radius: 1.25rem;
+  border-radius: 50%;
 }
 
 @media screen and (min-width: 768px) {
@@ -58,10 +58,10 @@ header {
     font-size: 1.75rem;
   }
 
-  .profile-pic img {
+  .nav-profile-pic img {
     height: 3.5rem;
     width: 3.5rem;
     object-fit: cover;
-    border-radius: 1.75rem;
+    border-radius: 50%;
   }
 }
