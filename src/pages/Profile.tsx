@@ -2,19 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { getUser } from './../utils/apiCalls'
 import { FaTimes, FaUser, FaInfoCircle, FaPhoneAlt } from 'react-icons/fa'
 import { MdEdit, MdEmail, MdAddAPhoto } from 'react-icons/md'
-import Loader from './../components/Loader'
+// import Loader from './../components/Loader'
 import User from './../assets/user.jpg'
 import './../styles/Profile.css'
 
 interface UserDeetsProps {
   username: string
   bio: string
-  email: string,
+  email: string
   phone: string
 }
 
 const Profile: React.FC = () => {
-
   const [editing, setEditing] = useState(false)
   const [userPfp, setUserPfp] = useState(User)
   const [userDeets, setUserDeets] = useState<UserDeetsProps>({
@@ -132,15 +131,14 @@ const Profile: React.FC = () => {
       <h2>Profile</h2>
 
       <div className='profile-body'>
-        <div className={`profile-pic ${editing && 'edit'}`}>
+        <div className={`profile-pic ${editing ? 'edit' : ''}`}>
           <img src={userPfp} alt='Profile' />
-            {editing &&
-              <div className='profile-pic-middle'>
-                <div className='camera'><MdAddAPhoto /></div>
-              </div>
-            }
+          {editing &&
+            <div className='profile-pic-middle'>
+              <div className='camera'><MdAddAPhoto /></div>
+            </div>}
         </div>
-        <div className='profile-vert'></div>
+        <div className='profile-vert' />
         <div className='profile-container'>
           {editing ? inputFrame : landingFrame}
         </div>

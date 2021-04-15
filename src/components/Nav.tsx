@@ -11,7 +11,6 @@ const Nav: React.FC = () => {
   const [stage, setStage] = stageState
 
   const [userPfp, setUserPfp] = useState(User)
-  const [path, setPath] = useState(window.location.pathname)
 
   const getUserPfp = async (): Promise<void> => {
     const user = await getUser()
@@ -19,10 +18,8 @@ const Nav: React.FC = () => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('userId') !== null)
-      setStage('loggedIn')
-    if(stage === 'loggedIn')
-      getUserPfp().then(() => { }, () => { })
+    if (localStorage.getItem('userId') !== null) { setStage('loggedIn') }
+    if (stage === 'loggedIn') { getUserPfp().then(() => { }, () => { }) }
   }, [stage])
 
   return (
