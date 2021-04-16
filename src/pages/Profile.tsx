@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { AppContext } from './../Context'
 import { getUser, updateUser } from './../utils/apiCalls'
 import { FaTimes, FaUser, FaInfoCircle, FaPhoneAlt } from 'react-icons/fa'
 import { MdEdit, MdEmail, MdAddAPhoto } from 'react-icons/md'
-// import Loader from './../components/Loader'
 import User from './../assets/user.jpg'
 import './../styles/Profile.css'
 
@@ -10,27 +10,33 @@ interface UserDeetsProps {
   username: string
   bio: string
   email: string
-  phone: string
+  phone?: string
+  // profilePic: string | File
+  profilePic: any // string or File but i dont want to create another interface just for this :/
 }
 
 const Profile: React.FC = () => {
+  const { stageState } = useContext(AppContext)
+  const [, setStage] = stageState
+
   const [editing, setEditing] = useState(false)
-  // const [loading, setLoading] = useState(true)
-  const [userPfp, setUserPfp] = useState(User)
+  const [userPfp, setUserPfp] = useState<File>()
   const [userDeets, setUserDeets] = useState<UserDeetsProps>({
     username: '',
     bio: '',
     email: '',
-    phone: ''
+    phone: '',
+    profilePic: User
   })
   const [editDeets, setEditDeets] = useState<UserDeetsProps>(userDeets)
 
-  const setDeetsState = (user: any) => {
+  const setDeetsState = (user: any): void => {
     const details = {
       username: user.username,
       bio: user.bio,
       email: user.email,
-      phone: user.phone_number
+      phone: user.phone_number,
+      profilePic: user.profile_pic
     }
     setUserDeets(details)
     setEditDeets(details)
@@ -38,15 +44,12 @@ const Profile: React.FC = () => {
 
   const getUserDeets = async (): Promise<void> => {
     const user = await getUser()
-    setUserPfp(user.profile_pic)
     setDeetsState(user)
-    // setLoading(false)
   }
 
   useEffect(() => {
     getUserDeets().then(() => { }, () => { })
   }, [])
-
 
   const handleLogout = (): void => {
     localStorage.removeItem('token')
@@ -54,28 +57,31 @@ const Profile: React.FC = () => {
     window.location.reload()
   }
 
-  const updateUserDeets = async (raw: string): Promise<void> => {
+  const updateUserDeets = async (raw: UserDeetsProps): Promise<void> => {
     const user = await updateUser(raw)
     setDeetsState(user)
-    // setLoading(false)
+    // to reset Nav simultaneously
+    setStage('changedPfp')
+    setStage('loggedIn')
   }
 
   const handleSave = (e: React.BaseSyntheticEvent): void => {
     e.preventDefault()
     setEditing(false)
-    const raw = JSON.stringify({
+    const pfp = (userPfp != null) ? userPfp : editDeets.profilePic
+    const raw = {
       username: editDeets.username,
       email: editDeets.email,
-      bio: editDeets.bio
-    })
+      bio: editDeets.bio,
+      profilePic: pfp
+    }
     // send patch request
     updateUserDeets(raw).then(() => { }, () => { })
   }
 
   useEffect(() => {
-    if (editing === false) setEditDeets(userDeets)
+    if (!editing) setEditDeets(userDeets)
   }, [editing, userDeets])
-
 
   const landingFrame: JSX.Element = (
     <div className='profile-content'>
@@ -100,9 +106,8 @@ const Profile: React.FC = () => {
   )
 
   const inputFrame: JSX.Element = (
-    <form className='profile-content' onSubmit={handleSave}>
+    <form className='profile-content' id='profile-form' onSubmit={handleSave}>
       <div className='profile-edit'><FaTimes onClick={() => setEditing(false)} /></div>
-      {/* form validaion kar lo */}
       <div className='profile-input'>
         <FaUser />
         <input
@@ -150,7 +155,6 @@ const Profile: React.FC = () => {
       </div>
       <div className='profile-btn'>
         <button id='profile-save'>Save</button>
-        {/* <button id='profile-cancel' className='secondary'>Cancel</button> */}
       </div>
     </form>
   )
@@ -161,9 +165,16 @@ const Profile: React.FC = () => {
 
       <div className='profile-body'>
         <div className={`profile-pic ${editing ? 'edit' : ''}`}>
-          <img src={userPfp} alt='Profile' />
+          <img src={userDeets.profilePic} alt='Profile' />
           {editing &&
             <div className='profile-pic-middle'>
+              <input
+                type='file'
+                form='profile-form'
+                onChange={(e) => {
+                  if (e.target.files != null) setUserPfp(e.target.files[0])
+                }}
+              />
               <div className='camera'><MdAddAPhoto /></div>
             </div>}
         </div>

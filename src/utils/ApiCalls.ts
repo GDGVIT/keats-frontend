@@ -47,15 +47,28 @@ export const getUser = async (): Promise<any> => {
   }
 }
 
-export const updateUser = async (raw: string): Promise<any> => {
+interface UpdateProps {
+  username: string
+  bio: string
+  email: string
+  profilePic: string | File
+}
+
+export const updateUser = async (raw: UpdateProps): Promise<any> => {
   const myHeaders = new Headers()
-  myHeaders.append('Content-Type', 'application/json')
+  // myHeaders.append('Content-Type', ' multipart/form-data')
   myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+
+  const formData = new FormData()
+  formData.append('username', raw.username)
+  formData.append('bio', raw.bio)
+  formData.append('email', raw.email)
+  formData.append('profile_pic', raw.profilePic)
 
   const requestOptions = {
     method: 'PATCH',
     headers: myHeaders,
-    body: raw,
+    body: formData,
     redirect: 'follow'
   }
 
