@@ -41,9 +41,21 @@
   opacity: 1;
 }
 
-.camera {
+.profile-camera {
   color: var(--light);
   font-size: 2rem;
+  cursor: pointer;
+}
+
+.profile-camera:hover .camera {
+  transform: scale(1.02);
+}
+
+#profile-pic-input {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
 }
 
 .profile-container {

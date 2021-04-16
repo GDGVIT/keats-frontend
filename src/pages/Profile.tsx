@@ -165,17 +165,25 @@ const Profile: React.FC = () => {
 
       <div className='profile-body'>
         <div className={`profile-pic ${editing ? 'edit' : ''}`}>
-          <img src={userDeets.profilePic} alt='Profile' />
+          <img src={editDeets.profilePic} alt='Profile' />
           {editing &&
             <div className='profile-pic-middle'>
+              <label className='profile-camera' htmlFor='profile-pic-input'><MdAddAPhoto className='camera' /></label>
               <input
                 type='file'
+                id='profile-pic-input'
                 form='profile-form'
                 onChange={(e) => {
-                  if (e.target.files != null) setUserPfp(e.target.files[0])
+                  if (e.target.files != null) {
+                    setUserPfp(e.target.files[0])
+                    // To get preview
+                    const reader = new FileReader()
+                    reader.onload = (e) =>
+                      setEditDeets({ ...editDeets, profilePic: e.target?.result})
+                    reader.readAsDataURL(e.target.files[0])
+                  }
                 }}
               />
-              <div className='camera'><MdAddAPhoto /></div>
             </div>}
         </div>
         <div className='profile-vert' />
