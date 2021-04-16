@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getUser } from './../utils/apiCalls'
+import { getUser, updateUser } from './../utils/apiCalls'
 import { FaTimes, FaUser, FaInfoCircle, FaPhoneAlt } from 'react-icons/fa'
 import { MdEdit, MdEmail, MdAddAPhoto } from 'react-icons/md'
 // import Loader from './../components/Loader'
@@ -15,6 +15,7 @@ interface UserDeetsProps {
 
 const Profile: React.FC = () => {
   const [editing, setEditing] = useState(false)
+  // const [loading, setLoading] = useState(true)
   const [userPfp, setUserPfp] = useState(User)
   const [userDeets, setUserDeets] = useState<UserDeetsProps>({
     username: '',
@@ -22,21 +23,59 @@ const Profile: React.FC = () => {
     email: '',
     phone: ''
   })
+  const [editDeets, setEditDeets] = useState<UserDeetsProps>(userDeets)
 
-  const getUserDeets = async (): Promise<void> => {
-    const user = await getUser()
-    setUserPfp(user.profile_pic)
-    setUserDeets({
+  const setDeetsState = (user: any) => {
+    const details = {
       username: user.username,
       bio: user.bio,
       email: user.email,
       phone: user.phone_number
-    })
+    }
+    setUserDeets(details)
+    setEditDeets(details)
+  }
+
+  const getUserDeets = async (): Promise<void> => {
+    const user = await getUser()
+    setUserPfp(user.profile_pic)
+    setDeetsState(user)
+    // setLoading(false)
   }
 
   useEffect(() => {
     getUserDeets().then(() => { }, () => { })
   }, [])
+
+
+  const handleLogout = (): void => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userId')
+    window.location.reload()
+  }
+
+  const updateUserDeets = async (raw: string): Promise<void> => {
+    const user = await updateUser(raw)
+    setDeetsState(user)
+    // setLoading(false)
+  }
+
+  const handleSave = (e: React.BaseSyntheticEvent): void => {
+    e.preventDefault()
+    setEditing(false)
+    const raw = JSON.stringify({
+      username: editDeets.username,
+      email: editDeets.email,
+      bio: editDeets.bio
+    })
+    // send patch request
+    updateUserDeets(raw).then(() => { }, () => { })
+  }
+
+  useEffect(() => {
+    if (editing === false) setEditDeets(userDeets)
+  }, [editing, userDeets])
+
 
   const landingFrame: JSX.Element = (
     <div className='profile-content'>
@@ -60,30 +99,19 @@ const Profile: React.FC = () => {
     </div>
   )
 
-  const handleLogout = (): void => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('userId')
-    window.location.reload()
-  }
-
-  const handleSave = (e: React.BaseSyntheticEvent): void => {
-    e.preventDefault()
-    setEditing(false)
-  }
-
   const inputFrame: JSX.Element = (
     <form className='profile-content' onSubmit={handleSave}>
       <div className='profile-edit'><FaTimes onClick={() => setEditing(false)} /></div>
-      {/* ONCHANGE NEEDS TO RESET ON CANCEL */}
+      {/* form validaion kar lo */}
       <div className='profile-input'>
         <FaUser />
         <input
           name='username'
           id='username'
           type='text'
-          value={userDeets.username}
+          value={editDeets.username}
           autoComplete='off'
-          onChange={(e) => setUserDeets({ ...userDeets, username: e.target.value })}
+          onChange={(e) => setEditDeets({ ...editDeets, username: e.target.value })}
           required
         />
       </div>
@@ -94,8 +122,9 @@ const Profile: React.FC = () => {
           id='bio'
           type='text'
           autoComplete='off'
-          value={userDeets.bio}
-          onChange={(e) => setUserDeets({ ...userDeets, bio: e.target.value })}
+          maxLength={100}
+          value={editDeets.bio}
+          onChange={(e) => setEditDeets({ ...editDeets, bio: e.target.value })}
         />
       </div>
       <div className='profile-input'>
@@ -104,8 +133,8 @@ const Profile: React.FC = () => {
           name='email'
           id='email'
           type='email'
-          value={userDeets.email}
-          onChange={(e) => setUserDeets({ ...userDeets, email: e.target.value })}
+          value={editDeets.email}
+          onChange={(e) => setEditDeets({ ...editDeets, email: e.target.value })}
         />
       </div>
       <div className='profile-input'>
@@ -114,8 +143,8 @@ const Profile: React.FC = () => {
           name='phone'
           id='phone'
           type='tel'
-          value={userDeets.phone}
-          onChange={(e) => setUserDeets({ ...userDeets, phone: e.target.value })}
+          value={editDeets.phone}
+          onChange={(e) => setEditDeets({ ...editDeets, phone: e.target.value })}
           disabled
         />
       </div>

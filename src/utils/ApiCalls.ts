@@ -47,6 +47,28 @@ export const getUser = async (): Promise<any> => {
   }
 }
 
+export const updateUser = async (raw: string): Promise<any> => {
+  const myHeaders = new Headers()
+  myHeaders.append('Content-Type', 'application/json')
+  myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+
+  const requestOptions = {
+    method: 'PATCH',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/user`, requestOptions as any)
+    const data = await response.json()
+    const user = data.data
+    return user
+  } catch (e) {
+    return {}
+  }
+}
+
 export const getUserClubs = async (): Promise<any> => {
   const myHeaders = new Headers()
   myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)

@@ -125,10 +125,11 @@
   background-color: var(--orange);
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1200px) {
   .profile-body {
     flex-direction: row;
     justify-content: space-around;
+    margin: var(--mg-l) 0;
   }
 
   .profile-pic {
@@ -145,16 +146,12 @@
     align-items: flex-start;
   }
 
-  .profile-content {
-    padding: calc(var(--mg-l) / 2) var(--mg-l);
-  }
-
   .profile-edit {
     font-size: 1.5rem;
   }
 
   #profile-save {
-    margin-left: 0;
-    margin-right: 0;
+    margin: 1rem 0;
+    margin-bottom: 0;
   }
 }

@@ -56,10 +56,3 @@ button:focus {
 .error {
   color: #eb032e;
 }
-
-@media screen and (min-width: 1400px) {
-  input,
-  button {
-    font-size: 1.75rem;
-  }
-}

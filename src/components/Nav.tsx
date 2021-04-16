@@ -20,7 +20,7 @@ const Nav: React.FC = () => {
   useEffect(() => {
     if (localStorage.getItem('userId') !== null) { setStage('loggedIn') }
     if (stage === 'loggedIn') { getUserPfp().then(() => { }, () => { }) }
-  }, [stage])
+  }, [stage, setStage])
 
   return (
     <header>
