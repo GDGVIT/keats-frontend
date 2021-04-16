@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
+import { AppContext } from './Context'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -23,6 +24,11 @@ const App = (): JSX.Element => {
     firebase.initializeApp(firebaseConfig)
     firebase.auth().useDeviceLanguage()
   }, [])
+
+  const { stageState } = useContext(AppContext)
+  /* eslint-disable  @typescript-eslint/no-unused-vars */
+  const [stage] = stageState
+  /* eslint-enable  @typescript-eslint/no-unused-vars */
 
   return (
     <Router>

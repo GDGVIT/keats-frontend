@@ -5,7 +5,6 @@ import 'firebase/auth'
 import Loader from './Loader'
 import './../styles/Form.css'
 import './../styles/PhoneNo.css'
-// import PhoneInput from 'react-phone-number-input'
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 
@@ -20,10 +19,6 @@ const PhoneNo: React.FC = () => {
   useEffect(() => {
     (window as any).recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
       size: 'invisible'
-      // callback: (response: any) => {
-      //   // reCAPTCHA solved, allow signInWithPhoneNumber.
-      // Redirect to clubs
-      // }
     })
   }, [])
 
@@ -41,7 +36,6 @@ const PhoneNo: React.FC = () => {
       (window as any).confirmationResult = confirmationResult
       setStage('OTP')
     } catch (e) {
-      // alert('Error: SMS not sent!')
       setError('Invalid Phone Number!')
       const phoneInput = (document.getElementsByClassName('PhoneInput') as HTMLCollectionOf<HTMLElement>)[0]
       if (phoneInput !== null) phoneInput.style.border = '0.125rem solid #eb032e'
