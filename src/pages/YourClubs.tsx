@@ -9,13 +9,14 @@ const YourClubs: React.FC = () => {
   const [clubs, setClubs] = useState({})
   const [loading, setLoading] = useState(true)
 
-  const getClubs = async (): Promise<void> => {
-    const userClubs = await getUserClubs()
-    setClubs(userClubs)
-    setLoading(false)
-  }
+
 
   useEffect(() => {
+    const getClubs = async (): Promise<void> => {
+      const userClubs = await getUserClubs()
+      setClubs(userClubs)
+      setLoading(false)
+    }
     getClubs().then(() => { }, () => { })
   }, [])
 
@@ -25,7 +26,7 @@ const YourClubs: React.FC = () => {
         <h2>Clubs</h2>
         <div>
           <Link to='/join' className='clubs-redirect'>Join</Link>
-          &nbsp;|&nbsp;
+          &nbsp;&nbsp;|&nbsp;&nbsp;
           <Link to='/create' className='clubs-redirect'>Create</Link>
         </div>
       </div>

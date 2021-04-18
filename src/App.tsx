@@ -7,6 +7,7 @@ import Nav from './components/Nav'
 import Landing from './pages/Landing'
 import YourClubs from './pages/YourClubs'
 import JoinClub from './pages/JoinClub'
+import CreateClub from './pages/CreateClub'
 import Profile from './pages/Profile'
 
 const App = (): JSX.Element => {
@@ -45,6 +46,9 @@ const App = (): JSX.Element => {
           </Route>
           <Route exact path='/join'>
             <JoinClub />
+          </Route>
+          <Route exact path='/create'>
+            <CreateClub />
           </Route>
           <Route exact path='/profile'>
             <Profile />

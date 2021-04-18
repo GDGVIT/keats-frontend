@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { getPublicClubs } from './../utils/apiCalls'
 import JoInput from './../components/JoInput'
 import Loader from './../components/Loader'
@@ -23,6 +24,11 @@ const JoinClub: React.FC = () => {
     <section className='your-clubs'>
       <div className='clubs-header'>
         <h2>Join a Club</h2>
+        <div>
+          <Link to='/clubs' className='clubs-redirect'>My Clubs</Link>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <Link to='/create' className='clubs-redirect'>Create</Link>
+        </div>
       </div>
 
       <JoInput submit={setSubmit} />
