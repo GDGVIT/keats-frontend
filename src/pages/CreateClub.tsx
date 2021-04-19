@@ -1,29 +1,33 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { MdAddAPhoto, MdFileUpload } from 'react-icons/md'
+import { Link, Redirect } from 'react-router-dom'
+import { MdAddAPhoto } from 'react-icons/md'
 import Book from './../assets/book.jpg'
+import { createClub } from './../utils/apiCalls'
+import AddBookButton from './../components/AddBookButton'
+import Loader from './../components/Loader'
 import './../styles/Create.css'
-
-// TODO: FIX FORM INPUT FOR ADDING BOOK FILE AND MAKE REQUEST TO BACKEND
 
 interface ClubProps {
   clubName: string
-  file: File | null
-  clubPic: File | null
+  // file: File | null
+  // clubPic: File | null
+  file: any
+  clubPic: any
   private: boolean
   pageSync: boolean
 }
 
 const CreateClub: React.FC = () => {
-
-  const [device, setDevice] = useState<string>('')
+  const [loading, setLoading] = useState(false)
+  const [redirect, setRedirect] = useState('')
+  const [device, setDevice] = useState('')
   const [clubPfp, setClubPfp] = useState<any>(Book)
   const [clubDeets, setClubDeets] = useState<ClubProps>({
     clubName: '',
     file: null,
     clubPic: null,
     private: false,
-    pageSync: false,
+    pageSync: false
   })
 
   useEffect(() => {
@@ -32,44 +36,24 @@ const CreateClub: React.FC = () => {
       else if (window.innerWidth < 1200) return 'tablet'
       else return 'desktop'
     }
-    window.addEventListener('load', () => setDevice(checkDevice()));
-    window.addEventListener('resize', () => setDevice(checkDevice()));
-  });
+    window.addEventListener('load', () => setDevice(checkDevice()))
+    window.addEventListener('resize', () => setDevice(checkDevice()))
+  })
 
-  const AddBook = (): JSX.Element => (
-    <div className='add-book'>
-      <input
-        type='file'
-        id='book-input'
-        form='club-form'
-        accept='.pdf, .epub, .jpg, .png'
-        required
-        onChange={(e) => {
-          if (e.target.files !== null && e.target.files.length !== 0) {
-            // const size = e.target.files[0].size / 1000 / 1000 // file size in MB
-            // if (size > 30) {
-            //   alert('File exceeded 30MB')
-            //   e.target.value = ''
-            //   return
-            // }
-            console.log(e.target.files[0])
-            console.log('b4', clubDeets)
-            setClubDeets({ ...clubDeets, file: e.target.files[0] })
-            console.log('a4', clubDeets)
-          }
-          else if (e.target.files === null || e.target.files.length === 0)
-            {
-              console.log('empty input')
-              setClubDeets({ ...clubDeets, file: null })
-            }
-        }}
-      />
-      <p className='create-book-details'>
-        {clubDeets.file ? `${clubDeets.file.name}` : null}
-      </p>
-      <label className='create-book-label' htmlFor='book-input'><MdFileUpload />Add a Book</label>
-    </div>
-  )
+  useEffect(() => {
+    console.log(redirect)
+  }, [redirect])
+
+  const createNewClub = async (raw: ClubProps): Promise<string> => {
+    const club = await createClub(raw)
+    return club.id
+  }
+
+  const handleSave = (e: React.BaseSyntheticEvent): void => {
+    e.preventDefault()
+    setLoading(true)
+    createNewClub(clubDeets).then((res) => { setRedirect(res) }, () => { })
+  }
 
   const CreateButton = (): JSX.Element => (
     <button type='submit' form='club-form' id='create-club-button'>Create Club!</button>
@@ -86,80 +70,97 @@ const CreateClub: React.FC = () => {
         </div>
       </div>
 
-      <div className='create-body'>
+      {
+        !loading
+          ? (
 
-        <div className='create-first'>
-          <div className='club-image create-image'>
-            <img src={clubPfp} alt='Profile' />
-            <div className='profile-pic-middle create-middle'>
-              <label className='profile-camera' htmlFor='create-pic-input'><MdAddAPhoto className='camera' /></label>
-              <input
-                type='file'
-                id='create-pic-input'
-                form='club-form'
-                onChange={(e) => {
-                  if (e.target.files !== null && e.target.files.length !== 0) {
-                    setClubDeets({ ...clubDeets, clubPic: e.target.files[0] })
-                    // To get preview
-                    const reader = new FileReader()
-                    reader.onload = (e1) => {
-                      if (e1.target !== null)
-                        setClubPfp(e1.target.result)
-                    }
-                    reader.readAsDataURL(e.target.files[0])
+            <div className='create-body'>
+
+              <div className='create-first'>
+                <div className='club-image create-image'>
+                  <img src={clubPfp} alt='Profile' />
+                  <div className='profile-pic-middle create-middle'>
+                    <label className='profile-camera' htmlFor='create-pic-input'><MdAddAPhoto className='camera' /></label>
+                    <input
+                      type='file'
+                      id='create-pic-input'
+                      form='club-form'
+                      accept='.png, .jpg'
+                      onChange={(e) => {
+                        if (e.target.files !== null && e.target.files.length !== 0) {
+                          setClubDeets({ ...clubDeets, clubPic: e.target.files[0] })
+                          // To get preview
+                          const reader = new FileReader()
+                          reader.onload = (e1) => {
+                            if (e1.target !== null) { setClubPfp(e1.target.result) }
+                          }
+                          reader.readAsDataURL(e.target.files[0])
+                        } else {
+                          setClubDeets({ ...clubDeets, clubPic: null })
+                          setClubPfp(Book)
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {
+                  device !== 'phone'
+                    ? <CreateButton />
+                    : <AddBookButton clubDeets={clubDeets} setClubDeets={setClubDeets} />
+                }
+
+              </div>
+
+              {/* <div className='profile-vert' /> */}
+
+              <div className='create-last'>
+                <form id='club-form' onSubmit={handleSave}>
+                  <div className='labels'>
+                    <label>
+                      <input
+                        name='club-name'
+                        id='club-name'
+                        type='text'
+                        placeholder='Enter Club Name'
+                        value={clubDeets.clubName}
+                        onChange={(e) => setClubDeets({ ...clubDeets, clubName: e.target.value })}
+                        autoComplete='off'
+                        required
+                      />
+                    </label>
+
+                    <label className='switch-container'>
+                      <span>Private </span>
+                      <label className='switch'>
+                        <input
+                          type='checkbox'
+                          checked={clubDeets.private}
+                          onChange={(e) => setClubDeets({ ...clubDeets, private: e.target.checked })}
+                        />
+                        <span className='slider' />
+                      </label>
+                    </label>
+                  </div>
+
+                  {
+                    device === 'phone'
+                      ? <CreateButton />
+                      : <AddBookButton clubDeets={clubDeets} setClubDeets={setClubDeets} />
                   }
-                  else if (e.target.files === null || e.target.files.length === 0) {
-                    setClubDeets({ ...clubDeets, clubPic: null })
-                    setClubPfp(Book)
-                  }
-                }}
-              />
+                </form>
+              </div>
             </div>
-          </div>
-
-          {
-            device !== 'phone'
-              ? <CreateButton />
-              : <AddBook />
-          }
-
-        </div>
-
-        {/* <div className='profile-vert' /> */}
-
-        <div className='create-last'>
-          <form id='club-form' onSubmit={() => console.log('submitted')}>
-            <div className='labels'>
-              <label>
-                <input
-                  name='club-name'
-                  id='club-name'
-                  type='text'
-                  placeholder='Enter Club Name'
-                  value={clubDeets.clubName}
-                  onChange={(e) => setClubDeets({ ...clubDeets, clubName: e.target.value })}
-                  autoComplete='off'
-                  required
-                />
-              </label>
-
-              <label className='switch-container'>
-                <span>Private </span>
-                <label className='switch'>
-                  <input type='checkbox' />
-                  <span className='slider round'></span>
-                </label>
-              </label>
-            </div>
-
-            {
-              device === 'phone'
-                ? <CreateButton />
-                : <AddBook />
-            }
-          </form>
-        </div>
-      </div>
+          )
+          : (
+            <>
+              <Loader />
+              {
+                redirect !== '' ? <Redirect to={`/club/${redirect}`} /> : null
+              }
+            </>
+          )
+      }
     </section>
   )
 }

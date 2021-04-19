@@ -47,11 +47,12 @@ const JoinWrapper = ({ setState, id, children }: JoinProps): JSX.Element =>
     className='club-a club-container'
     onClick={() => {
       setState(id)
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }}>
-      {children}
-    </article>
+      document.body.scrollTop = 0 // For Safari
+      document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+    }}
+  >
+    {children}
+  </article>
 
 const ConditionalWrapper = ({ condition, setState, id, children }: WrapperProps): JSX.Element =>
   condition ? JoinWrapper({ setState, id, children }) : YourWrapper({ id, children })

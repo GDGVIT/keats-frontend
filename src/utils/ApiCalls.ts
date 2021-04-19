@@ -150,3 +150,42 @@ export const joinNewClub = async (clubId: string): Promise<any> => {
     return e
   }
 }
+
+interface CreateClubProps {
+  clubName: string
+  // file: File | null
+  // clubPic: File | null
+  file: any
+  clubPic: any
+  private: boolean
+  pageSync: boolean
+}
+
+export const createClub = async (raw: CreateClubProps): Promise<any> => {
+  const myHeaders = new Headers()
+  // myHeaders.append('Content-Type', ' multipart/form-data')
+  myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+
+  const formData = new FormData()
+  formData.append('clubname', raw.clubName)
+  formData.append('file', raw.file)
+  formData.append('club_pic', raw.clubPic)
+  formData.append('private', String(raw.private))
+  formData.append('page_sync', String(raw.pageSync))
+
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: formData,
+    redirect: 'follow'
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/clubs/create`, requestOptions as any)
+    const data = await response.json()
+    const club = data.data
+    return club
+  } catch (e) {
+    return {}
+  }
+}

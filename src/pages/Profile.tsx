@@ -173,17 +173,16 @@ const Profile: React.FC = () => {
                 type='file'
                 id='profile-pic-input'
                 form='profile-form'
+                accept='.png, .jpg'
                 onChange={(e) => {
                   if (e.target.files !== null && e.target.files.length !== 0) {
                     setUserPfp(e.target.files[0])
                     // To get preview
                     const reader = new FileReader()
                     reader.onload = (e) =>
-                      setEditDeets({ ...editDeets, profilePic: e.target?.result})
+                      setEditDeets({ ...editDeets, profilePic: e.target?.result })
                     reader.readAsDataURL(e.target.files[0])
-                  }
-                  else if (e.target.files === null || e.target.files.length === 0)
-                    setEditDeets({ ...editDeets, profilePic: User })
+                  } else setEditDeets({ ...editDeets, profilePic: userDeets.profilePic })
                 }}
               />
             </div>}

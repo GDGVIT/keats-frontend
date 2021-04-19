@@ -9,8 +9,6 @@ const YourClubs: React.FC = () => {
   const [clubs, setClubs] = useState({})
   const [loading, setLoading] = useState(true)
 
-
-
   useEffect(() => {
     const getClubs = async (): Promise<void> => {
       const userClubs = await getUserClubs()
