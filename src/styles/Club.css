@@ -1,0 +1,95 @@
+.clubp-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.clubp-first {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clubp-image {
+  width: 8rem;
+  height: 8rem;
+  position: relative;
+  margin: 0;
+  background-color: var(--dim);
+  backface-visibility: hidden;
+}
+
+.clubp-image.edit img {
+  opacity: 0.3;
+}
+
+.clubp-image.edit .profile-pic-middle {
+  opacity: 1;
+}
+
+.clubp-icons {
+  display: flex;
+  font-size: 1.25rem;
+}
+
+.clubp-icons svg {
+  margin-left: 1.25rem;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#start-reading {
+  padding: 0.75rem 1.5rem;
+}
+
+.club-book-label {
+  margin: 0.5rem auto 0 !important;
+  padding: 0.75rem 1.5rem !important;
+  border: 0.2rem solid var(--purple) !important;
+  background-color: var(--dark) !important;
+}
+
+@media screen and (min-width: 768px) {
+  .clubp-body {
+    flex-direction: row;
+  }
+
+  .clubp-image {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .clubp-first {
+    /* align-items: center; */
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  }
+
+  .buttons {
+    align-items: center;
+  }
+
+  #start-reading {
+    padding: 0.75rem 3.75rem;
+    margin-top: 2.5rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .clubp-image {
+    width: calc(20rem - var(--mg-l));
+    height: calc(20rem - var(--mg-l));
+  }
+
+  .club-book-label {
+    padding: 0.75rem 3.75rem !important;
+    margin: 0 !important;
+    margin-top: 0.5rem !important;
+  }
+}

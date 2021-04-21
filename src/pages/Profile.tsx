@@ -42,12 +42,12 @@ const Profile: React.FC = () => {
     setEditDeets(details)
   }
 
-  const getUserDeets = async (): Promise<void> => {
-    const user = await getUser()
-    setDeetsState(user)
-  }
 
   useEffect(() => {
+    const getUserDeets = async (): Promise<void> => {
+      const user = await getUser()
+      setDeetsState(user)
+    }
     getUserDeets().then(() => { }, () => { })
   }, [])
 

@@ -6,6 +6,7 @@ import 'firebase/auth'
 import Nav from './components/Nav'
 import Landing from './pages/Landing'
 import YourClubs from './pages/YourClubs'
+import Club from './pages/Club'
 import JoinClub from './pages/JoinClub'
 import CreateClub from './pages/CreateClub'
 import Profile from './pages/Profile'
@@ -43,6 +44,9 @@ const App = (): JSX.Element => {
           {localStorage.getItem('token') === null && <Redirect to='/' />}
           <Route exact path='/clubs'>
             <YourClubs />
+          </Route>
+          <Route path='/club/:id'>
+            <Club />
           </Route>
           <Route exact path='/join'>
             <JoinClub />

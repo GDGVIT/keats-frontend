@@ -30,19 +30,20 @@ const CreateClub: React.FC = () => {
     pageSync: false
   })
 
+  const checkDevice = (): string => {
+    if (window.innerWidth < 768) return 'phone'
+    else if (window.innerWidth < 1200) return 'tablet'
+    else return 'desktop'
+  }
+
   useEffect(() => {
-    const checkDevice = (): string => {
-      if (window.innerWidth < 768) return 'phone'
-      else if (window.innerWidth < 1200) return 'tablet'
-      else return 'desktop'
-    }
     window.addEventListener('load', () => setDevice(checkDevice()))
     window.addEventListener('resize', () => setDevice(checkDevice()))
   })
 
   useEffect(() => {
-    console.log(redirect)
-  }, [redirect])
+    setDevice(checkDevice())
+  }, [])
 
   const createNewClub = async (raw: ClubProps): Promise<string> => {
     const club = await createClub(raw)
@@ -107,7 +108,7 @@ const CreateClub: React.FC = () => {
                 {
                   device !== 'phone'
                     ? <CreateButton />
-                    : <AddBookButton clubDeets={clubDeets} setClubDeets={setClubDeets} />
+                    : <AddBookButton clubDeets={clubDeets} setClubDeets={setClubDeets}/>
                 }
 
               </div>

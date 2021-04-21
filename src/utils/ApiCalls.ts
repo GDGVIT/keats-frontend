@@ -189,3 +189,25 @@ export const createClub = async (raw: CreateClubProps): Promise<any> => {
     return {}
   }
 }
+
+
+export const getClub = async (id: string): Promise<any> => {
+  const myHeaders = new Headers()
+  myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+
+  const requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/clubs?club_id=${id}`, requestOptions as any)
+    const data = await response.json()
+    const club = data.data.club
+    const usersRes = data.data.users
+    return { exists: true, club, usersRes }
+  } catch (e) {
+    return { exists: false}
+  }
+}
