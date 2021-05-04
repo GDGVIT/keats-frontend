@@ -105,7 +105,7 @@ const Club: React.FC = () => {
       if (localStorage.getItem('userId') === club.host_id) setHost(true)
     }
     getDeets().then(() => { }, () => { })
-  }, [])
+  }, [id])
 
   return (
     <>
@@ -138,7 +138,6 @@ const Club: React.FC = () => {
               <div className='clubp-body'>
                 <div className='clubp-first'>
                   <div className={`clubp-image club-image ${editing ? 'edit' : ''}`}>
-                    {/* <img src={editDeets.profilePic} alt='Profile' /> */}
                     <img src={editedClub.club_pic} alt='Profile' />
                     {editing &&
                       <div className='profile-pic-middle'>
@@ -188,6 +187,9 @@ const Club: React.FC = () => {
                   </div>
                   <div className='clubp-members'>
                     <Members users={users} host={club.host_id}/>
+                  </div>
+                  <div className='leave-club'>
+                    <button id='leave'>Leave Club</button>
                   </div>
                 </div>
               </div>

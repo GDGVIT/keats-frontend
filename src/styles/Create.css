@@ -52,7 +52,7 @@
   display: flex;
   align-items: center;
   margin: 0.5rem auto 0;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 500;
   font-family: 'CircularStd', sans-serif;
   border: none;
@@ -62,6 +62,12 @@
   padding: 0.75rem 1.5rem;
   background-color: var(--purple);
   max-width: max-content;
+}
+
+@media screen and (min-width: 340px) {
+  .create-book-label {
+    font-size: 1.25rem;
+  }
 }
 
 .create-book-label svg {
@@ -121,7 +127,7 @@
   .create-body {
     height: max-content;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 
   .create-first {
@@ -163,11 +169,6 @@
 }
 
 @media screen and (min-width: 1200px) {
-  .create-body {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
   .create-image {
     width: calc(20rem - var(--mg-l));
     height: calc(20rem - var(--mg-l));
@@ -179,8 +180,8 @@
   }
 
   .create-last {
-    width: 100%;
-    max-width: 50rem;
+    /* max-width: 50rem; */
+    width: 70%;
     align-items: flex-start;
     margin: 0;
   }

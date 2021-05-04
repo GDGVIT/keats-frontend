@@ -1,19 +1,19 @@
 import React from 'react'
 import { MdFileUpload } from 'react-icons/md'
-interface CreateClubProps {
-  clubName: string
-  file: File | null
-  clubPic: File | null
-  private: boolean
-  pageSync: boolean
-}
+// interface CreateClubProps {
+//   clubName: string
+//   file: File | null
+//   clubPic: File | null
+//   private: boolean
+//   pageSync: boolean
+// }
 
-interface EditClubProps {
-  id: string
-  clubname: string
-  club_pic: any
-  file: any
-}
+// interface EditClubProps {
+//   id: string
+//   clubname: string
+//   club_pic: any
+//   file: any
+// }
 
 interface Props {
   // clubDeets: CreateClubProps | EditClubProps

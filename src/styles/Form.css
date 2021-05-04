@@ -9,13 +9,20 @@ form label {
 
 input,
 button {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 500;
   margin: 0.5rem 0;
   font-family: 'CircularStd', sans-serif;
   border: none;
   border-radius: 0.5rem;
   color: var(--light);
+}
+
+@media screen and (min-width: 340px) {
+  input,
+  button {
+    font-size: 1.25rem;
+  }
 }
 
 input {

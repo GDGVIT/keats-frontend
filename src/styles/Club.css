@@ -18,6 +18,11 @@
   justify-content: space-between;
 }
 
+.clubp-second {
+  display: flex;
+  flex-direction: column;
+}
+
 .clubp-image {
   width: 8rem;
   height: 8rem;
@@ -64,20 +69,34 @@
 
 .clubp-switch > span {
   font-size: 1rem !important;
+  line-height: 2.125rem;
 }
 
 .clubp-switch .switch {
   transform: scale(0.8) !important;
 }
 
-@media screen and (min-width: 768px) {
-  .clubp-body {
-    flex-direction: row;
-  }
+.leave-club {
+  display: flex;
+  justify-content: center;
+}
 
+#leave {
+  margin: calc(var(--mg-l) / 2) 0;
+  background-color: var(--orange);
+}
+
+@media screen and (min-width: 768px) {
   .clubp-image {
     width: 12rem;
     height: 12rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .clubp-body {
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   .clubp-first {
@@ -85,6 +104,26 @@
     flex-direction: column;
     align-items: flex-start;
     height: max-content;
+  }
+
+  .clubp-image {
+    width: calc(20rem - var(--mg-l));
+    height: calc(20rem - var(--mg-l));
+  }
+
+  .club-book-label {
+    padding: 0.75rem 3.75rem !important;
+    margin: 0 !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .clubp-second {
+    width: 70%;
+    justify-content: start;
+  }
+
+  .clubp-switch {
+    margin: 0 !important;
   }
 
   .buttons {
@@ -95,17 +134,8 @@
     padding: 0.75rem 3.75rem;
     margin-top: 2.5rem;
   }
-}
 
-@media screen and (min-width: 1200px) {
-  .clubp-image {
-    width: calc(20rem - var(--mg-l));
-    height: calc(20rem - var(--mg-l));
-  }
-
-  .club-book-label {
-    padding: 0.75rem 3.75rem !important;
-    margin: 0 !important;
-    margin-top: 0.5rem !important;
+  .leave-club {
+    justify-content: start;
   }
 }

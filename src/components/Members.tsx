@@ -1,4 +1,5 @@
 import React from 'react'
+import './../styles/Members.css'
 
 interface userProps {
   id: string
@@ -29,7 +30,7 @@ const Members: React.FC<Props> = ({ users, host }) => {
                 {user.username}
               </div>
               {host === user.id &&
-                <div className='host'>HOST</div>
+                <div className='host'>Host</div>
               }
             </div>
           ))
