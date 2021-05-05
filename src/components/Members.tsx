@@ -21,7 +21,7 @@ interface Props {
 }
 
 const Members: React.FC<Props> = ({ clubId, users, host, refresh, setRefresh }) => {
-  const handleKick = async (userId: string) => {
+  const handleKick = async (userId: string): Promise<void> => {
     try {
       await kickUser(clubId, userId)
     } finally {

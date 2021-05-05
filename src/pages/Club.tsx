@@ -89,7 +89,7 @@ const Club: React.FC = () => {
 
   useEffect(() => {
     const getDeets = async (): Promise<void> => {
-      const { exists, club, usersRes }: any = await getClub(id)
+      const { exists, club, usersRes }: {exists: boolean, club: any, usersRes: UserProps} = await getClub(id)
       if (!exists) {
         setRedirect(!exists)
         return
@@ -116,7 +116,7 @@ const Club: React.FC = () => {
     })
   }, [club, id])
 
-  const handleDisregard = () => {
+  const handleDisregard = (): void => {
     setEditedClub({
       id: id,
       clubname: club.clubname,
@@ -137,7 +137,7 @@ const Club: React.FC = () => {
     // })
   }
 
-  const handleSave = async () => {
+  const handleSave = async (): Promise<void> => {
     setEditing(false)
     const pfp = (editedPfp != null) ? editedPfp : editedClub.club_pic
     try {
@@ -166,7 +166,7 @@ const Club: React.FC = () => {
   const handleLeave = (): void => {
     setRedirect(true)
     try {
-      leaveClub(id)
+      leaveClub(id).then(() => { }, () => { })
     } catch (e) {
       console.log(e)
     }
@@ -177,9 +177,7 @@ const Club: React.FC = () => {
       {redirect
         ? <Redirect to='/clubs' />
         : users.length <= 0
-          ? <div className='clubp-loader'>
-            <Loader />
-            </div>
+          ? <div className='clubp-loader'><Loader /></div>
           : (
             <section>
               <div className='clubs-header'>
@@ -190,10 +188,14 @@ const Club: React.FC = () => {
                       host && (
                         !editing
                           ? <MdEdit onClick={() => setEditing(true)} />
+                          /* eslint-disable  @typescript-eslint/indent */
+                          /* eslint-disable  react/jsx-indent */
                           : <>
                               <FaTimes onClick={handleDisregard} />
                               <FaSave onClick={handleSave} />
                             </>
+                          /* eslint-enable  @typescript-eslint/indent */
+                          /* eslint-enable  react/jsx-indent */
                       )
                     }
                   </div>

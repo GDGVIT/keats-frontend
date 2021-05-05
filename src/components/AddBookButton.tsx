@@ -31,7 +31,7 @@ const AddBookButton: React.FC<Props> = ({ clubDeets, setClubDeets, editing = tru
         className='secondary'
         type='file'
         id='book-input'
-        form={`${(setEditing != null) && 'edit-'}club-form`}
+        form={`${(setEditing != null) ? 'edit-' : ''}club-form`}
         accept='.pdf, .epub'
         required
         onChange={(e) => {
@@ -49,12 +49,10 @@ const AddBookButton: React.FC<Props> = ({ clubDeets, setClubDeets, editing = tru
       />
       {
         (clubDeets.file != null && editing)
-          ? <p className='create-book-details'>
-            {clubDeets.file.name}
-            </p>
+          ? <p className='create-book-details'>{clubDeets.file.name}</p>
           : null
       }
-      <label className={`create-book-label ${(setEditing != null) && 'club-book-label'}`} htmlFor='book-input'>
+      <label className={`create-book-label ${(setEditing != null) ? 'club-book-label' : ''}`} htmlFor='book-input'>
         {(setEditing == null) && <MdFileUpload />}
         {(setEditing != null) ? 'Change Book' : 'Add Book'}
       </label>

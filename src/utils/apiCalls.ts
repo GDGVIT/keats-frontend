@@ -305,7 +305,7 @@ export const leaveClub = async (clubId: string): Promise<any> => {
   myHeaders.append('Content-Type', 'application/json')
 
   const raw = JSON.stringify({
-    club_id: clubId,
+    club_id: clubId
   })
 
   const requestOptions = {
