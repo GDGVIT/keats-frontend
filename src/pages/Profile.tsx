@@ -42,7 +42,6 @@ const Profile: React.FC = () => {
     setEditDeets(details)
   }
 
-
   useEffect(() => {
     const getUserDeets = async (): Promise<void> => {
       const user = await getUser()

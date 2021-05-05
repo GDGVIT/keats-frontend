@@ -190,7 +190,6 @@ export const createClub = async (raw: CreateClubProps): Promise<any> => {
   }
 }
 
-
 export const getClub = async (id: string): Promise<any> => {
   const myHeaders = new Headers()
   myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
@@ -208,6 +207,120 @@ export const getClub = async (id: string): Promise<any> => {
     const usersRes = data.data.users
     return { exists: true, club, usersRes }
   } catch (e) {
-    return { exists: false}
+    return { exists: false }
+  }
+}
+
+export const togglePrivate = async (clubId: string): Promise<any> => {
+  const myHeaders = new Headers()
+  myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  myHeaders.append('Content-Type', 'application/json')
+
+  const raw = JSON.stringify({
+    club_id: clubId
+  })
+
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/clubs/toggleprivate`, requestOptions as any)
+    const data = await response.json()
+    const status = data.status
+    return status
+  } catch (e) {
+    return false
+  }
+}
+
+interface UpdateClubProps {
+  id: string
+  clubname: string
+  club_pic: any
+  file: any
+}
+
+export const updateClub = async (raw: UpdateClubProps): Promise<any> => {
+  const myHeaders = new Headers()
+  // myHeaders.append('Content-Type', ' multipart/form-data')
+  myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+
+  const formData = new FormData()
+  formData.append('id', raw.id)
+  formData.append('clubname', raw.clubname)
+  formData.append('club_pic', raw.club_pic)
+  formData.append('file', raw.file)
+
+  const requestOptions = {
+    method: 'PATCH',
+    headers: myHeaders,
+    body: formData,
+    redirect: 'follow'
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/clubs/update`, requestOptions as any)
+    const data = await response.json()
+    const club = data.data
+    return club
+  } catch (e) {
+    return {}
+  }
+}
+
+export const kickUser = async (clubId: string, userId: string): Promise<any> => {
+  const myHeaders = new Headers()
+  myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  myHeaders.append('Content-Type', 'application/json')
+
+  const raw = JSON.stringify({
+    club_id: clubId,
+    user_id: userId
+  })
+
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/clubs/kickuser`, requestOptions as any)
+    const data = await response.json()
+    const status = data.status
+    return status
+  } catch (e) {
+    return false
+  }
+}
+
+export const leaveClub = async (clubId: string): Promise<any> => {
+  const myHeaders = new Headers()
+  myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  myHeaders.append('Content-Type', 'application/json')
+
+  const raw = JSON.stringify({
+    club_id: clubId,
+  })
+
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/clubs/leave`, requestOptions as any)
+    const data = await response.json()
+    const status = data.status
+    return status
+  } catch (e) {
+    return false
   }
 }

@@ -108,7 +108,7 @@ const CreateClub: React.FC = () => {
                 {
                   device !== 'phone'
                     ? <CreateButton />
-                    : <AddBookButton clubDeets={clubDeets} setClubDeets={setClubDeets}/>
+                    : <AddBookButton clubDeets={clubDeets} setClubDeets={setClubDeets} />
                 }
 
               </div>

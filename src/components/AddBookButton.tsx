@@ -21,21 +21,21 @@ interface Props {
   clubDeets: any
   setClubDeets: any
   editing?: boolean
-  setEditing ?: React.Dispatch<React.SetStateAction<boolean>>
+  setEditing?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const AddBookButton: React.FC<Props> = ({ clubDeets, setClubDeets, editing=true, setEditing }) => {
+const AddBookButton: React.FC<Props> = ({ clubDeets, setClubDeets, editing = true, setEditing }) => {
   return (
     <div className='add-book'>
       <input
         className='secondary'
         type='file'
         id='book-input'
-        form={`${setEditing && 'edit-'}club-form`}
+        form={`${(setEditing != null) && 'edit-'}club-form`}
         accept='.pdf, .epub'
         required
         onChange={(e) => {
-          if(setEditing) setEditing(true)
+          if (setEditing != null) setEditing(true)
           if (e.target.files !== null && e.target.files.length !== 0) {
             const size = e.target.files[0].size / 1000 / 1000 // file size in MB
             if (size > 30) {
@@ -47,16 +47,16 @@ const AddBookButton: React.FC<Props> = ({ clubDeets, setClubDeets, editing=true,
           } else setClubDeets({ ...clubDeets, file: null })
         }}
       />
-        {
-          (clubDeets.file != null && editing)
+      {
+        (clubDeets.file != null && editing)
           ? <p className='create-book-details'>
-              {clubDeets.file.name}
+            {clubDeets.file.name}
             </p>
           : null
-        }
-      <label className={`create-book-label ${setEditing && 'club-book-label'}`} htmlFor='book-input'>
-        {!setEditing && <MdFileUpload />}
-        {setEditing ? 'Change Book' : 'Add Book'}
+      }
+      <label className={`create-book-label ${(setEditing != null) && 'club-book-label'}`} htmlFor='book-input'>
+        {(setEditing == null) && <MdFileUpload />}
+        {(setEditing != null) ? 'Change Book' : 'Add Book'}
       </label>
     </div>
   )

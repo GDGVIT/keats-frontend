@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link, Redirect } from 'react-router-dom'
-import { FaTimes } from 'react-icons/fa'
+import { FaTimes, FaSave } from 'react-icons/fa'
 import { ImQrcode } from 'react-icons/im'
 import { MdAddAPhoto, MdEdit } from 'react-icons/md'
-import { getClub } from './../utils/apiCalls'
+import { getClub, togglePrivate, updateClub, leaveClub } from './../utils/apiCalls'
 import Book from './../assets/book.jpg'
 import Loader from './../components/Loader'
 import AddBookButton from './../components/AddBookButton'
 import Members from './../components/Members'
 import './../styles/Club.css'
 
-interface clubProps {
+interface ClubProps {
   id: string
   clubname: string
   club_pic: string
@@ -23,14 +23,14 @@ interface clubProps {
   host_profile_pic: string
 }
 
-interface editClubProps {
+interface EditClubProps {
   id: string
   clubname: string
   club_pic: any
   file: any
 }
 
-interface userProps {
+interface UserProps {
   id: string
   username: string
   bio: string
@@ -40,10 +40,9 @@ interface userProps {
 }
 
 interface Response {
-  club: clubProps
-  users: userProps[]
+  club: ClubProps
+  users: UserProps[]
 }
-
 
 const Club: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -59,22 +58,23 @@ const Club: React.FC = () => {
     host_name: '',
     host_profile_pic: ''
   })
-  const [editedClub, setEditedClub] = useState<editClubProps>({
+  const [editedClub, setEditedClub] = useState<EditClubProps>({
     id: id,
     clubname: '',
     club_pic: Book,
-    file: null,
+    file: null
   })
   const [redirect, setRedirect] = useState(false)
   const [editedPfp, setEditedPfp] = useState<any>(null)
   const [users, setUsers] = useState<Response['users']>([])
   const [editing, setEditing] = useState(false)
   const [host, setHost] = useState(false)
+  const [usersRefresh, setUsersRefresh] = useState(false)
 
   const setUserDeets = (usersRes: any): void => {
     const usersTemp: Response['users'] = []
     usersRes.forEach((user: any) => {
-      const details: userProps = {
+      const details: UserProps = {
         id: user.id,
         username: user.username,
         bio: user.bio,
@@ -105,7 +105,72 @@ const Club: React.FC = () => {
       if (localStorage.getItem('userId') === club.host_id) setHost(true)
     }
     getDeets().then(() => { }, () => { })
-  }, [id])
+  }, [id, usersRefresh])
+
+  useEffect(() => {
+    setEditedClub({
+      id: id,
+      clubname: club.clubname,
+      club_pic: club.club_pic,
+      file: null
+    })
+  }, [club, id])
+
+  const handleDisregard = () => {
+    setEditedClub({
+      id: id,
+      clubname: club.clubname,
+      club_pic: club.club_pic,
+      file: null
+    })
+    setEditing(false)
+  }
+
+  const updateClubDeets = async (raw: EditClubProps): Promise<any> => {
+    const responseClub = await updateClub(raw)
+    setClub(responseClub)
+    // setEditedClub({
+    //   id: id,
+    //   clubname: club.clubname,
+    //   club_pic: club.club_pic,
+    //   file: null
+    // })
+  }
+
+  const handleSave = async () => {
+    setEditing(false)
+    const pfp = (editedPfp != null) ? editedPfp : editedClub.club_pic
+    try {
+      const raw = {
+        id: editedClub.id,
+        clubname: editedClub.clubname,
+        club_pic: pfp,
+        file: editedClub.file
+      }
+      await updateClubDeets(raw)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const handleToggle = async (e: React.BaseSyntheticEvent): Promise<any> => {
+    e.preventDefault()
+    setClub({ ...club, private: !club.private })
+    try {
+      await togglePrivate(id)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const handleLeave = (): void => {
+    setRedirect(true)
+    try {
+      leaveClub(id)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <>
@@ -113,7 +178,7 @@ const Club: React.FC = () => {
         ? <Redirect to='/clubs' />
         : users.length <= 0
           ? <div className='clubp-loader'>
-              <Loader />
+            <Loader />
             </div>
           : (
             <section>
@@ -125,12 +190,15 @@ const Club: React.FC = () => {
                       host && (
                         !editing
                           ? <MdEdit onClick={() => setEditing(true)} />
-                          : <FaTimes onClick={() => setEditing(false)} />
+                          : <>
+                              <FaTimes onClick={handleDisregard} />
+                              <FaSave onClick={handleSave} />
+                            </>
                       )
                     }
                   </div>
                   <div>
-                    <ImQrcode onClick={() => setEditing(true)} />
+                    <ImQrcode onClick={() => console.log('TODO: qr stuff')} />
                   </div>
                 </div>
               </div>
@@ -141,7 +209,9 @@ const Club: React.FC = () => {
                     <img src={editedClub.club_pic} alt='Profile' />
                     {editing &&
                       <div className='profile-pic-middle'>
-                        <label className='profile-camera' htmlFor='profile-pic-input'><MdAddAPhoto className='camera' /></label>
+                        <label className='profile-camera' htmlFor='profile-pic-input'>
+                          <MdAddAPhoto className='camera' />
+                        </label>
                         <input
                           type='file'
                           id='profile-pic-input'
@@ -161,41 +231,38 @@ const Club: React.FC = () => {
                       </div>}
                   </div>
                   <div className='buttons'>
-                    <Link to={`/club/${id}/read`}><button id='start-reading'>Start Reading</button></Link>
-                    {host && editing &&
-                      <AddBookButton clubDeets={editedClub} setClubDeets={setEditedClub} editing={editing} setEditing={setEditing} />
-                    }
+                    {editing
+                      ? host && <AddBookButton clubDeets={editedClub} setClubDeets={setEditedClub} editing={editing} setEditing={setEditing} />
+                      : <Link to={`/club/${id}/read`}><button id='start-reading'>Start Reading</button></Link>}
                   </div>
                 </div>
 
                 <div className='clubp-second'>
                   <div className='clubp-private'>
                     <label className='switch-container clubp-switch'>
-                      <span>{club.private ? 'Private' : 'Public'}</span>
+                      <span>{editing ? 'Private' : club.private ? 'Private' : 'Public'}</span>
                       {editing &&
                         <label className='switch'>
                           <input
+                            key={Math.random()}
                             type='checkbox'
-                            // checked={editedClub.private}
-                            // some different request
-                            // onChange={(e) => setClubDeets({ ...clubDeets, private: e.target.checked })}
+                            checked={club.private}
+                            onChange={handleToggle}
                           />
                           <span className='slider' />
-                        </label>
-                      }
+                        </label>}
                     </label>
                   </div>
                   <div className='clubp-members'>
-                    <Members users={users} host={club.host_id}/>
+                    <Members clubId={id} users={users} host={club.host_id} refresh={usersRefresh} setRefresh={setUsersRefresh} />
                   </div>
                   <div className='leave-club'>
-                    <button id='leave'>Leave Club</button>
+                    <button id='leave' onClick={handleLeave}>Leave Club</button>
                   </div>
                 </div>
               </div>
             </section>
-          )
-      }
+          )}
     </>
   )
 }
