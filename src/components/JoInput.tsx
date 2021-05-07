@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { Redirect } from 'react-router-dom'
 import { AppContext } from './../Context'
 import { joinNewClub } from './../utils/apiCalls'
 import Loader from './Loader'
@@ -10,6 +11,7 @@ const JoInput: React.FC<{submit: React.Dispatch<React.SetStateAction<number>>}> 
 
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [redirect, setRedirect] = useState(false)
 
   const handleChange = (e: React.BaseSyntheticEvent): void => {
     const re = /^[A-Za-z0-9_-]{1,36}$/
@@ -26,6 +28,7 @@ const JoInput: React.FC<{submit: React.Dispatch<React.SetStateAction<number>>}> 
       submit(Math.random())
       setJoinClub('')
       setLoading(false)
+      setRedirect(true)
     } catch (e) {
       const error = String(e).replaceAll('Error: ', '')
       setError(error)
@@ -37,6 +40,7 @@ const JoInput: React.FC<{submit: React.Dispatch<React.SetStateAction<number>>}> 
 
   return (
     <form className='join-form' onSubmit={handleSubmit}>
+      {redirect ? <Redirect to={`/clubs`} /> : null}
       <label>
         <input
           name='join-club'

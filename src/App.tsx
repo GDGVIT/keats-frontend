@@ -29,6 +29,7 @@ const App = (): JSX.Element => {
 
   const { stageState } = useContext(AppContext)
   /* eslint-disable  @typescript-eslint/no-unused-vars */
+  // Needed to rerender upon login to redirect
   const [stage] = stageState
   /* eslint-enable  @typescript-eslint/no-unused-vars */
 
