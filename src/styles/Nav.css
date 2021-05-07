@@ -1,11 +1,14 @@
 header {
   width: 100%;
+  position: fixed;
   height: 4rem;
   padding: 0.5rem var(--mg-l);
+  background-color: var(--dark);
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .logo {

@@ -1,0 +1,90 @@
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  pointer-events: visible;
+  z-index: 10;
+}
+
+.modal-content {
+  width: 95vw;
+  max-width: 20rem;
+  background-color: var(--dim);
+  transition: all 0.3s ease-in-out;
+  border-bottom: solid 0.25rem var(--dark);
+  border-top: solid 0.25rem var(--dark);
+  border-radius: 0.5rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-header svg {
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+  right: 0.75rem;
+  top: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+
+.modal-body {
+  padding: 0 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem;
+}
+
+.modal-body svg {
+  border-radius: 0.25rem;
+}
+
+.modal-copy {
+  width: 100%;
+  margin: 1.25rem 0;
+  border: 0.0625rem solid var(--light);
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-id {
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.modal-clipboard {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.modal-message {
+  height: 0.875rem;
+  margin-right: auto;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f0;
+}
+
+.modal-message.brr {
+  color: #eb032e;
+}

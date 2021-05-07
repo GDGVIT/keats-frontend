@@ -99,6 +99,10 @@
   padding: 0.75rem 0;
 }
 
+.profile-email {
+  word-break: break-all;
+}
+
 .profile-input {
   display: flex;
   align-items: center;

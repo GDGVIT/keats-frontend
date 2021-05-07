@@ -8,6 +8,7 @@ import Book from './../assets/book.jpg'
 import Loader from './../components/Loader'
 import AddBookButton from './../components/AddBookButton'
 import Members from './../components/Members'
+import Modal from './../components/Modal'
 import './../styles/Club.css'
 
 interface ClubProps {
@@ -70,6 +71,7 @@ const Club: React.FC = () => {
   const [editing, setEditing] = useState(false)
   const [host, setHost] = useState(false)
   const [usersRefresh, setUsersRefresh] = useState(false)
+  const [showQr, setShowQr] = useState(false)
 
   const setUserDeets = (usersRes: any): void => {
     const usersTemp: Response['users'] = []
@@ -177,93 +179,96 @@ const Club: React.FC = () => {
       {redirect
         ? <Redirect to='/clubs' />
         : users.length <= 0
-          ? <div className='clubp-loader'><Loader /></div>
+          ? <section className='clubp-loader'><Loader /></section>
           : (
-            <section>
-              <div className='clubs-header'>
-                <h2>{club.clubname}</h2>
-                <div className='clubp-icons'>
-                  <div>
-                    {
-                      host && (
-                        !editing
-                          ? <MdEdit onClick={() => setEditing(true)} />
-                          /* eslint-disable  @typescript-eslint/indent */
-                          /* eslint-disable  react/jsx-indent */
-                          : <>
-                              <FaTimes onClick={handleDisregard} />
-                              <FaSave onClick={handleSave} />
-                            </>
-                          /* eslint-enable  @typescript-eslint/indent */
-                          /* eslint-enable  react/jsx-indent */
-                      )
-                    }
-                  </div>
-                  <div>
-                    <ImQrcode onClick={() => console.log('TODO: qr stuff')} />
-                  </div>
-                </div>
-              </div>
-
-              <div className='clubp-body'>
-                <div className='clubp-first'>
-                  <div className={`clubp-image club-image ${editing ? 'edit' : ''}`}>
-                    <img src={editedClub.club_pic} alt='Profile' />
-                    {editing &&
-                      <div className='profile-pic-middle'>
-                        <label className='profile-camera' htmlFor='profile-pic-input'>
-                          <MdAddAPhoto className='camera' />
-                        </label>
-                        <input
-                          type='file'
-                          id='profile-pic-input'
-                          form='edit-club-form'
-                          accept='.png, .jpg'
-                          onChange={(e) => {
-                            if (e.target.files !== null && e.target.files.length !== 0) {
-                              setEditedPfp(e.target.files[0])
-                              // To get preview
-                              const reader = new FileReader()
-                              reader.onload = (e) =>
-                                setEditedClub({ ...editedClub, club_pic: e.target?.result })
-                              reader.readAsDataURL(e.target.files[0])
-                            } else setEditedClub({ ...editedClub, club_pic: club.club_pic })
-                          }}
-                        />
-                      </div>}
-                  </div>
-                  <div className='buttons'>
-                    {editing
-                      ? host && <AddBookButton clubDeets={editedClub} setClubDeets={setEditedClub} editing={editing} setEditing={setEditing} />
-                      : <Link to={`/club/${id}/read`}><button id='start-reading'>Start Reading</button></Link>}
+            <>
+              <section>
+                <div className='clubs-header'>
+                  <h2>{club.clubname}</h2>
+                  <div className='clubp-icons'>
+                    <div>
+                      {
+                        host && (
+                          !editing
+                            ? <MdEdit onClick={() => setEditing(true)} />
+                            /* eslint-disable  @typescript-eslint/indent */
+                            /* eslint-disable  react/jsx-indent */
+                            : <>
+                                <FaTimes onClick={handleDisregard} />
+                                <FaSave onClick={handleSave} />
+                              </>
+                            /* eslint-enable  @typescript-eslint/indent */
+                            /* eslint-enable  react/jsx-indent */
+                        )
+                      }
+                    </div>
+                    <div>
+                      <ImQrcode onClick={() => setShowQr(true)} />
+                    </div>
                   </div>
                 </div>
 
-                <div className='clubp-second'>
-                  <div className='clubp-private'>
-                    <label className='switch-container clubp-switch'>
-                      <span>{editing ? 'Private' : club.private ? 'Private' : 'Public'}</span>
+                <div className='clubp-body'>
+                  <div className='clubp-first'>
+                    <div className={`clubp-image club-image ${editing ? 'edit' : ''}`}>
+                      <img src={editedClub.club_pic} alt='Profile' />
                       {editing &&
-                        <label className='switch'>
+                        <div className='profile-pic-middle'>
+                          <label className='profile-camera' htmlFor='profile-pic-input'>
+                            <MdAddAPhoto className='camera' />
+                          </label>
                           <input
-                            key={Math.random()}
-                            type='checkbox'
-                            checked={club.private}
-                            onChange={handleToggle}
+                            type='file'
+                            id='profile-pic-input'
+                            form='edit-club-form'
+                            accept='.png, .jpg'
+                            onChange={(e) => {
+                              if (e.target.files !== null && e.target.files.length !== 0) {
+                                setEditedPfp(e.target.files[0])
+                                // To get preview
+                                const reader = new FileReader()
+                                reader.onload = (e) =>
+                                  setEditedClub({ ...editedClub, club_pic: e.target?.result })
+                                reader.readAsDataURL(e.target.files[0])
+                              } else setEditedClub({ ...editedClub, club_pic: club.club_pic })
+                            }}
                           />
-                          <span className='slider' />
-                        </label>}
-                    </label>
+                        </div>}
+                    </div>
+                    <div className='buttons'>
+                      {editing
+                        ? host && <AddBookButton clubDeets={editedClub} setClubDeets={setEditedClub} editing={editing} setEditing={setEditing} />
+                        : <Link to={`/club/${id}/read`}><button id='start-reading'>Start Reading</button></Link>}
+                    </div>
                   </div>
-                  <div className='clubp-members'>
-                    <Members clubId={id} users={users} host={club.host_id} refresh={usersRefresh} setRefresh={setUsersRefresh} />
-                  </div>
-                  <div className='leave-club'>
-                    <button id='leave' onClick={handleLeave}>Leave Club</button>
+
+                  <div className='clubp-second'>
+                    <div className='clubp-private'>
+                      <label className='switch-container clubp-switch'>
+                        <span>{editing ? 'Private' : club.private ? 'Private' : 'Public'}</span>
+                        {editing &&
+                          <label className='switch'>
+                            <input
+                              key={Math.random()}
+                              type='checkbox'
+                              checked={club.private}
+                              onChange={handleToggle}
+                            />
+                            <span className='slider' />
+                          </label>}
+                      </label>
+                    </div>
+                    <div className='clubp-members'>
+                      <Members clubId={id} users={users} host={club.host_id} refresh={usersRefresh} setRefresh={setUsersRefresh} />
+                    </div>
+                    <div className='leave-club'>
+                      <button id='leave' onClick={handleLeave}>Leave Club</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
+              {showQr && <Modal onClose={() => setShowQr(false)} id={id} />}
+            </>
           )}
     </>
   )

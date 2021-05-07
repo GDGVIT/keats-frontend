@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react'
 import { AppContext } from './Context'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import Nav from './components/Nav'
@@ -35,7 +35,7 @@ const App = (): JSX.Element => {
   return (
     <Router>
       <Nav />
-      <Switch>
+      <>
         <Route exact path='/'>
           {localStorage.getItem('token') !== null && <Redirect to='/clubs' />}
           <Landing />
@@ -58,7 +58,7 @@ const App = (): JSX.Element => {
             <Profile />
           </Route>
         </>
-      </Switch>
+      </>
     </Router>
   )
 }

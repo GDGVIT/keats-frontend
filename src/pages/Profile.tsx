@@ -95,7 +95,7 @@ const Profile: React.FC = () => {
       </div>
       <div className='profile-detail'>
         <MdEmail />
-        <p>{userDeets.email}</p>
+        <p className='profile-email'>{userDeets.email}</p>
       </div>
       <div className='profile-detail'>
         <FaPhoneAlt />
