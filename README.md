@@ -10,17 +10,16 @@
 [![Join Us](https://img.shields.io/badge/Join%20Us-Developer%20Student%20Clubs-red)](https://dsc.community.dev/vellore-institute-of-technology/)
 [![Discord Chat](https://img.shields.io/discord/760928671698649098.svg)](https://discord.gg/498KVdSKWR)
 
-[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](INSERT_LINK_FOR_DOCS_HERE) 
+[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](INSERT_LINK_FOR_DOCS_HERE)
   [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](INSERT_UI_LINK_HERE)
 
 
 ## Features
-- [ ] Uploading PDFs and ePUB
-- [ ] Creating Private and Public Rooms
+- [X] Uploading PDFs and ePUB
+- [X] Creating Private and Public Rooms
 - [ ] Commenting things on each page of the book
-- [ ] Letting people join using Code or QR Code Scan
-- [ ] Having a QR Code scanner for joining room
-- [ ] Letting the host change status of room at any time or kick out any one at any time
+- [X] Letting people join using Code or QR Code Scan
+- [X] Letting the host change status of room at any time or kick out any one at any time
 - [ ] Letting the room vote kick someone out
 
 <br>
@@ -35,12 +34,12 @@
 To install
 ```bash
 git clone github.com/GDGVIT/keats-frontend
+yarn install
 ```
 
 To execute
 
 ```bash
-yarn install
 yarn run
 ```
 
