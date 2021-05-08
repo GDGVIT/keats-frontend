@@ -32,7 +32,7 @@ const YourClubs: React.FC = () => {
       {
         loading
           ? <Loader />
-          : Object.keys(clubs).length !== 0
+          : clubs !== null
             ? <Clubs clubs={clubs} join={false} />
             : <NoClubs />
       }
