@@ -114,10 +114,11 @@ const Profile: React.FC = () => {
           id='username'
           type='text'
           value={editDeets.username}
+          placeholder='Enter your name'
           autoComplete='off'
           onChange={(e) => setEditDeets({ ...editDeets, username: e.target.value })}
           required
-        />
+          />
       </div>
       <div className='profile-input'>
         <FaInfoCircle />
@@ -126,10 +127,11 @@ const Profile: React.FC = () => {
           id='bio'
           type='text'
           autoComplete='off'
+          placeholder='Enter your bio'
           maxLength={100}
           value={editDeets.bio}
           onChange={(e) => setEditDeets({ ...editDeets, bio: e.target.value })}
-        />
+          />
       </div>
       <div className='profile-input'>
         <MdEmail />
@@ -137,9 +139,10 @@ const Profile: React.FC = () => {
           name='email'
           id='email'
           type='email'
+          placeholder='Enter your email'
           value={editDeets.email}
           onChange={(e) => setEditDeets({ ...editDeets, email: e.target.value })}
-        />
+          />
       </div>
       <div className='profile-input'>
         <FaPhoneAlt />
@@ -147,6 +150,7 @@ const Profile: React.FC = () => {
           name='phone'
           id='phone'
           type='tel'
+          placeholder='Enter your phone'
           value={editDeets.phone}
           onChange={(e) => setEditDeets({ ...editDeets, phone: e.target.value })}
           disabled

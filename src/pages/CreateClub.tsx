@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 import { MdAddAPhoto } from 'react-icons/md'
 import Book from './../assets/book.jpg'
 import { createClub } from './../utils/apiCalls'
@@ -29,6 +29,7 @@ const CreateClub: React.FC = () => {
     private: false,
     pageSync: false
   })
+  const history = useHistory();
 
   const checkDevice = (): string => {
     if (window.innerWidth < 768) return 'phone'
@@ -53,7 +54,7 @@ const CreateClub: React.FC = () => {
   const handleSave = (e: React.BaseSyntheticEvent): void => {
     e.preventDefault()
     setLoading(true)
-    createNewClub(clubDeets).then((res) => { setRedirect(res) }, () => { })
+    createNewClub(clubDeets).then((res) => { setRedirect(res) }, (rej) => { history.go(0) })
   }
 
   const CreateButton = (): JSX.Element => (

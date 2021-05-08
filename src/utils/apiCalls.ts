@@ -186,7 +186,7 @@ export const createClub = async (raw: CreateClubProps): Promise<any> => {
     const club = data.data
     return club
   } catch (e) {
-    return {}
+    return String(e)
   }
 }
 

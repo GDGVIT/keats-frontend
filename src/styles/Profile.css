@@ -99,6 +99,10 @@
   padding: 0.75rem 0;
 }
 
+.profile-detail p {
+  height: 1.25rem;
+}
+
 .profile-email {
   word-break: break-all;
 }
@@ -160,6 +164,10 @@
 
   .profile-container {
     align-items: flex-start;
+  }
+
+  .profile-detail p {
+    height: 1.54rem;
   }
 
   .profile-edit {
