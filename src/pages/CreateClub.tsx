@@ -29,7 +29,7 @@ const CreateClub: React.FC = () => {
     private: false,
     pageSync: false
   })
-  const history = useHistory();
+  const history = useHistory()
 
   const checkDevice = (): string => {
     if (window.innerWidth < 768) return 'phone'

@@ -40,7 +40,7 @@ const JoInput: React.FC<{submit: React.Dispatch<React.SetStateAction<number>>}> 
 
   return (
     <form className='join-form' onSubmit={handleSubmit}>
-      {redirect ? <Redirect to={`/clubs`} /> : null}
+      {redirect ? <Redirect to='/clubs' /> : null}
       <label>
         <input
           name='join-club'

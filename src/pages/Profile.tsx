@@ -118,7 +118,7 @@ const Profile: React.FC = () => {
           autoComplete='off'
           onChange={(e) => setEditDeets({ ...editDeets, username: e.target.value })}
           required
-          />
+        />
       </div>
       <div className='profile-input'>
         <FaInfoCircle />
@@ -131,7 +131,7 @@ const Profile: React.FC = () => {
           maxLength={100}
           value={editDeets.bio}
           onChange={(e) => setEditDeets({ ...editDeets, bio: e.target.value })}
-          />
+        />
       </div>
       <div className='profile-input'>
         <MdEmail />
@@ -142,7 +142,7 @@ const Profile: React.FC = () => {
           placeholder='Enter your email'
           value={editDeets.email}
           onChange={(e) => setEditDeets({ ...editDeets, email: e.target.value })}
-          />
+        />
       </div>
       <div className='profile-input'>
         <FaPhoneAlt />
