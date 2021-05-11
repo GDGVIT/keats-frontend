@@ -46,8 +46,13 @@
 }
 
 .clubp-icons svg {
+  color: var(--light);
   margin-left: 1.25rem;
   cursor: pointer;
+}
+
+.clubp-icons svg:hover {
+  opacity: 0.5;
 }
 
 .buttons {

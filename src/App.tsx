@@ -7,6 +7,7 @@ import Nav from './components/Nav'
 import Landing from './pages/Landing'
 import YourClubs from './pages/YourClubs'
 import Club from './pages/Club'
+import Read from './pages/Read'
 import JoinClub from './pages/JoinClub'
 import CreateClub from './pages/CreateClub'
 import Profile from './pages/Profile'
@@ -46,8 +47,11 @@ const App = (): JSX.Element => {
           <Route exact path='/clubs'>
             <YourClubs />
           </Route>
-          <Route path='/club/:id'>
+          <Route exact path='/club/:id'>
             <Club />
+          </Route>
+          <Route path='/club/:id/read'>
+            <Read />
           </Route>
           <Route exact path='/join'>
             <JoinClub />

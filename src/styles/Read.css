@@ -1,0 +1,43 @@
+.read {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.read-skip {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.read-pageno {
+  font-size: 1.25rem;
+  margin: 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.read-pageno p {
+  margin: 0 1.75rem;
+}
+
+.read-pagenav {
+  padding: 0.75rem;
+  background: none;
+  font-weight: 700;
+}
+
+.read-book {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media screen and (min-width: 1200px) {
+  .read-pageno {
+    font-size: 1.75rem;
+  }
+}

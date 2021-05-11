@@ -4,6 +4,11 @@
   justify-content: space-between;
 }
 
+.clubs-header a {
+  color: var(--light);
+  text-decoration: none;
+}
+
 .clubs-redirect {
   color: var(--light);
   text-decoration: none;
