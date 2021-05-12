@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { AppContext } from './../Context'
 import { getUser, updateUser } from './../utils/apiCalls'
 import { FaTimes, FaUser, FaInfoCircle, FaPhoneAlt } from 'react-icons/fa'
@@ -64,18 +65,24 @@ const Profile: React.FC = () => {
     setStage('loggedIn')
   }
 
+  const history = useHistory()
+
   const handleSave = (e: React.BaseSyntheticEvent): void => {
-    e.preventDefault()
-    setEditing(false)
-    const pfp = (userPfp != null) ? userPfp : editDeets.profilePic
-    const raw = {
-      username: editDeets.username,
-      email: editDeets.email,
-      bio: editDeets.bio,
-      profilePic: pfp
+    try {
+      e.preventDefault()
+      setEditing(false)
+      const pfp = (userPfp != null) ? userPfp : editDeets.profilePic
+      const raw = {
+        username: editDeets.username,
+        email: editDeets.email,
+        bio: editDeets.bio,
+        profilePic: pfp
+      }
+      // send patch request
+      updateUserDeets(raw).then(() => { }, () => { })
+    } catch (e) {
+      history.go(0)
     }
-    // send patch request
-    updateUserDeets(raw).then(() => { }, () => { })
   }
 
   useEffect(() => {

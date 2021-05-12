@@ -54,7 +54,7 @@ const CreateClub: React.FC = () => {
   const handleSave = (e: React.BaseSyntheticEvent): void => {
     e.preventDefault()
     setLoading(true)
-    createNewClub(clubDeets).then((res) => { setRedirect(res) }, (rej) => { history.go(0) })
+    createNewClub(clubDeets).then((res) => { setRedirect(res) }, () => { history.go(0) })
   }
 
   const CreateButton = (): JSX.Element => (

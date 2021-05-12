@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link, Redirect } from 'react-router-dom'
+import { useParams, Link, Redirect, useHistory } from 'react-router-dom'
 import { FaTimes, FaSave } from 'react-icons/fa'
 import { ImQrcode } from 'react-icons/im'
 import { MdAddAPhoto, MdEdit } from 'react-icons/md'
@@ -139,6 +139,8 @@ const Club: React.FC = () => {
     // })
   }
 
+  const history = useHistory()
+
   const handleSave = async (): Promise<void> => {
     setEditing(false)
     const pfp = (editedPfp != null) ? editedPfp : editedClub.club_pic
@@ -151,7 +153,7 @@ const Club: React.FC = () => {
       }
       await updateClubDeets(raw)
     } catch (e) {
-      console.log(e)
+      history.go(0)
     }
   }
 
