@@ -5,7 +5,6 @@ import { MdComment } from 'react-icons/md'
 import { getClub } from './../utils/apiCalls'
 import Loader from './../components/Loader'
 import './../styles/Read.css'
-import myPdf from './../assets/test.pdf'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
@@ -72,24 +71,24 @@ const Read: React.FC = () => {
   const [numPages, setNumPages] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
 
-  function onDocumentLoadSuccess ({ numPages }: { numPages: number }) {
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages)
     setPageNumber(1)
   }
 
-  function changePage (offset: number) {
+  const changePage = (offset: number): void => {
     setPageNumber(prevPageNumber => prevPageNumber + offset)
   }
 
-  function previousPage () {
+  const previousPage = (): void => {
     changePage(-1)
   }
 
-  function nextPage () {
+  const nextPage = (): void => {
     changePage(1)
   }
 
-  function removeTextLayerOffset () {
+  const removeTextLayerOffset = (): void => {
     const pageLayers = document.querySelectorAll('.react-pdf__Page')
     pageLayers.forEach(layer => {
       layer.setAttribute('style', 'position: relative; overflow: hidden;')
@@ -108,94 +107,74 @@ const Read: React.FC = () => {
       layer.setAttribute('style', 'display: none;')
     })
   }
-
   return (
     <>
-      {redirect
-        ? <Redirect to='/clubs' />
-        : club.file_url === ''
-          ? <section className='clubp-loader'><Loader /></section>
-          : <>
-            <section>
-              <div className='clubs-header'>
-                <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
-                <div className='clubp-icons'>
-                  <div>
-                    <MdComment />
-                  </div>
-                </div>
-              </div>
-
-              <div className='read'>
-                {/* <a target='_blank' rel='noreferrer' href={club.file_url}>{club.file_url}</a> */}
-                <div className='read-pageno'>
-                  {
-                    device !== 'desktoop'
-                      ? <>
-                        <button
-                          className='read-pagenav'
-                          type='button'
-                          disabled={pageNumber <= 1}
-                          onClick={previousPage}
-                        >
-                          {'<'}
-                        </button>
-                        <p>{pageNumber || (numPages ? 1 : '--')} / {numPages || '--'}</p>
-                        <button
-                          className='read-pagenav'
-                          type='button'
-                          disabled={pageNumber >= numPages}
-                          onClick={nextPage}
-                        >
-                          {'>'}
-                        </button>
-                        </>
-                      : (<p>{pageNumber || (numPages ? 1 : '--')} / {numPages || '--'}</p>)
-                  }
-                </div>
-                <div>
-                  <Document
-                    // file={`https://cors-anywhere.herokuapp.com/${club.file_url}`}
-                    // file='http://www.pdf995.com/samples/pdf.pdf'
-                    file={myPdf}
-                    onLoadSuccess={onDocumentLoadSuccess}
-                  >
-                    <div className='read-book'>
-                      {/* {
-                        device === 'desktop' &&
-                        <button
-                          type="button"
-                          disabled={pageNumber <= 1}
-                          onClick={previousPage}
-                        >
-                          Previous
-                      </button>
-                      } */}
-                      <Page
-                        pageNumber={pageNumber}
-                        width={
-                          device !== 'desktop'
-                            ? (width * 0.9)
-                            : (800)
-                        }
-                        onLoadSuccess={removeTextLayerOffset}
-                      />
-                      {/* {
-                        device === 'desktop' &&
-                        <button
-                          type="button"
-                          disabled={pageNumber >= numPages}
-                          onClick={nextPage}
-                        >
-                          Next
-                        </button>
-                      } */}
+      {
+        redirect
+          ? <Redirect to='/clubs' />
+          : club.file_url === ''
+            ? <section className='clubp-loader'><Loader /></section>
+            /* eslint-disable  @typescript-eslint/indent */
+            /* eslint-disable  react/jsx-indent */
+            : <>
+                <section>
+                  <div className='clubs-header'>
+                    <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
+                    <div className='clubp-icons'>
+                      <div>
+                        <Link to={`/club/${id}/comments`}>
+                          <MdComment />
+                        </Link>
+                      </div>
                     </div>
-                  </Document>
-                </div>
-              </div>
-            </section>
-            </>}
+                  </div>
+
+                  <div className='read'>
+                    {/* <a target='_blank' rel='noreferrer' href={club.file_url}>{club.file_url}</a> */}
+                    <div className='read-pageno'>
+                      <button
+                        className='read-pagenav'
+                        type='button'
+                        disabled={pageNumber <= 1}
+                        onClick={previousPage}
+                      >
+                        {'<'}
+                      </button>
+                      <p>{pageNumber !== 0 ? pageNumber : (numPages !== 0 ? 1 : '--')} / {numPages !== 0 ? numPages : '--'}
+                      </p>
+                      <button
+                        className='read-pagenav'
+                        type='button'
+                        disabled={pageNumber >= numPages}
+                        onClick={nextPage}
+                      >
+                        {'>'}
+                      </button>
+                    </div>
+                    <div>
+                      <Document
+                        file={`${club.file_url}`}
+                        onLoadSuccess={onDocumentLoadSuccess}
+                      >
+                        <div className='read-book'>
+                          <Page
+                            pageNumber={pageNumber}
+                            width={
+                              device !== 'desktop'
+                                ? (width * 0.9)
+                                : (800)
+                            }
+                            onLoadSuccess={removeTextLayerOffset}
+                          />
+                        </div>
+                      </Document>
+                    </div>
+                  </div>
+                </section>
+              </>
+            /* eslint-enable  @typescript-eslint/indent */
+            /* eslint-enable  react/jsx-indent */
+      }
     </>
   )
 }
