@@ -100,7 +100,7 @@
 }
 
 .profile-detail p {
-  height: 1.25rem;
+  min-height: 1.25rem;
 }
 
 .profile-email {

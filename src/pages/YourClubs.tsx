@@ -16,6 +16,10 @@ const YourClubs: React.FC = () => {
       setLoading(false)
     }
     getClubs().then(() => { }, () => { })
+    return () => {
+      setClubs({})
+      setLoading(false)
+    }
   }, [])
 
   return (

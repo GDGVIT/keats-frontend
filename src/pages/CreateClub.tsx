@@ -40,10 +40,12 @@ const CreateClub: React.FC = () => {
   useEffect(() => {
     window.addEventListener('load', () => setDevice(checkDevice()))
     window.addEventListener('resize', () => setDevice(checkDevice()))
+    return () => setDevice(checkDevice())
   })
 
   useEffect(() => {
     setDevice(checkDevice())
+    return () => setDevice(checkDevice())
   }, [])
 
   const createNewClub = async (raw: ClubProps): Promise<string> => {

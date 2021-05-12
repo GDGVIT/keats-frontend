@@ -58,13 +58,25 @@ const Read: React.FC = () => {
   }
 
   useEffect(() => {
-    window.addEventListener('load', () => { setDevice(checkDevice()); setWidth(window.innerWidth) })
-    window.addEventListener('resize', () => { setDevice(checkDevice()); setWidth(window.innerWidth) })
+    window.addEventListener('load', () => {
+      setDevice(checkDevice())
+      setWidth(window.innerWidth)
+    })
+
+    window.addEventListener('resize', () => {
+      setDevice(checkDevice())
+      setWidth(window.innerWidth)
+      removeTextLayerOffset()
+    })
   })
 
   useEffect(() => {
     setDevice(checkDevice())
     setWidth(window.innerWidth)
+    return () => {
+      setDevice(checkDevice())
+      setWidth(window.innerWidth)
+    }
   }, [])
 
   // PDF.js ka nakhra
@@ -153,7 +165,8 @@ const Read: React.FC = () => {
                     </div>
                     <div>
                       <Document
-                        file={`${club.file_url}`}
+                        file={club.file_url}
+                        loading={<Loader />}
                         onLoadSuccess={onDocumentLoadSuccess}
                       >
                         <div className='read-book'>

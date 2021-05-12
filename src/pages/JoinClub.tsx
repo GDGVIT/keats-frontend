@@ -18,6 +18,10 @@ const JoinClub: React.FC = () => {
 
   useEffect(() => {
     getClubs().then(() => { }, () => { }).catch(() => { })
+    return () => {
+      setClubs(clubs => clubs)
+      setLoading(false)
+    }
   }, [submit])
 
   return (
