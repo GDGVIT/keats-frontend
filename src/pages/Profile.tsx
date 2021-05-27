@@ -49,10 +49,10 @@ const Profile: React.FC = () => {
       setDeetsState(user)
     }
     getUserDeets().then(() => { }, () => { })
-    return () => {
+    return (() => {
       setUserDeets(userDeets => userDeets)
       setEditDeets(editDeets => editDeets)
-    }
+    })
   }, [])
 
   const handleLogout = (): void => {
@@ -91,10 +91,11 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     if (!editing) setEditDeets(userDeets)
-    return () => {
-      setEditDeets(editDeets => editDeets)
+    return (() => {
       setEditing(editing => editing)
-    }
+      setEditDeets(editDeets => editDeets)
+      setUserDeets(userDeets => userDeets)
+    })
   }, [editing, userDeets])
 
   const landingFrame: JSX.Element = (

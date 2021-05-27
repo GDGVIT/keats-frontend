@@ -12,7 +12,7 @@ import JoinClub from './pages/JoinClub'
 import CreateClub from './pages/CreateClub'
 import Profile from './pages/Profile'
 
-const App = (): JSX.Element => {
+const App: React.FC = () => {
   useEffect(() => {
     const firebaseConfig = {
       apiKey: 'AIzaSyBEQwyFQC-UYyLmR-kuRBzF4k8EsK7aupc',
@@ -34,16 +34,18 @@ const App = (): JSX.Element => {
   const [stage] = stageState
   /* eslint-enable  @typescript-eslint/no-unused-vars */
 
+  const urlToken = new URLSearchParams(document.location.search).get('token')
+
   return (
     <Router>
       <Nav />
       <>
         <Route exact path='/'>
-          {localStorage.getItem('token') !== null && <Redirect to='/clubs' />}
+          {(localStorage.getItem('token') !== null || urlToken !== null) && <Redirect to='/clubs' />}
           <Landing />
         </Route>
         <>
-          {localStorage.getItem('token') === null && <Redirect to='/' />}
+          {(localStorage.getItem('token') === null && urlToken === null) && <Redirect to='/' />}
           <Route exact path='/clubs'>
             <YourClubs />
           </Route>
