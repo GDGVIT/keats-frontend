@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 import { useParams, Link, Redirect } from 'react-router-dom'
 import { MdComment } from 'react-icons/md'
@@ -92,13 +92,25 @@ const Read: React.FC = () => {
     setPageNumber(prevPageNumber => prevPageNumber + offset)
   }
 
-  const previousPage = (): void => {
-    changePage(-1)
-  }
+  const previousPage = useCallback(() => {
+    if (pageNumber > 1) changePage(-1)
+  }, [pageNumber])
+  const nextPage = useCallback(() => {
+    if (pageNumber < numPages) changePage(1)
+  }, [pageNumber, numPages])
 
-  const nextPage = (): void => {
-    changePage(1)
-  }
+  const keyChangePage = useCallback((event) => {
+    if (event.keyCode === 37) previousPage()
+    else if (event.keyCode === 39) nextPage()
+  }, [nextPage, previousPage])
+
+  useEffect(() => {
+    document.addEventListener('keydown', keyChangePage, false)
+
+    return () => {
+      document.removeEventListener('keydown', keyChangePage, false)
+    }
+  }, [keyChangePage])
 
   const removeTextLayerOffset = (): void => {
     const pageLayers = document.querySelectorAll('.react-pdf__Page')

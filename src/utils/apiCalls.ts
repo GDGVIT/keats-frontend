@@ -29,9 +29,9 @@ export const auth = async (token: string): Promise<boolean> => {
 
 export const getUser = async (): Promise<any> => {
   const myHeaders = new Headers()
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
 
   const requestOptions = {
     method: 'GET',
@@ -59,9 +59,9 @@ interface UpdateProps {
 export const updateUser = async (raw: UpdateProps): Promise<any> => {
   const myHeaders = new Headers()
   // myHeaders.append('Content-Type', ' multipart/form-data')
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
 
   const formData = new FormData()
   formData.append('username', raw.username)
@@ -91,9 +91,9 @@ export const getUserClubs = async (): Promise<any> => {
   // const token = String(localStorage.getItem('token')) || new URLSearchParams(document.location.search.substring(1)).get('token')
   // console.log(new URLSearchParams(document.location.search.substring(1)).get('token'))
   // myHeaders.append('Authorization', `Bearer ${token}`)
-  //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYxNGQ5OTAzLWYxNzQtNGRkNy04ZTZjLWRmYmJjYjcyNThlOCJ9.NsjgkCCg21l99fzk_qLLt9LLUWz_SS-UrZIXFaAp0uk
+  // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYxNGQ5OTAzLWYxNzQtNGRkNy04ZTZjLWRmYmJjYjcyNThlOCJ9.NsjgkCCg21l99fzk_qLLt9LLUWz_SS-UrZIXFaAp0uk
 
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
 
   // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
@@ -117,9 +117,9 @@ export const getUserClubs = async (): Promise<any> => {
 
 export const getPublicClubs = async (): Promise<any> => {
   const myHeaders = new Headers()
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
 
   const requestOptions = {
     method: 'GET',
@@ -140,9 +140,9 @@ export const getPublicClubs = async (): Promise<any> => {
 
 export const joinNewClub = async (clubId: string): Promise<any> => {
   const myHeaders = new Headers()
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
   myHeaders.append('Content-Type', 'application/json')
 
   const raw = JSON.stringify({
@@ -180,9 +180,9 @@ interface CreateClubProps {
 export const createClub = async (raw: CreateClubProps): Promise<any> => {
   const myHeaders = new Headers()
   // myHeaders.append('Content-Type', ' multipart/form-data')
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
 
   const formData = new FormData()
   formData.append('clubname', raw.clubName)
@@ -210,9 +210,9 @@ export const createClub = async (raw: CreateClubProps): Promise<any> => {
 
 export const getClub = async (id: string): Promise<any> => {
   const myHeaders = new Headers()
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
 
   const requestOptions = {
     method: 'GET',
@@ -233,9 +233,9 @@ export const getClub = async (id: string): Promise<any> => {
 
 export const togglePrivate = async (clubId: string): Promise<any> => {
   const myHeaders = new Headers()
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
   myHeaders.append('Content-Type', 'application/json')
 
   const raw = JSON.stringify({
@@ -269,9 +269,9 @@ interface UpdateClubProps {
 export const updateClub = async (raw: UpdateClubProps): Promise<any> => {
   const myHeaders = new Headers()
   // myHeaders.append('Content-Type', ' multipart/form-data')
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
 
   const formData = new FormData()
   formData.append('id', raw.id)
@@ -298,9 +298,9 @@ export const updateClub = async (raw: UpdateClubProps): Promise<any> => {
 
 export const kickUser = async (clubId: string, userId: string): Promise<any> => {
   const myHeaders = new Headers()
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
   myHeaders.append('Content-Type', 'application/json')
 
   const raw = JSON.stringify({
@@ -327,9 +327,9 @@ export const kickUser = async (clubId: string, userId: string): Promise<any> => 
 
 export const leaveClub = async (clubId: string): Promise<any> => {
   const myHeaders = new Headers()
-  const token = new URLSearchParams(document.location.search).get('token') || String(localStorage.getItem('token'))
+  const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   myHeaders.append('Authorization', `Bearer ${token}`)
-  //myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
+  // myHeaders.append('Authorization', `Bearer ${String(localStorage.getItem('token'))}`)
   myHeaders.append('Content-Type', 'application/json')
 
   const raw = JSON.stringify({
