@@ -57,24 +57,22 @@ const Read: React.FC = () => {
             ? <section className='clubp-loader'><Loader /></section>
             /* eslint-disable  @typescript-eslint/indent */
             /* eslint-disable  react/jsx-indent */
-            : <>
-                <section>
-                  <div className='clubs-header'>
-                    <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
-                    <div className='clubp-icons'>
-                      <div>
-                        <Link to={`/club/${id}/chat`}>
-                          <MdComment />
-                        </Link>
-                      </div>
+            : <section>
+                <div className='clubs-header'>
+                  <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
+                  <div className='clubp-icons'>
+                    <div>
+                      <Link to={`/club/${id}/chat`}>
+                        <MdComment />
+                      </Link>
                     </div>
                   </div>
-                  {
-                    pdf ? <Pdf url={club.file_url} setPdf={setPdf} />
-                      : <div>Something went wrong! Please try changing your file.</div>
-                  }
-                </section>
-              </>
+                </div>
+                {
+                  pdf ? <Pdf url={club.file_url} setPdf={setPdf} />
+                    : <div>Something went wrong! Please try changing your file.</div>
+                }
+              </section>
             /* eslint-enable  @typescript-eslint/indent */
             /* eslint-enable  react/jsx-indent */
       }

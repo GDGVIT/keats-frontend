@@ -11,6 +11,7 @@ import Read from './pages/Read'
 import JoinClub from './pages/JoinClub'
 import CreateClub from './pages/CreateClub'
 import Profile from './pages/Profile'
+import Chat from './pages/Chat'
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -54,6 +55,9 @@ const App: React.FC = () => {
           </Route>
           <Route path='/club/:id/read'>
             <Read />
+          </Route>
+          <Route path='/club/:id/chat'>
+            <Chat />
           </Route>
           <Route exact path='/join'>
             <JoinClub />
