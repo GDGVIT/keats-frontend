@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
+import { useSwipeable } from 'react-swipeable'
 import Loader from './../components/Loader'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
@@ -99,8 +100,15 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
     })
   }
 
+  // Making swipey tings
+  const handlers = useSwipeable({
+    onSwipedLeft: () => nextPage(),
+    onSwipedRight: () => previousPage(),
+    preventDefaultTouchmoveEvent: true
+  })
+
   return (
-    <div className='read'>
+    <div className='read' {...handlers}>
       {/* <a target='_blank' rel='noreferrer' href={club.file_url}>{club.file_url}</a> */}
       <div className='read-pageno'>
         <button
