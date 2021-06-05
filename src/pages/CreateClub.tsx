@@ -126,6 +126,7 @@ const CreateClub: React.FC = () => {
                         name='club-name'
                         id='club-name'
                         type='text'
+                        maxLength={25}
                         placeholder='Enter Club Name'
                         value={clubDeets.clubName}
                         onChange={(e) => setClubDeets({ ...clubDeets, clubName: e.target.value })}
