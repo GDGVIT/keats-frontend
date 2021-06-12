@@ -94,7 +94,7 @@ const Chat: React.FC = () => {
 
   // Socket tings
   const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
-  const [webSocket,] = useState(new WebSocket(`wss://keats-testing.herokuapp.com/api/ws/${id}?token=${token}`))
+  const [webSocket, setWebSocket] = useState<any>(null)
 
   const sendChat = (): void => {
     if(userMsg === '') {
@@ -110,17 +110,29 @@ const Chat: React.FC = () => {
     console.log('msgsent')
   }
 
-  webSocket.onmessage = (e): void => {
-    let data = JSON.parse(e.data).data
-    // console.log(data)
-    setChat([...chat, data])
+  const connect = () => {
+
+    if (webSocket !== null) {
+      webSocket.onmessage = (e: { data: string }): void => {
+        let data = JSON.parse(e.data).data
+        // console.log(data)
+        setChat([...chat, data])
+      }
+
+      webSocket.onopen = (): void => {
+        console.log('connected sir')
+        // console.log(event)
+      }
+    }
   }
 
-  webSocket.onopen = (event): void => {
-    console.log('connected sir')
-    // console.log(event)
-  }
+  useEffect (() => {
+    setWebSocket(new WebSocket(`wss://keats-testing.herokuapp.com/api/ws/${id}?token=${token}`))
+  }, [id, token])
 
+  useEffect(() => {
+    connect()
+  })
 
   // console.log('chat', chat)
   // console.log('users', users)
