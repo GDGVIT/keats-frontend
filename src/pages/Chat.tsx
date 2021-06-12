@@ -3,7 +3,8 @@ import { useParams, Link, Redirect } from 'react-router-dom'
 import { IoIosBook } from 'react-icons/io'
 import { getClub } from './../utils/apiCalls'
 import Loader from './../components/Loader'
-// import './../styles/Chat.css'
+import Message from '../components/Message'
+import './../styles/Chat.css'
 
 interface ClubProps {
   id: string
@@ -59,8 +60,7 @@ const Chat: React.FC = () => {
   const [redirect, setRedirect] = useState(false)
   const [chat, setChat] = useState<Response['chat']>([])
   const [userMsg, setUserMsg] = useState('')
-
-  const userId = localStorage.getItem('userId')
+  const [connected, setConnected] = useState(false)
 
   const setUserDeets = (usersRes: any): void => {
     const usersTemp: Response['users'] = []
@@ -80,7 +80,7 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     const getDeets = async (): Promise<void> => {
-      const { exists, club, usersRes, chat }: {exists: boolean, club: ClubProps, usersRes: UserProps, chat: Response['chat']} = await getClub(id)
+      const { exists, club, usersRes, chat }: { exists: boolean, club: ClubProps, usersRes: UserProps, chat: Response['chat'] } = await getClub(id)
       if (!exists) {
         setRedirect(!exists)
         return
@@ -92,12 +92,32 @@ const Chat: React.FC = () => {
     getDeets().then(() => { }, () => { })
   }, [id])
 
+  const getUserPfp = (id: string): string | undefined => {
+    let pfp: undefined | string = undefined
+    users.forEach(user => {
+      if (user.id === id) pfp = user.profilePic
+    })
+    return pfp
+  }
+
+  const getUserName = (id: string): string | undefined => {
+    let username: undefined | string = undefined
+    users.forEach(user => {
+      if (user.id === id) username = user.username
+    })
+    return username
+  }
+
+  const getMessageContinuity = (idx: number, sender: string): boolean => (
+    (idx !== chat.length - 1 && sender === chat[idx + 1].user_id) ? true : false
+  )
+
   // Socket tings
   const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
   const [webSocket, setWebSocket] = useState<any>(null)
 
   const sendChat = (): void => {
-    if(userMsg === '') {
+    if (userMsg === '') {
       alert('fkof')
       return
     }
@@ -120,13 +140,12 @@ const Chat: React.FC = () => {
       }
 
       webSocket.onopen = (): void => {
-        console.log('connected sir')
-        // console.log(event)
+        setConnected(true)
       }
     }
   }
 
-  useEffect (() => {
+  useEffect(() => {
     setWebSocket(new WebSocket(`wss://keats-testing.herokuapp.com/api/ws/${id}?token=${token}`))
   }, [id, token])
 
@@ -142,32 +161,41 @@ const Chat: React.FC = () => {
       {
         redirect
           ? <Redirect to='/clubs' />
-          : users.length <= 0
+          : users.length <= 0 || !connected
             ? <section className='clubp-loader'><Loader /></section>
             /* eslint-disable  @typescript-eslint/indent */
             /* eslint-disable  react/jsx-indent */
             : <>
-                <section>
-                  <div className='clubs-header'>
-                    <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
-                    <div className='clubp-icons'>
-                      <div>
-                        <Link to={`/club/${id}/read`}>
-                          <IoIosBook />
-                        </Link>
-                      </div>
+              <section>
+                <div className='clubs-header'>
+                  <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
+                  <div className='clubp-icons'>
+                    <div>
+                      <Link to={`/club/${id}/read`}>
+                        <IoIosBook />
+                      </Link>
                     </div>
                   </div>
+                </div>
 
-                  <div className='chat'>
-                    {chat && chat.map(msg => <div className=''>{msg.message + ",     " + msg.user_id}</div>)}
-                  </div>
-                  <input type='text' value={userMsg} onChange={e => setUserMsg(e.target.value)} />
-                  <button onClick={sendChat}>Click to chat</button>
-                </section>
-              </>
-            /* eslint-enable  @typescript-eslint/indent */
-            /* eslint-enable  react/jsx-indent */
+                <div className='chat'>
+                  {chat && chat.map((msg, idx) =>
+                    <Message
+                      key={msg.id}
+                      msg={msg}
+                      userPfp={getUserPfp(msg.user_id)}
+                      userName={getUserName(msg.user_id)}
+                      continuity={getMessageContinuity(idx, msg.user_id)}
+                      final={idx > 0 && getMessageContinuity(idx-1, chat[idx-1].user_id) && !getMessageContinuity(idx, msg.user_id)}/>)
+                      // final would be if the one before it had continuity but this one doesnt
+                  }
+                </div>
+                <input type='text' value={userMsg} onChange={e => setUserMsg(e.target.value)} />
+                <button onClick={sendChat}>Click to chat</button>
+              </section>
+            </>
+        /* eslint-enable  @typescript-eslint/indent */
+        /* eslint-enable  react/jsx-indent */
       }
     </>
   )

@@ -1,0 +1,119 @@
+.message {
+  display: flex;
+  justify-content: start;
+  align-items: flex-end;
+  margin: 1rem 0;
+}
+
+.message.continue {
+  margin: 0.25rem 0;
+}
+
+.message.final {
+  margin: 0.25rem 0 0 0;
+}
+
+.message.self {
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+.msg-img,
+.msg-img img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.msg-img img {
+  border: 1px solid var(--light);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.msg-wrapper {
+  background-color: var(--dim);
+  min-height: 4rem;
+  width: 60%;
+  margin: 0 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+}
+
+.message.continue .msg-wrapper {
+  min-height: 2.5rem;
+}
+
+.msg-content {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.msg-content.continue {
+  margin: 0;
+}
+
+.msg-lower {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message.other .msg-lower {
+  flex-direction: row-reverse;
+}
+
+.msg-name {
+  max-width: 50%;
+  width: max-content;
+  text-overflow: ellipsis;
+  opacity: 0.7;
+}
+
+.msg-name,
+.msg-likes {
+  display: flex;
+  font-size: 0.75rem;
+}
+
+.message.other .msg-name {
+  margin-right: auto;
+}
+
+.message.self .msg-name {
+  margin-left: auto;
+}
+
+.msg-likes svg {
+  margin-right: 0.375rem;
+}
+
+.other .msg-likes {
+  cursor: pointer;
+}
+
+.other .msg-likes svg:hover {
+  transform: scale(1.1);
+  color: var(--purple);
+}
+
+@media screen and (min-width: 768px) {
+  .msg-wrapper {
+    min-width: 20rem;
+    width: max-content;
+    max-width: 60%;
+  }
+
+  .msg-content {
+    font-size: 1.125rem;
+  }
+
+  .msg-name,
+  .msg-likes {
+    font-size: 1rem;
+  }
+}
