@@ -47,6 +47,7 @@
 
 .clubp-icons > div {
   display: flex;
+  align-items: center;
 }
 
 .clubp-icons svg {

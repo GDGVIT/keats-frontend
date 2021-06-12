@@ -224,8 +224,9 @@ export const getClub = async (id: string): Promise<any> => {
     const response = await fetch(`${baseUrl}/api/clubs?club_id=${id}`, requestOptions as any)
     const data = await response.json()
     const club = data.data.club
+    const chat = data.data.chat
     const usersRes = data.data.users
-    return { exists: true, club, usersRes }
+    return { exists: true, club, usersRes, chat }
   } catch (e) {
     return { exists: false }
   }
