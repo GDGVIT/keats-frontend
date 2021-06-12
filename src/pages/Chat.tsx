@@ -110,22 +110,20 @@ const Chat: React.FC = () => {
     console.log('msgsent')
   }
 
-  useEffect(() => {
-    webSocket.onmessage = (e): void => {
-      let data = JSON.parse(e.data).data
-      // console.log(data)
-      setChat([...chat, data])
-    }
+  webSocket.onmessage = (e): void => {
+    let data = JSON.parse(e.data).data
+    // console.log(data)
+    setChat([...chat, data])
+  }
 
-    webSocket.onopen = (event): void => {
-      console.log('connected sir')
-      // console.log(event)
-    }
-  })
+  webSocket.onopen = (event): void => {
+    console.log('connected sir')
+    // console.log(event)
+  }
 
 
-  console.log('chat', chat)
-  console.log('users', users)
+  // console.log('chat', chat)
+  // console.log('users', users)
 
   return (
     <>
