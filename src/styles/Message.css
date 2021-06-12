@@ -56,6 +56,11 @@
   font-size: 1rem;
 }
 
+.msg-content.yeet {
+  opacity: 0.7;
+  font-style: italic;
+}
+
 /* .msg-content.continue {
   margin: 0;
 } */

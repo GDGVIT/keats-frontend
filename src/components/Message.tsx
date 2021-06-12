@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaHeart } from 'react-icons/fa'
+import User from './../assets/user.jpg'
 import './../styles/Message.css'
 
 interface MessageProps {
@@ -23,12 +24,14 @@ const Message: React.FC<Props> = ({ msg, userPfp, userName, top, continuity, fin
 
   const userId = localStorage.getItem('userId')
 
+  if (userPfp === undefined) userPfp = User
+
   return (
     <div className={`message ${userId === msg.user_id ? 'self' : 'other'} ${continuity ? 'continue' : ''} ${final ? 'final' : ''} ${continuity && !top ? 'top' : ''}` }>
       <div className='msg-img'>{!continuity && <img src={userPfp} alt={userName}/>}</div>
 
       <div className='msg-wrapper' title='Double tap to like!'>
-        <div className={`msg-content ${!(msg.likes > 0 || !continuity) ? 'continue' : ''}`}>{msg.message}</div>
+        <div className={`msg-content ${!(msg.likes > 0 || !continuity) ? 'continue' : ''} ${userName === undefined ? 'yeet' : ''}`}>{msg.message}</div>
         {msg.likes > 0 || !continuity ?
           <div className='msg-lower'>
             {/* {msg.likes > 0 && */}
@@ -37,7 +40,7 @@ const Message: React.FC<Props> = ({ msg, userPfp, userName, top, continuity, fin
                 <p className='msg-likes-num'>{msg.likes}</p>
               </div>
             {/* } */}
-            {!continuity && <p className='msg-name'>{userName}</p>}
+            {!continuity && <p className='msg-name'>{`${userName === undefined ? 'User yeeted' : userName}`}</p>}
           </div>
           : null
         }
