@@ -142,13 +142,32 @@ const Chat: React.FC = () => {
     scrollToBottom()
   }
 
+  const likeChat = (id: string): void => {
+    const msg = {
+      action: 'like_chatmessage',
+      data: id
+    }
+    webSocket?.send(JSON.stringify(msg))
+  }
+
+
   const connect = () => {
 
     if (webSocket !== null) {
-      webSocket.onmessage = (e: { data: string }): void => {
-        let data = JSON.parse(e.data).data
-        // console.log(data)
-        setChat([...chat, data])
+      webSocket.onmessage = (e: {data: string}): void => {
+        const action = JSON.parse(e.data).action
+        if (action === 'chatmessage') {
+          const data = JSON.parse(e.data).data
+          setChat([...chat, data])
+        }
+
+        if (action === 'like_chatmessage') {
+          const data = JSON.parse(e.data)
+          const msgIdx = chat.findIndex(msg => msg.id === data.chatmessage_id)
+          let newChat = [...chat]
+          newChat[msgIdx] = {...newChat[msgIdx], likes: newChat[msgIdx].likes+1}
+          setChat(newChat)
+        }
       }
 
       webSocket.onopen = (): void => {
@@ -164,6 +183,9 @@ const Chat: React.FC = () => {
   useEffect(() => {
     connect()
   })
+
+  // TODO: Add double click to like
+  // TODO: spam like backend watre
 
 
   return (
@@ -193,6 +215,7 @@ const Chat: React.FC = () => {
                     <Message
                       key={msg.id}
                       msg={msg}
+                      likeChat={likeChat}
                       userPfp={getUserPfp(msg.user_id)}
                       userName={getUserName(msg.user_id)}
                       top={getPrevMessageContinuity(idx, msg.user_id)}

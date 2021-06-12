@@ -6,7 +6,21 @@
 
 .chat {
   height: calc(100vh - 11.5rem);
-  overflow: scroll;
+  overflow-y: scroll;
+}
+
+.chat::-webkit-scrollbar {
+  margin-left: 1rem;
+  width: 0.25rem;
+}
+
+.chat::-webkit-scrollbar-track {
+  background-color: var(--dark);
+  background-color: #0d0e17;
+}
+
+.chat::-webkit-scrollbar-thumb {
+  background-color: var(--light);
 }
 
 #chat-form {

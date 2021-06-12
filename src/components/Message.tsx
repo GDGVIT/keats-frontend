@@ -18,25 +18,31 @@ interface Props {
   top: boolean
   continuity: boolean
   final: boolean
+  likeChat: any
 }
 
-const Message: React.FC<Props> = ({ msg, userPfp, userName, top, continuity, final }) => {
+const Message: React.FC<Props> = ({ msg, userPfp, userName, top, continuity, final, likeChat }) => {
 
   const userId = localStorage.getItem('userId')
 
   if (userPfp === undefined) userPfp = User
 
+  const handleLike = () => {
+    if (userId === msg.user_id) return
+    likeChat(msg.id)
+  }
+
   return (
     <div className={`message ${userId === msg.user_id ? 'self' : 'other'} ${continuity ? 'continue' : ''} ${final ? 'final' : ''} ${continuity && !top ? 'top' : ''}` }>
       <div className='msg-img'>{!continuity && <img src={userPfp} alt={userName}/>}</div>
 
-      <div className='msg-wrapper' title='Double tap to like!'>
+      <div className='msg-wrapper' title='Double tap to like!' onDoubleClick={handleLike}>
         <div className={`msg-content ${!(msg.likes > 0 || !continuity) ? 'continue' : ''} ${userName === undefined ? 'yeet' : ''}`}>{msg.message}</div>
         {msg.likes > 0 || !continuity ?
           <div className='msg-lower'>
             {/* {msg.likes > 0 && */}
               <div className='msg-likes'>
-                <FaHeart />
+                <FaHeart onClick={handleLike}/>
                 <p className='msg-likes-num'>{msg.likes}</p>
               </div>
             {/* } */}
