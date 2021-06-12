@@ -22,33 +22,37 @@ interface Props {
 }
 
 const Message: React.FC<Props> = ({ msg, userPfp, userName, top, continuity, final, likeChat }) => {
-
   const userId = localStorage.getItem('userId')
 
   if (userPfp === undefined) userPfp = User
 
-  const handleLike = () => {
+  const handleLike = (): void => {
     if (userId === msg.user_id) return
     likeChat(msg.id)
   }
 
   return (
-    <div className={`message ${userId === msg.user_id ? 'self' : 'other'} ${continuity ? 'continue' : ''} ${final ? 'final' : ''} ${continuity && !top ? 'top' : ''}` }>
-      <div className='msg-img'>{!continuity && <img src={userPfp} alt={userName}/>}</div>
+    <div className={`message ${userId === msg.user_id ? 'self' : 'other'} ${continuity ? 'continue' : ''} ${final ? 'final' : ''} ${continuity && !top ? 'top' : ''}`}>
+      <div className='msg-img'>{!continuity && <img src={userPfp} alt={userName} />}</div>
 
       <div className='msg-wrapper' title='Double tap to like!' onDoubleClick={handleLike}>
         <div className={`msg-content ${!(msg.likes > 0 || !continuity) ? 'continue' : ''} ${userName === undefined ? 'yeet' : ''}`}>{msg.message}</div>
-        {msg.likes > 0 || !continuity ?
-          <div className='msg-lower'>
-            {/* {msg.likes > 0 && */}
+        {msg.likes > 0 || !continuity
+          /* eslint-disable  @typescript-eslint/indent */
+          /* eslint-disable  react/jsx-indent */
+          ? <div className='msg-lower'>
+              {/* {msg.likes > 0 && */}
               <div className='msg-likes'>
-                <FaHeart onClick={handleLike}/>
+                <FaHeart onClick={handleLike} />
                 <p className='msg-likes-num'>{msg.likes}</p>
               </div>
-            {/* } */}
-            {!continuity && <p className='msg-name'>{`${userName === undefined ? 'User yeeted' : userName}`}</p>}
-          </div>
-          : null
+              {/* } */}
+              {!continuity && <p className='msg-name'>{`${userName === undefined ? 'User yeeted' : userName}`}</p>}
+            </div>
+          : null}
+        {
+          /* eslint-enable  @typescript-eslint/indent */
+          /* eslint-enable  react/jsx-indent */
         }
       </div>
     </div>

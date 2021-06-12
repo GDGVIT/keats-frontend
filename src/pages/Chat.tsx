@@ -94,7 +94,7 @@ const Chat: React.FC = () => {
   }, [id])
 
   const getUserPfp = (id: string): string | undefined => {
-    let pfp: undefined | string = undefined
+    let pfp: undefined | string
     users.forEach(user => {
       if (user.id === id) pfp = user.profilePic
     })
@@ -102,7 +102,7 @@ const Chat: React.FC = () => {
   }
 
   const getUserName = (id: string): string | undefined => {
-    let username: undefined | string = undefined
+    let username: undefined | string
     users.forEach(user => {
       if (user.id === id) username = user.username
     })
@@ -110,20 +110,20 @@ const Chat: React.FC = () => {
   }
 
   const getPrevMessageContinuity = (idx: number, sender: string): boolean => (
-    (idx !== 0 && sender === chat[idx - 1].user_id) ? true : false
+    !!((idx !== 0 && sender === chat[idx - 1].user_id))
   )
 
   const getMessageContinuity = (idx: number, sender: string): boolean => (
-    (idx !== chat.length - 1 && sender === chat[idx + 1].user_id) ? true : false
+    !!((idx !== chat.length - 1 && sender === chat[idx + 1].user_id))
   )
 
   const scrollToBottom = (): void => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" })
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   useEffect(() => {
     scrollToBottom()
-  }, [connected, chat]);
+  }, [connected, chat])
 
   // Socket tings
   const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
@@ -150,9 +150,7 @@ const Chat: React.FC = () => {
     webSocket?.send(JSON.stringify(msg))
   }
 
-
-  const connect = () => {
-
+  const connect = (): void => {
     if (webSocket !== null) {
       webSocket.onmessage = (e: {data: string}): void => {
         const action = JSON.parse(e.data).action
@@ -164,8 +162,8 @@ const Chat: React.FC = () => {
         if (action === 'like_chatmessage') {
           const data = JSON.parse(e.data)
           const msgIdx = chat.findIndex(msg => msg.id === data.chatmessage_id)
-          let newChat = [...chat]
-          newChat[msgIdx] = {...newChat[msgIdx], likes: newChat[msgIdx].likes+1}
+          const newChat = [...chat]
+          newChat[msgIdx] = { ...newChat[msgIdx], likes: newChat[msgIdx].likes + 1 }
           setChat(newChat)
         }
       }
@@ -186,7 +184,6 @@ const Chat: React.FC = () => {
 
   // TODO: Add double click to like
   // TODO: spam like backend watre
-
 
   return (
     <>
@@ -211,7 +208,7 @@ const Chat: React.FC = () => {
                 </div>
 
                 <div className='chat'>
-                  {chat && chat.map((msg, idx) =>
+                  {chat?.map((msg, idx) =>
                     <Message
                       key={msg.id}
                       msg={msg}
@@ -220,9 +217,9 @@ const Chat: React.FC = () => {
                       userName={getUserName(msg.user_id)}
                       top={getPrevMessageContinuity(idx, msg.user_id)}
                       continuity={getMessageContinuity(idx, msg.user_id)}
-                      final={idx > 0 && getMessageContinuity(idx-1, chat[idx-1].user_id) && !getMessageContinuity(idx, msg.user_id)}/>)
-                  }
-                  <div className='scroll-empty' ref={scrollRef}></div>
+                      final={idx > 0 && getMessageContinuity(idx - 1, chat[idx - 1].user_id) && !getMessageContinuity(idx, msg.user_id)}
+                    />)}
+                  <div className='scroll-empty' ref={scrollRef} />
                 </div>
 
                 <div className='chat-input'>
@@ -235,12 +232,13 @@ const Chat: React.FC = () => {
                       autoFocus
                       autoComplete='none'
                       maxLength={200}
-                      onChange={e => setUserMsg(e.target.value)} />
+                      onChange={e => setUserMsg(e.target.value)}
+                    />
                     <div className='chat-submit' onClick={sendChat}><IoMdSend /></div>
                   </form>
                 </div>
               </section>
-            </>
+              </>
         /* eslint-enable  @typescript-eslint/indent */
         /* eslint-enable  react/jsx-indent */
       }

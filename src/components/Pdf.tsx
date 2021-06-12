@@ -105,7 +105,7 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
     onSwipedLeft: () => nextPage(),
     onSwipedRight: () => previousPage(),
     preventDefaultTouchmoveEvent: true,
-    delta: 15,
+    delta: 15
   })
 
   return (
