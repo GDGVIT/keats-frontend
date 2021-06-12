@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams, Link, Redirect } from 'react-router-dom'
-import { IoIosBook } from 'react-icons/io'
+import { IoIosBook, IoMdSend } from 'react-icons/io'
 import { getClub } from './../utils/apiCalls'
 import Loader from './../components/Loader'
 import Message from '../components/Message'
@@ -61,6 +61,7 @@ const Chat: React.FC = () => {
   const [chat, setChat] = useState<Response['chat']>([])
   const [userMsg, setUserMsg] = useState('')
   const [connected, setConnected] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const setUserDeets = (usersRes: any): void => {
     const usersTemp: Response['users'] = []
@@ -108,26 +109,37 @@ const Chat: React.FC = () => {
     return username
   }
 
+  const getPrevMessageContinuity = (idx: number, sender: string): boolean => (
+    (idx !== 0 && sender === chat[idx - 1].user_id) ? true : false
+  )
+
   const getMessageContinuity = (idx: number, sender: string): boolean => (
     (idx !== chat.length - 1 && sender === chat[idx + 1].user_id) ? true : false
   )
 
+  const scrollToBottom = (): void => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [connected, chat]);
+
   // Socket tings
   const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
-  const [webSocket, setWebSocket] = useState<any>(null)
+  const [webSocket, setWebSocket] = useState<WebSocket|null>(null)
 
-  const sendChat = (): void => {
-    if (userMsg === '') {
-      alert('fkof')
-      return
-    }
+  const sendChat = (e: React.BaseSyntheticEvent): void => {
+    e.preventDefault()
+    if (userMsg === '') return
 
     const msg = {
       action: 'chatmessage',
       data: userMsg
     }
-    webSocket.send(JSON.stringify(msg))
-    console.log('msgsent')
+    webSocket?.send(JSON.stringify(msg))
+    setUserMsg('')
+    scrollToBottom()
   }
 
   const connect = () => {
@@ -153,8 +165,6 @@ const Chat: React.FC = () => {
     connect()
   })
 
-  // console.log('chat', chat)
-  // console.log('users', users)
 
   return (
     <>
@@ -166,7 +176,7 @@ const Chat: React.FC = () => {
             /* eslint-disable  @typescript-eslint/indent */
             /* eslint-disable  react/jsx-indent */
             : <>
-              <section>
+              <section id='chat'>
                 <div className='clubs-header'>
                   <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
                   <div className='clubp-icons'>
@@ -185,13 +195,27 @@ const Chat: React.FC = () => {
                       msg={msg}
                       userPfp={getUserPfp(msg.user_id)}
                       userName={getUserName(msg.user_id)}
+                      top={getPrevMessageContinuity(idx, msg.user_id)}
                       continuity={getMessageContinuity(idx, msg.user_id)}
                       final={idx > 0 && getMessageContinuity(idx-1, chat[idx-1].user_id) && !getMessageContinuity(idx, msg.user_id)}/>)
-                      // final would be if the one before it had continuity but this one doesnt
                   }
+                  <div className='scroll-empty' ref={scrollRef}></div>
                 </div>
-                <input type='text' value={userMsg} onChange={e => setUserMsg(e.target.value)} />
-                <button onClick={sendChat}>Click to chat</button>
+
+                <div className='chat-input'>
+                  <form id='chat-form' onSubmit={sendChat}>
+                    <input
+                      type='text'
+                      id='message-input'
+                      value={userMsg}
+                      placeholder='Send text, or double tap to like!'
+                      autoFocus
+                      autoComplete='none'
+                      maxLength={200}
+                      onChange={e => setUserMsg(e.target.value)} />
+                    <div className='chat-submit' onClick={sendChat}><IoMdSend /></div>
+                  </form>
+                </div>
               </section>
             </>
         /* eslint-enable  @typescript-eslint/indent */

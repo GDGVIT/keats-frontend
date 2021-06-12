@@ -1,119 +1,52 @@
-.message {
-  display: flex;
-  justify-content: start;
-  align-items: flex-end;
-  margin: 1rem 0;
+#chat {
+  padding-bottom: 0;
+  max-height: none;
+  height: calc(100vh - 11.5rem);
 }
 
-.message.continue {
-  margin: 0.25rem 0;
+.chat {
+  height: calc(100vh - 11.5rem);
+  overflow: scroll;
 }
 
-.message.final {
-  margin: 0.25rem 0 0 0;
-}
-
-.message.self {
-  flex-direction: row-reverse;
-  margin-left: auto;
-}
-
-.msg-img,
-.msg-img img {
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
-.msg-img img {
-  border: 1px solid var(--light);
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.msg-wrapper {
-  background-color: var(--dim);
-  min-height: 4rem;
-  width: 60%;
-  margin: 0 0.5rem;
-  padding: 0.75rem;
-  border-radius: 0.25rem;
-}
-
-.message.continue .msg-wrapper {
-  min-height: 2.5rem;
-}
-
-.msg-content {
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  margin-bottom: 0.75rem;
-  font-weight: 400;
-  font-size: 1rem;
-}
-
-.msg-content.continue {
+#chat-form {
   margin: 0;
 }
 
-.msg-lower {
+.chat-input {
+  position: relative;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.message.other .msg-lower {
-  flex-direction: row-reverse;
+#message-input {
+  /* background: var(--dark); */
+  margin: var(--mg-l) 0;
+  width: 100%;
+  max-width: none;
+  font-weight: 400;
+  font-size: 1rem;
+  padding-right: 2.25rem;
 }
 
-.msg-name {
-  max-width: 50%;
-  width: max-content;
-  text-overflow: ellipsis;
-  opacity: 0.7;
-}
-
-.msg-name,
-.msg-likes {
-  display: flex;
-  font-size: 0.75rem;
-}
-
-.message.other .msg-name {
-  margin-right: auto;
-}
-
-.message.self .msg-name {
-  margin-left: auto;
-}
-
-.msg-likes svg {
-  margin-right: 0.375rem;
-}
-
-.other .msg-likes {
-  cursor: pointer;
-}
-
-.other .msg-likes svg:hover {
-  transform: scale(1.1);
-  color: var(--purple);
+.chat-submit {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-40%);
 }
 
 @media screen and (min-width: 768px) {
-  .msg-wrapper {
-    min-width: 20rem;
-    width: max-content;
-    max-width: 60%;
+  .chat {
+    height: calc(100vh - 17.625rem);
   }
 
-  .msg-content {
+  .chat-submit {
+    font-size: 1.5rem;
+  }
+
+  #message-input {
+    margin: calc(0.5 * var(--mg-l)) 0;
     font-size: 1.125rem;
-  }
-
-  .msg-name,
-  .msg-likes {
-    font-size: 1rem;
+    padding-right: 2.75rem;
   }
 }
