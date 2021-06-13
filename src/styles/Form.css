@@ -35,9 +35,9 @@ input {
 }
 
 button {
+  width: max-content;
   padding: 0.75rem 3.75rem;
   background-color: var(--purple);
-  max-width: max-content;
   cursor: pointer;
 }
 
