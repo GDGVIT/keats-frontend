@@ -32,7 +32,7 @@ const AddBookButton: React.FC<Props> = ({ clubDeets, setClubDeets, editing = tru
         type='file'
         id='book-input'
         form={`${(setEditing != null) ? 'edit-' : ''}club-form`}
-        accept='.pdf, .epub'
+        accept='.pdf'
         required
         onChange={(e) => {
           if (setEditing != null) setEditing(true)

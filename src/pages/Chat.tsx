@@ -123,7 +123,7 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     scrollToBottom()
-  }, [connected, chat])
+  }, [connected])
 
   // Socket tings
   const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
@@ -157,6 +157,7 @@ const Chat: React.FC = () => {
         if (action === 'chatmessage') {
           const data = JSON.parse(e.data).data
           setChat([...chat, data])
+          scrollToBottom()
         }
 
         if (action === 'like_chatmessage') {
@@ -230,7 +231,7 @@ const Chat: React.FC = () => {
                       value={userMsg}
                       placeholder='Send text, or double tap to like!'
                       autoFocus
-                      autoComplete='none'
+                      autoComplete='off'
                       maxLength={200}
                       onChange={e => setUserMsg(e.target.value)}
                     />
