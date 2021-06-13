@@ -159,7 +159,7 @@ const CreateClub: React.FC = () => {
           )
           : (
             <>
-              <Loader />
+              <section className='clubp-loader'><Loader /></section>
               {
                 redirect !== '' ? <Redirect to={`/club/${redirect}`} /> : null
               }

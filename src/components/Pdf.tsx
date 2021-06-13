@@ -71,7 +71,7 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
   }, [pageNumber, numPages])
 
   const keyChangePage = useCallback((event) => {
-    if(document.activeElement === inputRef.current && pageInput !== '') return
+    if (document.activeElement === inputRef.current && pageInput !== '') return
     if (event.keyCode === 37) previousPage()
     else if (event.keyCode === 39) nextPage()
   }, [nextPage, previousPage, pageInput])
@@ -129,7 +129,6 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
 
   return (
     <div className='read' {...handlers}>
-      {/* <a target='_blank' rel='noreferrer' href={club.file_url}>{club.file_url}</a> */}
       <div className='read-skip'>
         <form id='skip-page-form' onSubmit={changePageViaInput}>
           <input

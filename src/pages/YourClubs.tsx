@@ -35,7 +35,7 @@ const YourClubs: React.FC = () => {
 
       {
         loading
-          ? <Loader />
+          ? <section className='clubp-loader'><Loader /></section>
           : clubs !== null
             ? <Clubs clubs={clubs} join={false} />
             : <NoClubs />

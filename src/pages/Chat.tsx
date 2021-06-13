@@ -64,7 +64,6 @@ const Chat: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-
   const setUserDeets = (usersRes: any): void => {
     const usersTemp: Response['users'] = []
     usersRes.forEach((user: any) => {

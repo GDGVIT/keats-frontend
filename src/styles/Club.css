@@ -1,5 +1,6 @@
 .clubp-loader {
   width: 100%;
+  min-height: 0;
   height: 10rem;
   display: flex;
   justify-content: center;
@@ -7,6 +8,7 @@
 }
 
 .clubp-body {
+  margin-top: calc(0.5 * var(--mg-l));
   display: flex;
   flex-direction: column;
 }

@@ -42,7 +42,7 @@ const JoinClub: React.FC = () => {
       </div>
       {
         loading
-          ? <Loader />
+          ? <section className='clubp-loader'><Loader /></section>
           : typeof clubs !== 'undefined' && Object.keys(clubs).length !== 0
             ? <Clubs clubs={clubs} join />
             : <h3>Nothing to show here!</h3>
