@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { FaArrowRight } from 'react-icons/fa'
 import { Document, Page, pdfjs } from 'react-pdf'
 import { useSwipeable } from 'react-swipeable'
 import Loader from './../components/Loader'
@@ -13,6 +14,8 @@ interface Props {
 const Pdf: React.FC<Props> = ({ url, setPdf }) => {
   const [device, setDevice] = useState('')
   const [width, setWidth] = useState(0)
+  const [pageInput, setPageInput] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const checkDevice = (): string => {
     if (window.innerWidth < 768) return 'phone'
@@ -68,9 +71,25 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
   }, [pageNumber, numPages])
 
   const keyChangePage = useCallback((event) => {
+    if(document.activeElement === inputRef.current && pageInput !== '') return
     if (event.keyCode === 37) previousPage()
     else if (event.keyCode === 39) nextPage()
-  }, [nextPage, previousPage])
+  }, [nextPage, previousPage, pageInput])
+
+  const handlePageInput = (e: React.BaseSyntheticEvent): void => {
+    const re = /^[0-9]+$/
+    if (e.target.value === '' || re.test(e.target.value)) setPageInput(e.target.value)
+  }
+
+  const changePageViaInput = (e: React.BaseSyntheticEvent): void => {
+    e.preventDefault()
+    if (pageInput === '') return
+    const skipPage = parseInt(pageInput)
+    if (skipPage > 0 && skipPage <= numPages) {
+      setPageNumber(skipPage)
+      setPageInput('')
+    }
+  }
 
   useEffect(() => {
     document.addEventListener('keydown', keyChangePage, false)
@@ -111,6 +130,21 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
   return (
     <div className='read' {...handlers}>
       {/* <a target='_blank' rel='noreferrer' href={club.file_url}>{club.file_url}</a> */}
+      <div className='read-skip'>
+        <form id='skip-page-form' onSubmit={changePageViaInput}>
+          <input
+            ref={inputRef}
+            type='tel'
+            id='page-input'
+            value={pageInput}
+            placeholder='Skip to page'
+            autoComplete='off'
+            onChange={handlePageInput}
+          />
+          <div className='page-input-submit' onClick={changePageViaInput}><FaArrowRight /></div>
+        </form>
+      </div>
+
       <div className='read-pageno'>
         <button
           className='read-pagenav'
@@ -131,6 +165,7 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
           {'>'}
         </button>
       </div>
+
       <div>
         <Document
           file={url}

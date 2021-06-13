@@ -62,6 +62,8 @@ const Chat: React.FC = () => {
   const [userMsg, setUserMsg] = useState('')
   const [connected, setConnected] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
 
   const setUserDeets = (usersRes: any): void => {
     const usersTemp: Response['users'] = []
@@ -123,7 +125,7 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     scrollToBottom()
-  }, [connected])
+  }, [connected, users])
 
   // Socket tings
   const token = new URLSearchParams(document.location.search).get('token') ?? String(localStorage.getItem('token'))
@@ -140,6 +142,7 @@ const Chat: React.FC = () => {
     webSocket?.send(JSON.stringify(msg))
     setUserMsg('')
     scrollToBottom()
+    inputRef.current?.focus()
   }
 
   const likeChat = (id: string): void => {
@@ -183,9 +186,6 @@ const Chat: React.FC = () => {
     connect()
   })
 
-  // TODO: Add double click to like
-  // TODO: spam like backend watre
-
   return (
     <>
       {
@@ -226,6 +226,7 @@ const Chat: React.FC = () => {
                 <div className='chat-input'>
                   <form id='chat-form' onSubmit={sendChat}>
                     <input
+                      ref={inputRef}
                       type='text'
                       id='message-input'
                       value={userMsg}
