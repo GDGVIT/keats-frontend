@@ -193,7 +193,6 @@ const Chat: React.FC = () => {
           : users.length <= 0 || !connected
             ? <section className='clubp-loader'><Loader /></section>
             /* eslint-disable  @typescript-eslint/indent */
-            /* eslint-disable  react/jsx-indent */
             : <>
               <section id='chat'>
                 <div className='clubs-header'>
@@ -241,7 +240,6 @@ const Chat: React.FC = () => {
               </section>
               </>
         /* eslint-enable  @typescript-eslint/indent */
-        /* eslint-enable  react/jsx-indent */
       }
     </>
   )

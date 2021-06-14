@@ -56,7 +56,6 @@ const Read: React.FC = () => {
           : club.file_url === ''
             ? <section className='clubp-loader'><Loader /></section>
             /* eslint-disable  @typescript-eslint/indent */
-            /* eslint-disable  react/jsx-indent */
             : <section>
                 <div className='clubs-header'>
                   <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
@@ -74,7 +73,6 @@ const Read: React.FC = () => {
                 }
               </section>
             /* eslint-enable  @typescript-eslint/indent */
-            /* eslint-enable  react/jsx-indent */
       }
     </>
   )

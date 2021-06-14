@@ -39,7 +39,6 @@ const Message: React.FC<Props> = ({ msg, userPfp, userName, top, continuity, fin
         <div className={`msg-content ${!(msg.likes > 0 || !continuity) ? 'continue' : ''} ${userName === undefined ? 'yeet' : ''}`}>{msg.message}</div>
         {msg.likes > 0 || !continuity
           /* eslint-disable  @typescript-eslint/indent */
-          /* eslint-disable  react/jsx-indent */
           ? <div className='msg-lower'>
               {/* {msg.likes > 0 && */}
               <div className='msg-likes'>
@@ -52,7 +51,6 @@ const Message: React.FC<Props> = ({ msg, userPfp, userName, top, continuity, fin
           : null}
         {
           /* eslint-enable  @typescript-eslint/indent */
-          /* eslint-enable  react/jsx-indent */
         }
       </div>
     </div>

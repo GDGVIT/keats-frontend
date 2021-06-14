@@ -194,13 +194,11 @@ const Club: React.FC = () => {
                           !editing
                             ? <MdEdit onClick={() => setEditing(true)} />
                             /* eslint-disable  @typescript-eslint/indent */
-                            /* eslint-disable  react/jsx-indent */
                             : <>
                                 <FaTimes onClick={handleDisregard} />
                                 <FaSave onClick={handleSave} />
                               </>
                             /* eslint-enable  @typescript-eslint/indent */
-                            /* eslint-enable  react/jsx-indent */
                         )
                       }
                     </div>

@@ -57,13 +57,11 @@ const PhoneNo: React.FC = () => {
       {
         disabled
         /* eslint-disable  @typescript-eslint/indent */
-        /* eslint-disable  react/jsx-indent */
         ? <>
             <Loader />
             <button type='submit' id='sign-in-button' disabled={disabled} style={{ display: 'none' }}>Get OTP</button>
           </>
         /* eslint-enable  @typescript-eslint/indent */
-        /* eslint-enable  react/jsx-indent */
           : <button type='submit' id='sign-in-button' disabled={disabled}>Get OTP</button>
       }
     </form>
