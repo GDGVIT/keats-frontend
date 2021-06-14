@@ -260,12 +260,14 @@ export const togglePrivate = async (clubId: string): Promise<any> => {
   }
 }
 
+/* eslint-disable camelcase */
 interface UpdateClubProps {
   id: string
   clubname: string
   club_pic: any
   file: any
 }
+/* eslint-enable camelcase */
 
 export const updateClub = async (raw: UpdateClubProps): Promise<any> => {
   const myHeaders = new Headers()
