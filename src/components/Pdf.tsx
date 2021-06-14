@@ -61,10 +61,11 @@ const Pdf: React.FC<Props> = ({ url, setPdf, id }) => {
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages)
-    if (activeReader.activeClub === id) {
+    if (activeReader.activeClub === id && activeReader.activePage <= numPages) {
       setPageNumber(activeReader.activePage)
     } else {
       setPageNumber(1)
+      setActiveReader({ activePage: 1, activeClub: id })
     }
   }
 
