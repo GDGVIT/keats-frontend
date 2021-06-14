@@ -68,7 +68,7 @@ const Read: React.FC = () => {
                   </div>
                 </div>
                 {
-                  pdf ? <Pdf url={club.file_url} setPdf={setPdf} />
+                  pdf ? <Pdf url={club.file_url} setPdf={setPdf} id={id} />
                     : <div>Something went wrong! Please try changing your file.</div>
                 }
               </section>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useRef, useContext } from 'react'
 import { FaArrowRight } from 'react-icons/fa'
 import { Document, Page, pdfjs } from 'react-pdf'
 import { useSwipeable } from 'react-swipeable'
+import { AppContext } from './../Context'
 import Loader from './../components/Loader'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
@@ -9,13 +10,16 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 interface Props {
   url: string
   setPdf: React.Dispatch<React.SetStateAction<boolean>>
+  id: string
 }
 
-const Pdf: React.FC<Props> = ({ url, setPdf }) => {
+const Pdf: React.FC<Props> = ({ url, setPdf, id }) => {
   const [device, setDevice] = useState('')
   const [width, setWidth] = useState(0)
   const [pageInput, setPageInput] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
+  const { activeReaderState } = useContext(AppContext)
+  const [activeReader, setActiveReader] = activeReaderState
 
   const checkDevice = (): string => {
     if (window.innerWidth < 768) return 'phone'
@@ -49,9 +53,19 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
   const [numPages, setNumPages] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
 
+  useEffect(() => {
+    if (activeReader.activeClub !== id) {
+      setActiveReader({ activePage: 1, activeClub: id })
+    }
+  }, [activeReader.activeClub, id, setActiveReader])
+
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages)
-    setPageNumber(1)
+    if (activeReader.activeClub === id) {
+      setPageNumber(activeReader.activePage)
+    } else {
+      setPageNumber(1)
+    }
   }
 
   const onDocumentError = (): JSX.Element => {
@@ -61,6 +75,7 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
 
   const changePage = (offset: number): void => {
     setPageNumber(prevPageNumber => prevPageNumber + offset)
+    setActiveReader({ activePage: activeReader.activePage + offset, activeClub: id })
   }
 
   const previousPage = useCallback(() => {
@@ -87,6 +102,7 @@ const Pdf: React.FC<Props> = ({ url, setPdf }) => {
     const skipPage = parseInt(pageInput)
     if (skipPage > 0 && skipPage <= numPages) {
       setPageNumber(skipPage)
+      setActiveReader({ activePage: skipPage, activeClub: id })
       setPageInput('')
     }
   }

@@ -21,7 +21,7 @@
 }
 
 .app-links {
-  display: none;
+  display: flex;
 }
 
 .app-link {
@@ -76,8 +76,26 @@
     max-width: 1000px;
     margin-left: auto;
   }
+}
 
-  .app-links {
-    display: flex;
+@media screen and (min-width: 1600px) {
+  .content-col {
+    margin: 2.5rem;
+  }
+
+  .content h2 {
+    font-size: 4.25rem;
+  }
+
+  .content h3 {
+    font-size: 2.25rem;
+  }
+
+  .get-started {
+    font-size: 1.75rem;
+  }
+
+  .app-link {
+    height: 3.75rem;
   }
 }
