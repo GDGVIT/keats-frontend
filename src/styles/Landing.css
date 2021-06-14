@@ -21,7 +21,7 @@
 }
 
 .app-links {
-  display: flex;
+  display: none;
 }
 
 .app-link {
@@ -75,6 +75,10 @@
     width: 80%;
     max-width: 1000px;
     margin-left: auto;
+  }
+
+  .app-links {
+    display: flex;
   }
 }
 
