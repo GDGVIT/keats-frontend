@@ -1,0 +1,70 @@
+header {
+  width: 100%;
+  position: fixed;
+  height: 4rem;
+  padding: 0.5rem var(--mg-l);
+  background-color: var(--dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.75rem;
+  color: var(--light);
+  text-decoration: none;
+}
+
+.sign-in {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.sign-in:hover {
+  opacity: 0.5;
+}
+
+.logo img {
+  height: 2rem;
+  width: auto;
+  margin-right: calc(var(--mg-l) / 2);
+}
+
+.nav-profile-pic img {
+  height: 2.5rem;
+  width: 2.5rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+@media screen and (min-width: 768px) {
+  header {
+    height: 6rem;
+    padding: 1rem inherit;
+  }
+
+  .logo {
+    font-size: 2.25rem;
+  }
+
+  .logo img {
+    height: 3rem;
+    width: auto;
+  }
+
+  .sign-in {
+    font-size: 1.75rem;
+  }
+
+  .nav-profile-pic img {
+    height: 3.5rem;
+    width: 3.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}

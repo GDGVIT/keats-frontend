@@ -1,0 +1,78 @@
+.read {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.read-skip {
+  width: 10rem;
+  position: relative;
+}
+
+#skip-page-form {
+  margin: 0;
+  width: 100%;
+}
+
+#page-input {
+  font-size: 1rem;
+  width: 100%;
+  padding-right: 2.25rem;
+}
+
+.page-input-submit {
+  font-size: 1rem;
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-40%);
+  cursor: pointer;
+}
+
+.read-pageno {
+  font-size: 1.25rem;
+  margin: 0.5rem;
+  margin-top: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.read-pageno p {
+  margin: 0 1.75rem;
+}
+
+.read-pagenav {
+  padding: 0.25rem;
+  background: none;
+  font-weight: 700;
+}
+
+.read-book {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media screen and (min-width: 1200px) {
+  .read-skip {
+    margin-left: auto;
+    width: 15rem;
+  }
+
+  #page-input {
+    font-size: 1.25rem;
+    padding-right: 2.5rem;
+  }
+
+  .page-input-submit {
+    font-size: 1.25rem;
+  }
+
+  .read-pageno {
+    font-size: 1.75rem;
+  }
+}

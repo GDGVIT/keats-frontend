@@ -1,0 +1,143 @@
+.clubs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clubs-header a {
+  color: var(--light);
+  text-decoration: none;
+}
+
+.clubs-redirect {
+  color: var(--light);
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.clubs-redirect:hover {
+  opacity: 0.5;
+}
+
+.clubs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.club-a {
+  width: 100%;
+  margin: calc(var(--mg-l) / 2) 0;
+  color: var(--light);
+  text-decoration: none;
+}
+
+.club-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 6rem;
+  padding: calc(var(--mg-l));
+  background-color: var(--dim);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.club-flex {
+  display: flex;
+}
+
+.club-image {
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--dark);
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.club-image img {
+  border-radius: 0.25rem;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* try contain and fill */
+}
+
+.club-content {
+  margin: 0 calc(0.5 * var(--mg-l));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.club-name {
+  font-size: 1rem;
+}
+
+.club-host {
+  font-size: 0.85rem;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.club-access {
+  font-weight: 400;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  padding-top: 0.45rem;
+}
+
+@media screen and (min-width: 768px) {
+  .clubs-redirect {
+    font-size: 1.25rem;
+  }
+
+  .club-a {
+    width: 20rem;
+    height: max-content;
+    margin: calc(var(--mg-l) / 2) calc(var(--mg-l)) calc(var(--mg-l) / 2) 0;
+  }
+
+  .club-a:last-child {
+    margin: calc(var(--mg-l) / 2) 0;
+  }
+
+  .club-container {
+    width: 20rem;
+    height: max-content;
+    flex-direction: column;
+    padding: calc(var(--mg-l) / 2);
+    border-radius: 0.5rem;
+  }
+
+  .club-flex {
+    flex-direction: column;
+  }
+
+  .club-image {
+    width: calc(20rem - var(--mg-l));
+    height: calc(20rem - var(--mg-l));
+    background-color: var(--dark);
+    border-radius: 0.5rem;
+    margin: 0 auto;
+  }
+
+  .club-content {
+    margin: calc(0.5 * var(--mg-l)) 0;
+  }
+
+  .club-name {
+    font-size: 1.5rem;
+    margin: 0.25rem 0;
+  }
+
+  .club-host {
+    font-size: 1rem;
+  }
+
+  .club-access {
+    margin-left: auto;
+    font-size: 0.9rem;
+  }
+}

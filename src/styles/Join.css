@@ -1,0 +1,9 @@
+.join-form {
+  margin: 0;
+  margin-bottom: var(--mg-l);
+}
+
+#join-club {
+  max-width: 100%;
+  width: 33ch;
+}

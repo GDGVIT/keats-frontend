@@ -1,0 +1,65 @@
+form {
+  margin: 2rem 0;
+  font-size: 1.125rem;
+}
+
+form label {
+  display: flex;
+}
+
+input,
+button {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0.5rem 0;
+  font-family: 'CircularStd', sans-serif;
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--light);
+}
+
+@media screen and (min-width: 340px) {
+  input,
+  button {
+    font-size: 1.25rem;
+  }
+}
+
+input {
+  /* padding: 0.75rem 2.75rem; */
+  padding: 0.75rem 1rem;
+  padding-left: 1rem;
+  max-width: max-content;
+  background-color: var(--dimmer);
+  text-overflow: ellipsis;
+}
+
+button {
+  width: max-content;
+  padding: 0.75rem 3.75rem;
+  background-color: var(--purple);
+  cursor: pointer;
+}
+
+button.secondary {
+  border: 0.2rem solid var(--purple);
+  background-color: var(--dark);
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: initial;
+}
+
+input:focus,
+button:focus {
+  outline: none;
+}
+
+.error {
+  color: #eb032e;
+}

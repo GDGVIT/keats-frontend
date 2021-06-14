@@ -1,0 +1,264 @@
+#create-club {
+  min-height: 0;
+  height: calc(100vh - 4rem);
+}
+
+.create-body {
+  display: flex;
+  flex-direction: column;
+  margin: var(--mg-l) 0;
+  height: 100%;
+}
+
+.create-first {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.create-image {
+  width: 6rem;
+  height: 6rem;
+  position: relative;
+  margin: 0;
+  background-color: var(--dim);
+  backface-visibility: hidden;
+}
+
+.create-image img {
+  opacity: 0.3;
+}
+
+.create-middle {
+  opacity: 1 !important;
+}
+
+#create-pic-input,
+#book-input {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.add-book {
+  /* margin: 0 auto; */
+  display: flex;
+  flex-direction: column;
+}
+
+.create-book-label {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem auto 0;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'CircularStd', sans-serif;
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--light);
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--purple);
+  max-width: max-content;
+}
+
+@media screen and (min-width: 340px) {
+  .create-book-label {
+    font-size: 1.25rem;
+  }
+}
+
+.create-book-label svg {
+  margin-right: 0.5rem;
+}
+
+.create-book-label:hover {
+  transform: scale(1.02);
+}
+
+#club-name {
+  max-width: 100%;
+  width: 30ch;
+}
+
+.create-book-details {
+  display: block;
+  max-width: 11.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.create-last {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: var(--mg-l) 0;
+  height: 100%;
+}
+
+#club-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  margin: 0;
+}
+
+#create-club-button {
+  max-width: none;
+  width: 100%;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  margin: 1rem 0;
+}
+
+.switch-container > span {
+  font-size: 1.25rem;
+}
+
+@media screen and (min-width: 768px) {
+  #create-club {
+    min-height: 0;
+    height: calc(100vh - 6rem);
+  }
+
+  .create-body {
+    height: max-content;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .create-first {
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  }
+
+  .create-image {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .create-book-details {
+    margin-top: 1.25rem;
+    max-width: 15rem;
+  }
+
+  .create-book-label {
+    padding: 0.75rem 3.75rem;
+    margin: 0;
+    margin-top: 0.5rem;
+  }
+
+  #club-form {
+    height: max-content;
+    justify-content: space-between;
+  }
+
+  #create-club-button {
+    margin: 2rem 0;
+    width: 12rem;
+    padding: 0.75rem 1.75rem;
+  }
+
+  .create-last {
+    margin: 0;
+    height: max-content;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .create-image {
+    width: calc(20rem - var(--mg-l));
+    height: calc(20rem - var(--mg-l));
+  }
+
+  #create-club-button {
+    width: calc(20rem - var(--mg-l));
+    padding: 0.75rem 3.75rem;
+  }
+
+  .create-last {
+    /* max-width: 50rem; */
+    width: 70%;
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  #club-form {
+    height: 50%;
+  }
+
+  #club-name {
+    margin: 0;
+  }
+
+  .switch-container {
+    margin: 2rem 0;
+  }
+}
+
+/* The switch - the box around the slider */
+.switch {
+  transform: scale(0.75);
+  position: relative;
+  display: inline-block;
+  margin-left: 0.5rem;
+  width: 3.75rem;
+  height: 2.125rem;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  border-radius: 2.125rem;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--dimmer);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 1.625rem;
+  width: 1.625rem;
+  left: 0.25rem;
+  bottom: 0.25rem;
+  background-color: var(--light);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--purple);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 0.125rem var(--purple);
+}
+
+input:checked + .slider::before {
+  -webkit-transform: translateX(1.625rem);
+  -ms-transform: translateX(1.625rem);
+  transform: translateX(1.625rem);
+}

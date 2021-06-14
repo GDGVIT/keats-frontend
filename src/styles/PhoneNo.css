@@ -1,0 +1,28 @@
+.PhoneInput {
+  margin: 0.5rem 0;
+  font-family: 'CircularStd', sans-serif;
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--light);
+  padding-left: 1rem;
+  max-width: 100%;
+  background-color: var(--dimmer);
+  text-overflow: ellipsis;
+}
+
+.PhoneInputCountrySelect {
+  font-weight: 500;
+  font-family: 'CircularStd', sans-serif;
+  background-color: var(--dim);
+  color: var(--light);
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.PhoneInputCountrySelect:focus {
+  outline: none;
+}
+
+.PhoneInputCountrySelect option {
+  font-weight: 500;
+}

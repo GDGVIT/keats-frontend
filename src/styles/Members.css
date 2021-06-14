@@ -1,0 +1,60 @@
+.members {
+  max-width: 30rem;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.members h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.members-list {
+  margin: 1rem 0;
+}
+
+.member {
+  width: 100%;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.member-pfp {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+}
+
+.member-pfp img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.member-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.host {
+  margin-left: auto;
+  font-size: 0.75rem;
+  padding: 0.125rem;
+  border: 0.125rem var(--orange) solid;
+  border-radius: 0.25rem;
+}
+
+.kick {
+  margin-left: auto;
+  font-size: 1rem;
+  color: #eb032e;
+  cursor: pointer;
+  transition: all 1ms ease;
+}
+
+.kick:hover {
+  transform: scale(1.25);
+}

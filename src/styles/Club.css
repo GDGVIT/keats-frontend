@@ -1,0 +1,153 @@
+.clubp-loader {
+  width: 100%;
+  min-height: 0;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clubp-body {
+  margin-top: calc(0.5 * var(--mg-l));
+  display: flex;
+  flex-direction: column;
+}
+
+.clubp-first {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clubp-second {
+  display: flex;
+  flex-direction: column;
+}
+
+.clubp-image {
+  width: 8rem;
+  height: 8rem;
+  position: relative;
+  margin: 0;
+  background-color: var(--dim);
+  backface-visibility: hidden;
+}
+
+.clubp-image.edit img {
+  opacity: 0.3;
+}
+
+.clubp-image.edit .profile-pic-middle {
+  opacity: 1;
+}
+
+.clubp-icons {
+  display: flex;
+  font-size: 1.25rem;
+}
+
+.clubp-icons > div {
+  display: flex;
+  align-items: center;
+}
+
+.clubp-icons svg {
+  color: var(--light);
+  margin-left: 1.25rem;
+  cursor: pointer;
+}
+
+.clubp-icons svg:hover {
+  opacity: 0.5;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#start-reading {
+  padding: 0.75rem 1.5rem;
+}
+
+.club-book-label {
+  margin: 0.5rem auto 0 !important;
+  padding: 0.75rem 1.5rem !important;
+  border: 0.2rem solid var(--purple) !important;
+  background-color: var(--dark) !important;
+}
+
+.clubp-switch > span {
+  font-size: 1rem !important;
+  line-height: 2.125rem;
+}
+
+.clubp-switch .switch {
+  transform: scale(0.8) !important;
+}
+
+.leave-club {
+  display: flex;
+  justify-content: center;
+}
+
+#leave {
+  margin: calc(var(--mg-l) / 2) 0;
+  background-color: var(--orange);
+}
+
+@media screen and (min-width: 768px) {
+  .clubp-image {
+    width: 12rem;
+    height: 12rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .clubp-body {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .clubp-first {
+    /* align-items: center; */
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  }
+
+  .clubp-image {
+    width: calc(20rem - var(--mg-l));
+    height: calc(20rem - var(--mg-l));
+  }
+
+  .club-book-label {
+    padding: 0.75rem 3.75rem !important;
+    margin: 0 !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .clubp-second {
+    width: 70%;
+    justify-content: start;
+  }
+
+  .clubp-switch {
+    margin: 0 !important;
+  }
+
+  .buttons {
+    align-items: center;
+    margin-top: 2.5rem;
+  }
+
+  #start-reading {
+    padding: 0.75rem 3.75rem;
+  }
+
+  .leave-club {
+    justify-content: start;
+  }
+}

@@ -1,0 +1,181 @@
+.profile-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-pic {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+}
+
+.profile-pic img {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0.25rem solid var(--light);
+  border-radius: 50%;
+  object-fit: cover;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.profile-pic-middle {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.profile-pic.edit img {
+  opacity: 0.3;
+}
+
+.profile-pic.edit .profile-pic-middle {
+  opacity: 1;
+}
+
+.profile-camera {
+  color: var(--light);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.profile-camera:hover .camera {
+  transform: scale(1.02);
+}
+
+#profile-pic-input {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.profile-container {
+  /* change for PC, make margin: 0; padding-left: whatever. for border left  */
+  width: 100%;
+  max-width: 50rem;
+  margin: var(--mg-l) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 50rem;
+  margin: 0;
+  padding: var(--mg-l);
+  background-color: var(--dim);
+  border-radius: 0.5rem;
+}
+
+.profile-edit {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile-edit svg {
+  cursor: pointer;
+}
+
+.profile-detail {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0.5rem 0;
+  padding: 0.75rem 0;
+}
+
+.profile-detail p {
+  min-height: 1.25rem;
+}
+
+.profile-email {
+  word-break: break-all;
+}
+
+.profile-input {
+  display: flex;
+  align-items: center;
+}
+
+.profile-detail svg,
+.profile-input svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  margin-right: 1.25rem;
+}
+
+.profile-input input {
+  width: 100%;
+  max-width: 35ch;
+}
+
+.profile-btn {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+
+#phone {
+  opacity: 0.35;
+}
+
+#profile-save {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#logout {
+  margin: calc(var(--mg-l) / 2) auto;
+  background-color: var(--orange);
+}
+
+@media screen and (min-width: 1200px) {
+  .profile-body {
+    flex-direction: row;
+    justify-content: space-around;
+    margin: var(--mg-l) 0;
+  }
+
+  .profile-pic {
+    width: 17.5rem;
+    height: 17.5rem;
+  }
+
+  .profile-vert {
+    align-self: stretch;
+    border: 1px solid var(--light);
+  }
+
+  .profile-container {
+    align-items: flex-start;
+  }
+
+  .profile-detail p {
+    height: 1.54rem;
+  }
+
+  .profile-edit {
+    font-size: 1.5rem;
+  }
+
+  #profile-save {
+    margin: 1rem 0;
+    margin-bottom: 0;
+  }
+}
