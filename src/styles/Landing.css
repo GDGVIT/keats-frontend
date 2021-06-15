@@ -81,3 +81,37 @@
     display: flex;
   }
 }
+
+@media screen and (min-width: 1600px) {
+  .content-col {
+    margin: 2.5rem;
+  }
+
+  .content h2 {
+    font-size: 4.25rem;
+  }
+
+  .content h3 {
+    font-size: 2.25rem;
+  }
+
+  .content-col input,
+  .content-col button {
+    font-size: 1.75rem;
+  }
+
+  .content-col input {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .content-col button {
+    font-size: 1.75rem;
+    padding: 1rem 3.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .app-link {
+    height: 3.75rem;
+  }
+}
