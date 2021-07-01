@@ -64,6 +64,9 @@ const Chat: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const urlToken = new URLSearchParams(document.location.search).get('token')
+  const userId = localStorage.getItem('userId') ?? new URLSearchParams(document.location.search).get('userId')
+
   const setUserDeets = (usersRes: any): void => {
     const usersTemp: Response['users'] = []
     usersRes.forEach((user: any) => {
@@ -199,7 +202,7 @@ const Chat: React.FC = () => {
                   <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
                   <div className='clubp-icons'>
                     <div>
-                      <Link to={`/club/${id}/read`}>
+                      <Link to={`/club/${id}/read${urlToken === null ? '' : `?token=${urlToken}&userId=${userId}`}`}>
                         <IoIosBook />
                       </Link>
                     </div>
@@ -209,6 +212,7 @@ const Chat: React.FC = () => {
                 <div className='chat'>
                   {chat?.map((msg, idx) =>
                     <Message
+                      userId={userId}
                       key={msg.id}
                       msg={msg}
                       likeChat={likeChat}

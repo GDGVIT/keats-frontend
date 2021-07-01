@@ -66,6 +66,7 @@
   width: 100%;
   display: flex;
   flex-flow: row wrap;
+  overflow-wrap: anywhere;
   margin-bottom: 0.75rem;
   font-weight: 400;
   font-size: 1rem;

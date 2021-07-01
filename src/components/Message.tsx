@@ -12,6 +12,7 @@ interface MessageProps {
 }
 
 interface Props {
+  userId: string|null
   msg: MessageProps
   userPfp: string|undefined
   userName: string|undefined
@@ -21,9 +22,7 @@ interface Props {
   likeChat: any
 }
 
-const Message: React.FC<Props> = ({ msg, userPfp, userName, top, continuity, final, likeChat }) => {
-  const userId = localStorage.getItem('userId')
-
+const Message: React.FC<Props> = ({ userId, msg, userPfp, userName, top, continuity, final, likeChat }) => {
   if (userPfp === undefined) userPfp = User
 
   const handleLike = (): void => {
