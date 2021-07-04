@@ -161,7 +161,8 @@ const Chat: React.FC = () => {
         const action = JSON.parse(e.data).action
         if (action === 'chatmessage') {
           const data = JSON.parse(e.data).data
-          setChat([...chat, data])
+          if(chat !== []) setChat([data])
+          else setChat([...chat, data])
           scrollToBottom()
         }
 

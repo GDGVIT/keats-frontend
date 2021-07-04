@@ -89,8 +89,22 @@
 }
 
 @media screen and (min-width: 768px) {
+  .clubs-header > div {
+    font-size: 1.5rem;
+  }
+
   .clubs-redirect {
-    font-size: 1.25rem;
+    border-radius: 0.25rem;
+    border: 0.125rem solid var(--light);
+    font-size: 1.5rem;
+    padding: 0.5rem 0.75rem;
+    margin-left: 0.75rem;
+  }
+
+  .clubs-redirect:hover {
+    opacity: 1;
+    background-color: var(--light);
+    color: var(--dark);
   }
 
   .club-a {
