@@ -210,37 +210,39 @@ const Chat: React.FC = () => {
                   </div>
                 </div>
 
-                <div className='chat'>
-                  {chat?.map((msg, idx) =>
-                    <Message
-                      userId={userId}
-                      key={msg.id}
-                      msg={msg}
-                      likeChat={likeChat}
-                      userPfp={getUserPfp(msg.user_id)}
-                      userName={getUserName(msg.user_id)}
-                      top={getPrevMessageContinuity(idx, msg.user_id)}
-                      continuity={getMessageContinuity(idx, msg.user_id)}
-                      final={idx > 0 && getMessageContinuity(idx - 1, chat[idx - 1].user_id) && !getMessageContinuity(idx, msg.user_id)}
-                    />)}
-                  <div className='scroll-empty' ref={scrollRef} />
-                </div>
+                <div className='chat-wrapper'>
+                  <div className='chat'>
+                    {chat?.map((msg, idx) =>
+                      <Message
+                        userId={userId}
+                        key={msg.id}
+                        msg={msg}
+                        likeChat={likeChat}
+                        userPfp={getUserPfp(msg.user_id)}
+                        userName={getUserName(msg.user_id)}
+                        top={getPrevMessageContinuity(idx, msg.user_id)}
+                        continuity={getMessageContinuity(idx, msg.user_id)}
+                        final={idx > 0 && getMessageContinuity(idx - 1, chat[idx - 1].user_id) && !getMessageContinuity(idx, msg.user_id)}
+                      />)}
+                    <div className='scroll-empty' ref={scrollRef} />
+                  </div>
 
-                <div className='chat-input'>
-                  <form id='chat-form' onSubmit={sendChat}>
-                    <input
-                      ref={inputRef}
-                      type='text'
-                      id='message-input'
-                      value={userMsg}
-                      placeholder='Send text, or double tap to like!'
-                      autoFocus
-                      autoComplete='off'
-                      maxLength={200}
-                      onChange={e => setUserMsg(e.target.value)}
-                    />
-                    <div className='chat-submit' onClick={sendChat}><IoMdSend /></div>
-                  </form>
+                  <div className='chat-input'>
+                    <form id='chat-form' onSubmit={sendChat}>
+                      <input
+                        ref={inputRef}
+                        type='text'
+                        id='message-input'
+                        value={userMsg}
+                        placeholder='Send text, or double tap to like!'
+                        autoFocus
+                        autoComplete='off'
+                        maxLength={200}
+                        onChange={e => setUserMsg(e.target.value)}
+                      />
+                      <div className='chat-submit' onClick={sendChat}><IoMdSend /></div>
+                    </form>
+                  </div>
                 </div>
               </section>
               </>

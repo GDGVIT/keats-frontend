@@ -107,10 +107,16 @@
     color: var(--dark);
   }
 
+  .clubs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
+    gap: calc(var(--mg-l) / 4);
+  }
+
   .club-a {
+    /* margin: calc(var(--mg-l) / 2) calc(var(--mg-l)) calc(var(--mg-l) / 2) 0; */
     width: 20rem;
     height: max-content;
-    margin: calc(var(--mg-l) / 2) calc(var(--mg-l)) calc(var(--mg-l) / 2) 0;
   }
 
   .club-a:last-child {
