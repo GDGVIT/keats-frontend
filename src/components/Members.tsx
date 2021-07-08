@@ -1,6 +1,6 @@
 import React from 'react'
 import { kickUser } from './../utils/apiCalls'
-import { FaTimes } from 'react-icons/fa'
+import { FaTimesCircle } from 'react-icons/fa'
 import './../styles/Members.css'
 
 interface userProps {
@@ -35,7 +35,7 @@ const Members: React.FC<Props> = ({ clubId, users, host, refresh, setRefresh }) 
       <div className='members-list'>
         {
           users.map((user) => (
-            <div key={user.id} className='member'>
+            <div key={user.id} className={`member ${host === user.id ? 'member-host' : ''}`}>
               <div className='member-pfp'>
                 <img src={user.profilePic} alt={user.username} />
               </div>
@@ -45,7 +45,7 @@ const Members: React.FC<Props> = ({ clubId, users, host, refresh, setRefresh }) 
               {host === user.id
                 ? <div className='host'>Host</div>
                 : host === localStorage.getItem('userId') &&
-                  <div className='kick' onClick={async () => await handleKick(user.id)}><FaTimes /></div>}
+                  <div className='kick' onClick={async () => await handleKick(user.id)}><FaTimesCircle /></div>}
             </div>
           ))
         }
