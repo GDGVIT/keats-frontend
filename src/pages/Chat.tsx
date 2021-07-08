@@ -200,7 +200,9 @@ const Chat: React.FC = () => {
             : <>
               <section id='chat'>
                 <div className='clubs-header'>
-                  <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
+                  <h2 className={`${new URLSearchParams(document.location.search).get('userId') !== null ? 'webview' : ''}`}>
+                    <Link to={`/club/${id}`}>{club.clubname}</Link>
+                  </h2>
                   <div className='clubp-icons'>
                     <div>
                       <Link to={`/club/${id}/read${urlToken === null ? '' : `?token=${urlToken}&userId=${userId}`}`}>

@@ -23,7 +23,7 @@ const Nav: React.FC = () => {
   }, [stage, setStage])
 
   return (
-    <header>
+    <header className={`${new URLSearchParams(document.location.search).get('userId') !== null ? 'webview' : ''}`}>
       <div className='logo'>
         <Link className='logo' to='/'>
           <img src={Logo} alt='Keats' />
