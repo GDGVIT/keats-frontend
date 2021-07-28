@@ -8,6 +8,25 @@ import NoClubs from './../components/NoClubs'
 const YourClubs: React.FC = () => {
   const [clubs, setClubs] = useState({})
   const [loading, setLoading] = useState(true)
+  const [device, setDevice] = useState('')
+
+  const checkDevice = (): string => {
+    if (window.innerWidth < 768) return 'phone'
+    else if (window.innerWidth < 1200) return 'tablet'
+    else return 'desktop'
+  }
+
+  useEffect(() => {
+    window.addEventListener('load', () => setDevice(checkDevice()))
+    window.addEventListener('resize', () => setDevice(checkDevice()))
+    return () => setDevice(device => device)
+  })
+
+  useEffect(() => {
+    setDevice(checkDevice())
+    return () => setDevice(device => device)
+  }, [])
+
 
   useEffect(() => {
     const getClubs = async (): Promise<void> => {
@@ -28,7 +47,7 @@ const YourClubs: React.FC = () => {
         <h2>Clubs</h2>
         <div>
           <Link to='/join' className='clubs-redirect'>Join</Link>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
+          {device === 'phone' && <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>}
           <Link to='/create' className='clubs-redirect'>Create</Link>
         </div>
       </div>

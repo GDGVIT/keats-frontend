@@ -64,6 +64,9 @@ const Chat: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const urlToken = new URLSearchParams(document.location.search).get('token')
+  const userId = localStorage.getItem('userId') ?? new URLSearchParams(document.location.search).get('userId')
+
   const setUserDeets = (usersRes: any): void => {
     const usersTemp: Response['users'] = []
     usersRes.forEach((user: any) => {
@@ -158,7 +161,8 @@ const Chat: React.FC = () => {
         const action = JSON.parse(e.data).action
         if (action === 'chatmessage') {
           const data = JSON.parse(e.data).data
-          setChat([...chat, data])
+          if(chat === []) setChat([data])
+          else setChat([...chat, data])
           scrollToBottom()
         }
 
@@ -196,46 +200,51 @@ const Chat: React.FC = () => {
             : <>
               <section id='chat'>
                 <div className='clubs-header'>
-                  <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
+                  <h2 className={`${new URLSearchParams(document.location.search).get('userId') !== null ? 'webview' : ''}`}>
+                    <Link to={`/club/${id}`}>{club.clubname}</Link>
+                  </h2>
                   <div className='clubp-icons'>
                     <div>
-                      <Link to={`/club/${id}/read`}>
+                      <Link to={`/club/${id}/read${urlToken === null ? '' : `?token=${urlToken}&userId=${userId}`}`}>
                         <IoIosBook />
                       </Link>
                     </div>
                   </div>
                 </div>
 
-                <div className='chat'>
-                  {chat?.map((msg, idx) =>
-                    <Message
-                      key={msg.id}
-                      msg={msg}
-                      likeChat={likeChat}
-                      userPfp={getUserPfp(msg.user_id)}
-                      userName={getUserName(msg.user_id)}
-                      top={getPrevMessageContinuity(idx, msg.user_id)}
-                      continuity={getMessageContinuity(idx, msg.user_id)}
-                      final={idx > 0 && getMessageContinuity(idx - 1, chat[idx - 1].user_id) && !getMessageContinuity(idx, msg.user_id)}
-                    />)}
-                  <div className='scroll-empty' ref={scrollRef} />
-                </div>
+                <div className='chat-wrapper'>
+                  <div className='chat'>
+                    {chat?.map((msg, idx) =>
+                      <Message
+                        userId={userId}
+                        key={msg.id}
+                        msg={msg}
+                        likeChat={likeChat}
+                        userPfp={getUserPfp(msg.user_id)}
+                        userName={getUserName(msg.user_id)}
+                        top={getPrevMessageContinuity(idx, msg.user_id)}
+                        continuity={getMessageContinuity(idx, msg.user_id)}
+                        final={idx > 0 && getMessageContinuity(idx - 1, chat[idx - 1].user_id) && !getMessageContinuity(idx, msg.user_id)}
+                      />)}
+                    <div className='scroll-empty' ref={scrollRef} />
+                  </div>
 
-                <div className='chat-input'>
-                  <form id='chat-form' onSubmit={sendChat}>
-                    <input
-                      ref={inputRef}
-                      type='text'
-                      id='message-input'
-                      value={userMsg}
-                      placeholder='Send text, or double tap to like!'
-                      autoFocus
-                      autoComplete='off'
-                      maxLength={200}
-                      onChange={e => setUserMsg(e.target.value)}
-                    />
-                    <div className='chat-submit' onClick={sendChat}><IoMdSend /></div>
-                  </form>
+                  <div className='chat-input'>
+                    <form id='chat-form' onSubmit={sendChat}>
+                      <input
+                        ref={inputRef}
+                        type='text'
+                        id='message-input'
+                        value={userMsg}
+                        placeholder='Send text, or double tap to like!'
+                        autoFocus
+                        autoComplete='off'
+                        maxLength={200}
+                        onChange={e => setUserMsg(e.target.value)}
+                      />
+                      <div className='chat-submit' onClick={sendChat}><IoMdSend /></div>
+                    </form>
+                  </div>
                 </div>
               </section>
               </>

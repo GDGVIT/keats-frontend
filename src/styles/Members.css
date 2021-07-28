@@ -50,11 +50,37 @@
 .kick {
   margin-left: auto;
   font-size: 1rem;
-  color: #eb032e;
+  color: #ff5e5e;
   cursor: pointer;
   transition: all 1ms ease;
 }
 
 .kick:hover {
   transform: scale(1.25);
+}
+
+@media screen and (min-width: 1200px) {
+  .members h3 {
+    font-size: 1.75rem;
+  }
+
+  .members {
+    margin-top: 0;
+  }
+
+  .member {
+    border: 0.175rem solid var(--dimmer);
+    border-radius: 0.5rem;
+    background: var(--dim);
+    padding: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .host {
+    font-size: 1rem;
+  }
+
+  .kick {
+    font-size: 1.25rem;
+  }
 }

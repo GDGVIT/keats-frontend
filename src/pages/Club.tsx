@@ -9,6 +9,7 @@ import Loader from './../components/Loader'
 import AddBookButton from './../components/AddBookButton'
 import Members from './../components/Members'
 import Modal from './../components/Modal'
+import Illustration from './../assets/illustration1.svg'
 import './../styles/Club.css'
 
 interface ClubProps {
@@ -210,30 +211,47 @@ const Club: React.FC = () => {
 
                 <div className='clubp-body'>
                   <div className='clubp-first'>
-                    <div className={`clubp-image club-image ${editing ? 'edit' : ''}`}>
-                      <img src={editedClub.club_pic} alt='Profile' />
-                      {editing &&
-                        <div className='profile-pic-middle'>
-                          <label className='profile-camera' htmlFor='profile-pic-input'>
-                            <MdAddAPhoto className='camera' />
-                          </label>
-                          <input
-                            type='file'
-                            id='profile-pic-input'
-                            form='edit-club-form'
-                            accept='.png, .jpg'
-                            onChange={(e) => {
-                              if (e.target.files !== null && e.target.files.length !== 0) {
-                                setEditedPfp(e.target.files[0])
-                                // To get preview
-                                const reader = new FileReader()
-                                reader.onload = (e) =>
-                                  setEditedClub({ ...editedClub, club_pic: e.target?.result })
-                                reader.readAsDataURL(e.target.files[0])
-                              } else setEditedClub({ ...editedClub, club_pic: club.club_pic })
-                            }}
-                          />
-                        </div>}
+                    <div className='clubp-first-first'>
+                      <div className={`clubp-image club-image ${editing ? 'edit' : ''}`}>
+                        <img src={editedClub.club_pic} alt='Profile' />
+                        {editing &&
+                          <div className='profile-pic-middle'>
+                            <label className='profile-camera' htmlFor='profile-pic-input'>
+                              <MdAddAPhoto className='camera' />
+                            </label>
+                            <input
+                              type='file'
+                              id='profile-pic-input'
+                              form='edit-club-form'
+                              accept='.png, .jpg'
+                              onChange={(e) => {
+                                if (e.target.files !== null && e.target.files.length !== 0) {
+                                  setEditedPfp(e.target.files[0])
+                                  // To get preview
+                                  const reader = new FileReader()
+                                  reader.onload = (e) =>
+                                    setEditedClub({ ...editedClub, club_pic: e.target?.result })
+                                  reader.readAsDataURL(e.target.files[0])
+                                } else setEditedClub({ ...editedClub, club_pic: club.club_pic })
+                              }}
+                            />
+                          </div>}
+                      </div>
+                      <div className='clubp-private'>
+                        <label className='switch-container clubp-switch'>
+                          <span>{editing ? 'Private' : club.private ? 'Private' : 'Public'}</span>
+                          {editing &&
+                            <label className='switch'>
+                              <input
+                                key={Math.random()}
+                                type='checkbox'
+                                checked={club.private}
+                                onChange={handleToggle}
+                              />
+                              <span className='slider' />
+                            </label>}
+                        </label>
+                      </div>
                     </div>
                     <div className='buttons'>
                       {editing
@@ -243,21 +261,6 @@ const Club: React.FC = () => {
                   </div>
 
                   <div className='clubp-second'>
-                    <div className='clubp-private'>
-                      <label className='switch-container clubp-switch'>
-                        <span>{editing ? 'Private' : club.private ? 'Private' : 'Public'}</span>
-                        {editing &&
-                          <label className='switch'>
-                            <input
-                              key={Math.random()}
-                              type='checkbox'
-                              checked={club.private}
-                              onChange={handleToggle}
-                            />
-                            <span className='slider' />
-                          </label>}
-                      </label>
-                    </div>
                     <div className='clubp-members'>
                       <Members clubId={id} users={users} host={club.host_id} refresh={usersRefresh} setRefresh={setUsersRefresh} />
                     </div>
@@ -265,6 +268,9 @@ const Club: React.FC = () => {
                       <button id='leave' onClick={handleLeave}>Leave Club</button>
                     </div>
                   </div>
+                </div>
+                <div className='clubp-illustration'>
+                  <img src={Illustration} alt='Keats' />
                 </div>
               </section>
               {showQr && <Modal onClose={() => setShowQr(false)} id={id} />}

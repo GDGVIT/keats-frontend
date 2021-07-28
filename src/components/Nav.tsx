@@ -18,12 +18,12 @@ const Nav: React.FC = () => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('userId') !== null) { setStage('loggedIn') }
+    if (localStorage.getItem('userId') !== null || new URLSearchParams(document.location.search).get('userId') !== null) { setStage('loggedIn') }
     if (stage === 'loggedIn') { getUserPfp().then(() => { }, () => { }) }
   }, [stage, setStage])
 
   return (
-    <header>
+    <header className={`${new URLSearchParams(document.location.search).get('userId') !== null ? 'webview' : ''}`}>
       <div className='logo'>
         <Link className='logo' to='/'>
           <img src={Logo} alt='Keats' />
@@ -31,7 +31,7 @@ const Nav: React.FC = () => {
         </Link>
       </div>
       {
-        localStorage.getItem('token') !== null
+        localStorage.getItem('token') !== null || new URLSearchParams(document.location.search).get('token') !== null
           ? <Link className='nav-profile-pic' to='/profile'><img src={userPfp} alt='Profile' /></Link>
           : stage === 'getStarted'
             ? <div className='sign-in' onClick={() => setStage('phoneNo')}>Sign In</div>

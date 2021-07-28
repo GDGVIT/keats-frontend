@@ -126,6 +126,10 @@ h3 {
   font-weight: 500;
 }
 
+.webview a {
+  pointer-events: none;
+}
+
 @media screen and (min-width: 768px) {
   section {
     min-height: calc(100vh - 6rem);

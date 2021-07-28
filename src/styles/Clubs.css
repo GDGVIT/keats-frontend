@@ -89,14 +89,35 @@
 }
 
 @media screen and (min-width: 768px) {
+  .clubs-header > div {
+    font-size: 1.5rem;
+  }
+
   .clubs-redirect {
+    border-radius: 0.25rem;
+    border: 0.125rem solid var(--light);
     font-size: 1.25rem;
+    padding: 0.5rem 0.75rem;
+    margin-left: 0.75rem;
+    transition: all 0.1s ease-in;
+  }
+
+  .clubs-redirect:hover {
+    opacity: 1;
+    background-color: var(--light);
+    color: var(--dark);
+  }
+
+  .clubs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
+    gap: calc(var(--mg-l) / 4);
   }
 
   .club-a {
+    /* margin: calc(var(--mg-l) / 2) calc(var(--mg-l)) calc(var(--mg-l) / 2) 0; */
     width: 20rem;
     height: max-content;
-    margin: calc(var(--mg-l) / 2) calc(var(--mg-l)) calc(var(--mg-l) / 2) 0;
   }
 
   .club-a:last-child {

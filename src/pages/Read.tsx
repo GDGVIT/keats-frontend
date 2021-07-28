@@ -48,6 +48,9 @@ const Read: React.FC = () => {
     getDeets().then(() => { }, () => { })
   }, [id])
 
+  const urlToken = new URLSearchParams(document.location.search).get('token')
+  const urlUserId = new URLSearchParams(document.location.search).get('userId')
+
   return (
     <>
       {
@@ -57,17 +60,20 @@ const Read: React.FC = () => {
             ? <section className='clubp-loader'><Loader /></section>
             /* eslint-disable  @typescript-eslint/indent */
             : <section>
-                <div className='clubs-header'>
-                  <h2><Link to={`/club/${id}`}>{club.clubname}</Link></h2>
-                  <div className='clubp-icons'>
-                    <div>
-                      <Link to={`/club/${id}/chat`}>
-                        <MdComment />
-                      </Link>
-                    </div>
+              <div className='clubs-header'>
+                <h2 className={`${new URLSearchParams(document.location.search).get('userId') !== null ? 'webview' : ''}`}>
+                  <Link to={`/club/${id}`}>{club.clubname}</Link>
+                </h2>
+                <div className='clubp-icons'>
+                  <div>
+                    {/* <Link to={`/club/${id}/chat`}> */}
+                    <Link to={`/club/${id}/chat${urlToken === null ? '' : `?token=${urlToken}&userId=${urlUserId}`}`}>
+                      <MdComment />
+                    </Link>
                   </div>
                 </div>
-                {
+              </div>
+              {
                   pdf ? <Pdf url={club.file_url} setPdf={setPdf} id={id} />
                     : <div>Something went wrong! Please try changing your file.</div>
                 }

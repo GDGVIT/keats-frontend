@@ -4,6 +4,13 @@
   height: calc(100vh - 11.5rem);
 }
 
+.chat-wrapper {
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .chat {
   height: calc(100vh - 11.5rem);
   overflow-y: scroll;

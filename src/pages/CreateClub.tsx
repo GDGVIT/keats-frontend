@@ -69,7 +69,7 @@ const CreateClub: React.FC = () => {
         <h2>Create a Club</h2>
         <div>
           <Link to='/clubs' className='clubs-redirect'>My Clubs</Link>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
+          {device === 'phone' && <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>}
           <Link to='/join' className='clubs-redirect'>Join</Link>
         </div>
       </div>
