@@ -30,7 +30,7 @@ const Landing: React.FC = () => {
               : <Otp />
         }
         <div className='app-links'>
-          <a className='app-link' href='https://play.google.com/store/apps/details?id=com.dscvit.wt21' target='_blank' rel='noreferrer'>
+          <a className='app-link' href='https://play.google.com/store/apps/details?id=com.dscvit.keats' target='_blank' rel='noreferrer'>
             <img src={Android} alt='play store' />
           </a>
           <a className='app-link' href='https://apps.apple.com/in/app/womentechies-2021/id1556003243' target='_blank' rel='noreferrer'>
